@@ -11,12 +11,6 @@ import net.minecraftforge.common.BiomeDictionary;
 
 public class EntityWindCreeper extends EntityBaseCreeper {
 
-	public float destPos;
-	public float field_70886_e;
-	public float field_70884_g;
-	public float field_70888_h;
-	public float field_70889_i = 1.0F;
-
 	public EntityWindCreeper(World world) {
 		super(world);
 	}
@@ -26,29 +20,9 @@ public class EntityWindCreeper extends EntityBaseCreeper {
 		super.onLivingUpdate();
 		fallDistance = 0.0F;
 
-		field_70888_h = field_70886_e;
-		field_70884_g = destPos;
-		destPos = ((float) (destPos + (onGround ? -1 : 4) * 0.3D));
-
-		if (destPos < 0.0F) {
-			destPos = 0.0F;
-		}
-
-		if (destPos > 1.0F) {
-			destPos = 1.0F;
-		}
-
-		if (!onGround && field_70889_i < 1.0F) {
-			field_70889_i = 1.0F;
-		}
-
-		field_70889_i = (float) (field_70889_i * 0.9D);
-
 		if (!onGround && motionY < 0.0D) {
 			motionY *= 0.6D;
 		}
-
-		field_70886_e += field_70889_i * 2.0F;
 	}
 
 	@Override

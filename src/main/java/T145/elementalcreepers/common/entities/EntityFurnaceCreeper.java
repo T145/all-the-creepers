@@ -2,10 +2,12 @@ package T145.elementalcreepers.common.entities;
 
 import java.util.List;
 
+import T145.elementalcreepers.common.ElementalCreepers;
 import T145.elementalcreepers.common.config.ConfigGeneral;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -44,13 +46,11 @@ public class EntityFurnaceCreeper extends EntityBaseCreeper {
 	@Override
 	public void createExplosion(int explosionPower, boolean griefingEnabled) {
 		int radius = getPowered() ? ConfigGeneral.furnaceCreeperRadius * explosionPower : ConfigGeneral.furnaceCreeperRadius;
-		List entityList = world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().expand(radius, radius, radius));
+		List<EntityPlayer> players = world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(posX - radius, posY - radius, posZ - radius, posX + radius, posY + radius, posZ + radius));
 
-		if (entityList != null && !entityList.isEmpty()) {
-			for (Object obj : entityList) {
-				if (obj != null && obj instanceof EntityPlayer) {
-					generateTrap((EntityPlayer) obj);
-				}
+		if (!players.isEmpty()) {
+			for (EntityPlayer player : players) {
+				generateTrap(player);
 			}
 		}
 	}
