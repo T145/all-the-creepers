@@ -1,0 +1,25 @@
+entity.elementalcreepers:FireCreeper.name=Feuer-Creeper
+entity.elementalcreepers:WaterCreeper.name=Wasser-Creeper
+entity.elementalcreepers:ElectricCreeper.name=Electrischer Creeper
+entity.elementalcreepers:CookieCreeper.name=Keks-Creeper
+entity.elementalcreepers:DarkCreeper.name=Dunkler Creeper
+entity.elementalcreepers:LightCreeper.name=Licht-Creeper
+entity.elementalcreepers:EarthCreeper.name=Erd-Creeper
+entity.elementalcreepers:MagmaCreeper.name=Magma-Creeper
+entity.elementalcreepers:ReverseCreeper.name=Rückwärts-Creeper
+entity.elementalcreepers:IceCreeper.name=Eis-Creeper
+entity.elementalcreepers:FriendlyCreeper.name=Freundlicher Creeper
+entity.elementalcreepers:GhostCreeper.name=Geisterhafter Creeper
+entity.elementalcreepers:FakeIllusionCreeper.name=Illusions-Creeper
+entity.elementalcreepers:IllusionCreeper.name=Illusions-Creeper
+entity.elementalcreepers:PsychicCreeper.name=Psycho-Creeper
+entity.elementalcreepers:SpiderCreeper.name=Spinnen-Creeper
+
+entity.elementalcreepers:WindCreeper.name=Wind-Creeper
+entity.elementalcreepers:HydrogenCreeper.name=Wasserstoff-Creeper
+entity.elementalcreepers:EnderCreeper.name=Ender-Creeper
+entity.elementalcreepers:StoneCreeper.name=Stein-Creeper
+entity.elementalcreepers:SolarCreeper.name=Solar-Creeper
+
+entity.elementalcreepers:EUCreeper.name=EU-Creeper
+entity.elementalcreepers:RFCreeper.name=Flux-Creeper

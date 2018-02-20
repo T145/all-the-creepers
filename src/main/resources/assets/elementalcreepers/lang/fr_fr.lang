@@ -1,0 +1,26 @@
+Translation by Linyor
+entity.elementalcreepers:FireCreeper.name=Creeper de feu
+entity.elementalcreepers:WaterCreeper.name=Creeper d'eau
+entity.elementalcreepers:ElectricCreeper.name=Creeper électrique
+entity.elementalcreepers:CookieCreeper.name=Creeper en cookies
+entity.elementalcreepers:DarkCreeper.name=Creeper noir
+entity.elementalcreepers:LightCreeper.name=Creeper lumineux
+entity.elementalcreepers:EarthCreeper.name=Creeper de terre
+entity.elementalcreepers:MagmaCreeper.name=Creeper de magma
+entity.elementalcreepers:ReverseCreeper.name=Creeper inversé
+entity.elementalcreepers:IceCreeper.name=Creeper de glace
+entity.elementalcreepers:FriendlyCreeper.name=Creeper amical
+entity.elementalcreepers:GhostCreeper.name=Creeper fantôme
+entity.elementalcreepers:FakeIllusionCreeper.name=Creeper mirage
+entity.elementalcreepers:IllusionCreeper.name=Creeper mirage
+entity.elementalcreepers:PsychicCreeper.name=Creeper psychique
+entity.elementalcreepers:SpiderCreeper.name=Creeper araignée
+
+entity.elementalcreepers:WindCreeper.name=Creeper d'air
+entity.elementalcreepers:HydrogenCreeper.name=Creeper d'hydrogène
+entity.elementalcreepers:EnderCreeper.name=Creeper de l'Ender
+entity.elementalcreepers:StoneCreeper.name=Creeper de pierre
+entity.elementalcreepers:SolarCreeper.name=Creeper solaire
+
+entity.elementalcreepers:EUCreeper.name=EU Creeper
+entity.elementalcreepers:RFCreeper.name=Flux Creeper
