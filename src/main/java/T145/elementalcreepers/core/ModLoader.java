@@ -3,6 +3,7 @@ package T145.elementalcreepers.core;
 import T145.elementalcreepers.ElementalCreepers;
 import T145.elementalcreepers.client.render.entity.RenderElementalCreeper;
 import T145.elementalcreepers.config.ModConfig;
+import T145.elementalcreepers.entities.EntityArmageddonCreeper;
 import T145.elementalcreepers.entities.EntityCakeCreeper;
 import T145.elementalcreepers.entities.EntityCookieCreeper;
 import T145.elementalcreepers.entities.EntityDarkCreeper;
@@ -54,6 +55,11 @@ public class ModLoader {
 		@SubscribeEvent
 		public static void registerEntities(final RegistryEvent.Register<EntityEntry> event) {
 			final EntityEntry[] entries = {
+					createBuilder("HydrogenCreeper")
+					.entity(EntityArmageddonCreeper.class)
+					.tracker(80, 3, true)
+					.egg(0x0DA70B, 0x101010)
+					.build(),
 					createBuilder("CakeCreeper")
 					.entity(EntityCakeCreeper.class)
 					.tracker(80, 3, true)
@@ -153,6 +159,7 @@ public class ModLoader {
 
 			event.getRegistry().registerAll(entries);
 
+			copyCreeperSpawns(EntityArmageddonCreeper.class);
 			copyCreeperSpawns(EntityCakeCreeper.class);
 			copyCreeperSpawns(EntityCookieCreeper.class);
 			copyCreeperSpawns(EntityDarkCreeper.class);
@@ -160,7 +167,6 @@ public class ModLoader {
 			copyCreeperSpawns(EntityFireCreeper.class);
 			copyCreeperSpawns(EntityFireworkCreeper.class);
 			copyCreeperSpawns(EntityFurnaceCreeper.class);
-			//copyCreeperSpawns(EntityGhostCreeper.class); // for debugging
 			copyCreeperSpawns(EntityIceCreeper.class);
 			copyCreeperSpawns(EntityIllusionCreeper.class);
 			copyCreeperSpawns(EntityLightCreeper.class);
@@ -238,6 +244,7 @@ public class ModLoader {
 
 		@SubscribeEvent
 		public static void onModelRegistration(ModelRegistryEvent event) {
+			registerRenderer(EntityArmageddonCreeper.class, "hydrogencreeper");
 			registerRenderer(EntityCakeCreeper.class, "cakecreeper");
 			registerRenderer(EntityCookieCreeper.class, "cookiecreeper");
 			registerRenderer(EntityDarkCreeper.class, "darkcreeper");
