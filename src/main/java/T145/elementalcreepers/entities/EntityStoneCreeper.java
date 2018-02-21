@@ -1,19 +1,15 @@
 package T145.elementalcreepers.entities;
 
 import java.util.Collections;
-import java.util.HashSet;
 
 import T145.elementalcreepers.config.ModConfig;
 import T145.elementalcreepers.entities.base.EntityBaseCreeper;
 import T145.elementalcreepers.util.Constants;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class EntityStoneCreeper extends EntityBaseCreeper {
 

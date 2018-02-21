@@ -2,8 +2,8 @@ package T145.elementalcreepers.core;
 
 import T145.elementalcreepers.ElementalCreepers;
 import T145.elementalcreepers.client.render.entity.RenderElementalCreeper;
+import T145.elementalcreepers.client.render.entity.RenderSpiderCreeper;
 import T145.elementalcreepers.config.ModConfig;
-import T145.elementalcreepers.entities.EntityArmageddonCreeper;
 import T145.elementalcreepers.entities.EntityCakeCreeper;
 import T145.elementalcreepers.entities.EntityCookieCreeper;
 import T145.elementalcreepers.entities.EntityDarkCreeper;
@@ -19,6 +19,7 @@ import T145.elementalcreepers.entities.EntityLightCreeper;
 import T145.elementalcreepers.entities.EntityMagmaCreeper;
 import T145.elementalcreepers.entities.EntityPsychicCreeper;
 import T145.elementalcreepers.entities.EntityReverseCreeper;
+import T145.elementalcreepers.entities.EntitySpiderCreeper;
 import T145.elementalcreepers.entities.EntitySpringCreeper;
 import T145.elementalcreepers.entities.EntityStoneCreeper;
 import T145.elementalcreepers.entities.EntityWaterCreeper;
@@ -29,7 +30,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
@@ -55,11 +55,6 @@ public class ModLoader {
 		@SubscribeEvent
 		public static void registerEntities(final RegistryEvent.Register<EntityEntry> event) {
 			final EntityEntry[] entries = {
-					createBuilder("HydrogenCreeper")
-					.entity(EntityArmageddonCreeper.class)
-					.tracker(80, 3, true)
-					.egg(0x0DA70B, 0x101010)
-					.build(),
 					createBuilder("CakeCreeper")
 					.entity(EntityCakeCreeper.class)
 					.tracker(80, 3, true)
@@ -135,6 +130,11 @@ public class ModLoader {
 					.tracker(80, 3, true)
 					.egg(0x0DA70B, 0x101010)
 					.build(),
+					createBuilder("SpiderCreeper")
+					.entity(EntitySpiderCreeper.class)
+					.tracker(80, 3, true)
+					.egg(0x0DA70B, 0x101010)
+					.build(),
 					createBuilder("SpringCreeper")
 					.entity(EntitySpringCreeper.class)
 					.tracker(80, 3, true)
@@ -154,12 +154,11 @@ public class ModLoader {
 					.entity(EntityWindCreeper.class)
 					.tracker(80, 3, true)
 					.egg(0x0DA70B, 0x101010)
-					.build(),
+					.build()
 			};
 
 			event.getRegistry().registerAll(entries);
 
-			copyCreeperSpawns(EntityArmageddonCreeper.class);
 			copyCreeperSpawns(EntityCakeCreeper.class);
 			copyCreeperSpawns(EntityCookieCreeper.class);
 			copyCreeperSpawns(EntityDarkCreeper.class);
@@ -174,6 +173,7 @@ public class ModLoader {
 			copyCreeperSpawns(EntityMagmaCreeper.class);
 			copyCreeperSpawns(EntityPsychicCreeper.class);
 			copyCreeperSpawns(EntityReverseCreeper.class);
+			copyCreeperSpawns(EntitySpiderCreeper.class);
 			copyCreeperSpawns(EntitySpringCreeper.class);
 			copyCreeperSpawns(EntityStoneCreeper.class);
 			copyCreeperSpawns(EntityWaterCreeper.class);
@@ -207,11 +207,11 @@ public class ModLoader {
 			DamageSource damage = event.getSource();
 			Entity immediateSource = damage.getImmediateSource();
 			Entity trueSource = damage.getTrueSource();
-			boolean killedByPlayer = damage.getDamageType().equals("player") || (immediateSource instanceof EntityArrow && trueSource instanceof EntityPlayer);
 			EntityLivingBase entity = event.getEntityLiving();
+			boolean killedByPlayer = damage.getDamageType().equals("player") || trueSource instanceof EntityPlayer;
 
 			if (killedByPlayer && entity instanceof EntityCreeper && !(entity instanceof EntityGhostCreeper)) {
-				//&& !(entity instanceof EntityFriendlyCreeper))
+				// && !(entity instanceof EntityFriendlyCreeper)
 				if (entity instanceof EntityIllusionCreeper && ((EntityIllusionCreeper) entity).isIllusion()) {
 					return;
 				}
@@ -245,7 +245,6 @@ public class ModLoader {
 
 		@SubscribeEvent
 		public static void onModelRegistration(ModelRegistryEvent event) {
-			registerRenderer(EntityArmageddonCreeper.class, "hydrogencreeper");
 			registerRenderer(EntityCakeCreeper.class, "cakecreeper");
 			registerRenderer(EntityCookieCreeper.class, "cookiecreeper");
 			registerRenderer(EntityDarkCreeper.class, "darkcreeper");
@@ -261,6 +260,7 @@ public class ModLoader {
 			registerRenderer(EntityMagmaCreeper.class, "magmacreeper");
 			registerRenderer(EntityPsychicCreeper.class, "psychiccreeper");
 			registerRenderer(EntityReverseCreeper.class, "reversecreeper");
+			RenderingRegistry.registerEntityRenderingHandler(EntitySpiderCreeper.class, renderManager -> new RenderSpiderCreeper(renderManager));
 			registerRenderer(EntitySpringCreeper.class, "springcreeper");
 			registerRenderer(EntityStoneCreeper.class, "stonecreeper");
 			registerRenderer(EntityWaterCreeper.class, "watercreeper");
