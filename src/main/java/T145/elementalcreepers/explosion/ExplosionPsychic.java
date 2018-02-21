@@ -11,6 +11,11 @@ public class ExplosionPsychic extends ExplosionBase {
 	}
 
 	@Override
+	public boolean doDamage() {
+		return false;
+	}
+
+	@Override
 	public void editEntityMotion(Entity entity, double d5, double d7, double d9, double d10, double d11, double d12, double d13, double d14) {
 		entity.motionX += d5 * d11;
 		entity.motionY += d7 * d11 * explosionPower;

@@ -42,6 +42,10 @@ public abstract class ExplosionBase extends Explosion {
 		this.size = size;
 	}
 
+	public boolean doDamage() {
+		return true;
+	}
+
 	public void doExplosionA() {
 		Set<BlockPos> set = Sets.<BlockPos>newHashSet();
 
@@ -113,7 +117,7 @@ public abstract class ExplosionBase extends Explosion {
 						d9 /= d13;
 						double d14 = world.getBlockDensity(vec3d, entity.getEntityBoundingBox());
 						double d10 = (1.0D - d12) * d14;
-						entity.attackEntityFrom(DamageSource.causeExplosionDamage(this), ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * f3 + 1.0D)));
+						entity.attackEntityFrom(DamageSource.causeExplosionDamage(this), doDamage() ? ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * f3 + 1.0D)) : 1);
 						double d11 = d10;
 
 						if (entity instanceof EntityLivingBase) {
