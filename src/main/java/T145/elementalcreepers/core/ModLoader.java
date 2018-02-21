@@ -204,16 +204,17 @@ public class ModLoader {
 
 		@SubscribeEvent
 		public static void onEntityDeath(LivingDeathEvent event) {
-			DamageSource damageSource = event.getSource();
-			Entity immediateSource = damageSource.getImmediateSource();
-			Entity trueSource = damageSource.getTrueSource();
-			boolean activate = damageSource.getDamageType().equals("player") || immediateSource instanceof EntityArrow && ((EntityArrow) event.getSource().getTrueSource()).shootingEntity instanceof EntityPlayer;
+			DamageSource damage = event.getSource();
+			Entity immediateSource = damage.getImmediateSource();
+			Entity trueSource = damage.getTrueSource();
+			boolean killedByPlayer = damage.getDamageType().equals("player") || (immediateSource instanceof EntityArrow && trueSource instanceof EntityPlayer);
+			EntityLivingBase entity = event.getEntityLiving();
 
-			if (activate && event.getEntityLiving() != null && event.getEntityLiving() instanceof EntityCreeper && !(event.getEntityLiving() instanceof EntityGhostCreeper)
-					//&& !(event.getEntityLiving() instanceof EntityFriendlyCreeper))
-					&& !(event.getEntityLiving() instanceof EntityIllusionCreeper))
-			{
-				EntityLivingBase entity = event.getEntityLiving();
+			if (killedByPlayer && entity instanceof EntityCreeper && !(entity instanceof EntityGhostCreeper)) {
+				//&& !(entity instanceof EntityFriendlyCreeper))
+				if (entity instanceof EntityIllusionCreeper && ((EntityIllusionCreeper) entity).isIllusion()) {
+					return;
+				}
 
 				if (entity.world.rand.nextInt(100) < ModConfig.ghostCreeperChance) {
 					EntityGhostCreeper ghost = new EntityGhostCreeper(entity.world);
