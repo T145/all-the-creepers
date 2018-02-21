@@ -197,7 +197,7 @@ public class ModLoader {
 		}
 
 		@SubscribeEvent
-		public void onEntityDeath(LivingDeathEvent event) {
+		public static void onEntityDeath(LivingDeathEvent event) {
 			DamageSource damageSource = event.getSource();
 			Entity immediateSource = damageSource.getImmediateSource();
 			Entity trueSource = damageSource.getTrueSource();
@@ -218,14 +218,14 @@ public class ModLoader {
 		}
 
 		@SubscribeEvent
-		public void onEntityHurt(LivingHurtEvent event) {
-			EntityLivingBase entity = event.getEntityLiving();
-			DamageSource source = event.getSource();
+		public static void onEntityHurt(LivingHurtEvent event) {
+			Entity entity = event.getEntity();
+			DamageSource damage = event.getSource();
 
-			if (entity instanceof EntitySpringCreeper && source != null) {
+			if (entity instanceof EntitySpringCreeper && damage == DamageSource.FALL) {
 				EntitySpringCreeper creeper = (EntitySpringCreeper) entity;
 
-				if (source == DamageSource.FALL && creeper.isSprung() && !creeper.world.isRemote) {
+				if (!creeper.world.isRemote && creeper.isSprung()) {
 					creeper.world.createExplosion(creeper, creeper.posX, creeper.posY - 2.0D, creeper.posZ, creeper.getExplosionRadius() * ((event.getAmount() < 6.0F ? 6.0F : event.getAmount()) / 6.0F), creeper.world.getGameRules().getBoolean("mobGriefing"));
 					creeper.setDead();
 				}
