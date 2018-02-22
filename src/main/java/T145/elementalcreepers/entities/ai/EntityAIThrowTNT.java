@@ -63,13 +63,19 @@ public class EntityAIThrowTNT extends EntityAIBase {
 		attackCooldown = 0;
 	}
 
-	public void throwTNT(EntityLivingBase target) {
+	public void throwTNT(EntityLivingBase target, boolean longThrow) {
 		EntityTNTPrimed tnt = new EntityTNTPrimed(creeper.getEntityWorld(), creeper.posX, creeper.posY, creeper.posZ, creeper);
-		tnt.setFuse(30);
 		tnt.setLocationAndAngles(creeper.posX, creeper.posY, creeper.posZ, creeper.rotationYaw, 0.0F);
 		tnt.motionX = (target.posX - tnt.posX) / 18D;
 		tnt.motionY = (target.posY - tnt.posY) / 18D + 0.5D;
 		tnt.motionZ = (target.posZ - creeper.posZ) / 18D;
+
+		if (longThrow) {
+			tnt.motionY *= 1.5D;
+		} else {
+			tnt.setFuse(30);
+		}
+
 		creeper.getEntityWorld().spawnEntity(tnt);
 	}
 
@@ -77,7 +83,7 @@ public class EntityAIThrowTNT extends EntityAIBase {
 	public void updateTask() {
 		if (target != null && --attackCooldown <= 0) {
 			if (!creeper.getEntityWorld().isRemote && !(creeper.getCreeperState() > 0)) {
-				throwTNT(target);
+				throwTNT(target, false);
 			}
 			attackCooldown = 60;
 		}
