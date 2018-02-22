@@ -13,6 +13,7 @@ import T145.elementalcreepers.entities.EntityFireCreeper;
 import T145.elementalcreepers.entities.EntityFireworkCreeper;
 import T145.elementalcreepers.entities.EntityFurnaceCreeper;
 import T145.elementalcreepers.entities.EntityGhostCreeper;
+import T145.elementalcreepers.entities.EntityHydrogenCreeper;
 import T145.elementalcreepers.entities.EntityIceCreeper;
 import T145.elementalcreepers.entities.EntityIllusionCreeper;
 import T145.elementalcreepers.entities.EntityLightCreeper;
@@ -95,6 +96,11 @@ public class ModLoader {
 					.tracker(80, 3, true)
 					.egg(0x0DA70B, 0x101010)
 					.build(),
+					createBuilder("HydrogenCreeper")
+					.entity(EntityHydrogenCreeper.class)
+					.tracker(80, 3, true)
+					.egg(0x0DA70B, 0x101010)
+					.build(),
 					createBuilder("IceCreeper")
 					.entity(EntityIceCreeper.class)
 					.tracker(80, 3, true)
@@ -166,6 +172,7 @@ public class ModLoader {
 			copyCreeperSpawns(EntityFireCreeper.class);
 			copyCreeperSpawns(EntityFireworkCreeper.class);
 			copyCreeperSpawns(EntityFurnaceCreeper.class);
+			copyCreeperSpawns(EntityHydrogenCreeper.class);
 			copyCreeperSpawns(EntityIceCreeper.class);
 			copyCreeperSpawns(EntityIllusionCreeper.class);
 			copyCreeperSpawns(EntityLightCreeper.class);
@@ -253,6 +260,7 @@ public class ModLoader {
 			registerRenderer(EntityFireworkCreeper.class, "fireworkcreeper");
 			registerRenderer(EntityFurnaceCreeper.class, "furnacecreeper");
 			RenderingRegistry.registerEntityRenderingHandler(EntityGhostCreeper.class, renderManager -> new RenderElementalCreeper(renderManager, null, true));
+			registerRenderer(EntityHydrogenCreeper.class, "hydrogencreeper");
 			registerRenderer(EntityIceCreeper.class, "icecreeper");
 			registerRenderer(EntityIllusionCreeper.class, "illusioncreeper");
 			registerRenderer(EntityLightCreeper.class, "lightcreeper");

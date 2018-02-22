@@ -6,9 +6,9 @@ import net.minecraftforge.common.config.Config;
 @Config(modid = ElementalCreepers.MODID, name = "T145/" + ElementalCreepers.MODID)
 public class ModConfig {
 
-	@Config.LangKey("config.general.creeper.armageddonYield")
-	@Config.Comment("Sets how many TNT the Armageddon Creeper spawns")
-	public static int armegeddonCreeperYield = 6;
+	@Config.LangKey("config.general.creeper.ballisticAI")
+	@Config.Comment("Whether or not to target every close & visible mob if the creeper can throw TNT")
+	public static boolean ballisticCreeperAI;
 
 	@Config.LangKey("config.general.domeExplosion")
 	@Config.Comment("Whether or not certain explosions are characteristically dome shaped")

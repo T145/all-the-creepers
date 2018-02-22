@@ -43,18 +43,11 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
 			}
 
 			// NOTE: May need some packet handling here to generate the particles
-
 			try {
 				ReflectionHelper.findMethod(EntityCreeper.class, "spawnLingeringCloud", "func_190741_do").invoke(this);
 			} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException err) {
 				ElementalCreepers.LOG.catching(err);
 			}
-
-			// dead = true;
-			// world.createExplosion(this, posX, posY, posZ, (float)
-			// explosionRadius * f, flag);
-			// setDead();
-			// spawnLingeringCloud();
 		}
 	}
 
@@ -67,7 +60,6 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
 	@Override
 	public void onUpdate() {
 		if (isEntityAlive()) {
-			// lastActiveTime = timeSinceIgnited;
 			int timeSinceIgnited = ReflectionHelper.getPrivateValue(EntityCreeper.class, this, "timeSinceIgnited", "field_70833_d");
 			ReflectionHelper.setPrivateValue(EntityCreeper.class, this, timeSinceIgnited, "lastActiveTime", "field_70834_e");
 
@@ -97,8 +89,10 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
 			ReflectionHelper.setPrivateValue(EntityCreeper.class, this, timeSinceIgnited, "timeSinceIgnited", "field_70833_d");
 		}
 
-		// super.onUpdate();
+		onNormalUpdate();
+	}
 
+	public void onNormalUpdate() {
 		if (ForgeHooks.onLivingUpdate(this)) {
 			return;
 		}
