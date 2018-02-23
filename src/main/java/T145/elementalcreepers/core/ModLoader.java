@@ -1,5 +1,7 @@
 package T145.elementalcreepers.core;
 
+import java.util.Set;
+
 import T145.elementalcreepers.ElementalCreepers;
 import T145.elementalcreepers.client.render.entity.RenderElementalCreeper;
 import T145.elementalcreepers.client.render.entity.RenderSpiderCreeper;
@@ -12,6 +14,7 @@ import T145.elementalcreepers.entities.EntityElectricCreeper;
 import T145.elementalcreepers.entities.EntityEnderCreeper;
 import T145.elementalcreepers.entities.EntityFireCreeper;
 import T145.elementalcreepers.entities.EntityFireworkCreeper;
+import T145.elementalcreepers.entities.EntityFriendlyCreeper;
 import T145.elementalcreepers.entities.EntityFurnaceCreeper;
 import T145.elementalcreepers.entities.EntityGhostCreeper;
 import T145.elementalcreepers.entities.EntityHydrogenCreeper;
@@ -45,6 +48,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 
@@ -171,27 +175,56 @@ public class ModLoader {
 
 			event.getRegistry().registerAll(entries);
 
-			copyCreeperSpawns(EntityCakeCreeper.class);
-			copyCreeperSpawns(EntityCookieCreeper.class);
-			copyCreeperSpawns(EntityDarkCreeper.class);
-			copyCreeperSpawns(EntityEarthCreeper.class);
-			copyCreeperSpawns(EntityEnderCreeper.class);
-			copyCreeperSpawns(EntityFireCreeper.class);
-			copyCreeperSpawns(EntityFireworkCreeper.class);
-			copyCreeperSpawns(EntityFurnaceCreeper.class);
-			copyCreeperSpawns(EntityHydrogenCreeper.class);
-			copyCreeperSpawns(EntityIceCreeper.class);
-			copyCreeperSpawns(EntityIllusionCreeper.class);
-			copyCreeperSpawns(EntityLightCreeper.class);
-			copyCreeperSpawns(EntityElectricCreeper.class);
-			copyCreeperSpawns(EntityMagmaCreeper.class);
-			copyCreeperSpawns(EntityPsychicCreeper.class);
-			copyCreeperSpawns(EntityReverseCreeper.class);
-			copyCreeperSpawns(EntitySpiderCreeper.class);
-			copyCreeperSpawns(EntitySpringCreeper.class);
-			copyCreeperSpawns(EntityStoneCreeper.class);
-			copyCreeperSpawns(EntityWaterCreeper.class);
-			copyCreeperSpawns(EntityWindCreeper.class);
+			if (ModConfig.general.reasonableSpawnRates) {
+				addOverworldSpawn(EntityFireCreeper.class, ModConfig.spawnRate.fireCreeperSpawn, 1, 3);
+				addOverworldSpawn(EntityWaterCreeper.class, ModConfig.spawnRate.waterCreeperSpawn, 1, 3);
+				addOverworldSpawn(EntityElectricCreeper.class, ModConfig.spawnRate.electricCreeperSpawn, 1, 3);
+				addOverworldSpawn(EntityCookieCreeper.class, ModConfig.spawnRate.cookieCreeperSpawn, 1, 2);
+				addOverworldSpawn(EntityDarkCreeper.class, ModConfig.spawnRate.darkCreeperSpawn, 1, 3);
+				addOverworldSpawn(EntityLightCreeper.class, ModConfig.spawnRate.lightCreeperSpawn, 1, 3);
+				addOverworldSpawn(EntityEarthCreeper.class, ModConfig.spawnRate.earthCreeperSpawn, 1, 3);
+				addNetherSpawn(EntityMagmaCreeper.class, ModConfig.spawnRate.magmaCreeperSpawn, 1, 2);
+				addOverworldSpawn(EntityReverseCreeper.class, ModConfig.spawnRate.reverseCreeperSpawn, 1, 1);
+				addOverworldSpawn(EntityIceCreeper.class, ModConfig.spawnRate.iceCreeperSpawn, 1, 3);
+				addOverworldSpawn(EntityPsychicCreeper.class, ModConfig.spawnRate.psychicCreeperSpawn, 1, 3);
+				addOverworldSpawn(EntityIllusionCreeper.class, ModConfig.spawnRate.illusionCreeperSpawn, 1, 1);
+				addOverworldSpawn(EntitySpiderCreeper.class, ModConfig.spawnRate.spiderCreeperSpawn, 1, 3);
+				//addOverworldSpawn(EntityFriendlyCreeper.class, ModConfig.spawnRate.friendlyCreeperSpawn, 1, 2, EnumCreatureType.CREATURE);
+				addOverworldSpawn(EntityWindCreeper.class, ModConfig.spawnRate.windCreeperSpawn, 1, 2);
+				addOverworldSpawn(EntityHydrogenCreeper.class, ModConfig.spawnRate.hydrogenCreeperSpawn, 1, 1);
+				addOverworldSpawn(EntityEnderCreeper.class, ModConfig.spawnRate.enderCreeperSpawn, 1, 2);
+				addEndSpawn(EntityEnderCreeper.class, ModConfig.spawnRate.enderCreeperSpawn * 5, 1, 3);
+				addOverworldSpawn(EntityStoneCreeper.class, ModConfig.spawnRate.stoneCreeperSpawn, 1, 3);
+				//addOverworldSpawn(EntitySolarCreeper.class, ModConfig.spawnRate.solarCreeperSpawn, 1, 1);
+				addOverworldSpawn(EntityCakeCreeper.class, ModConfig.spawnRate.cakeCreeperSpawn, 1, 3);
+				addOverworldSpawn(EntityFireworkCreeper.class, ModConfig.spawnRate.fireworkCreeperSpawn, 1, 3);
+				//addOverworldSpawn(EntityBigBadCreep.class, ModConfig.spawnRate.bigBadSpawn, 1, 1);
+				addOverworldSpawn(EntitySpringCreeper.class, ModConfig.spawnRate.springCreeperSpawn, 1, 3);
+				addOverworldSpawn(EntityFurnaceCreeper.class, ModConfig.spawnRate.furnaceCreeperSpawn, 1, 3);
+			} else {
+				copyCreeperSpawns(EntityCakeCreeper.class);
+				copyCreeperSpawns(EntityCookieCreeper.class);
+				copyCreeperSpawns(EntityDarkCreeper.class);
+				copyCreeperSpawns(EntityEarthCreeper.class);
+				copyCreeperSpawns(EntityEnderCreeper.class);
+				copyCreeperSpawns(EntityFireCreeper.class);
+				copyCreeperSpawns(EntityFireworkCreeper.class);
+				copyCreeperSpawns(EntityFurnaceCreeper.class);
+				//copyCreeperSpawns(EntityFriendlyCreeper.class);
+				copyCreeperSpawns(EntityHydrogenCreeper.class);
+				copyCreeperSpawns(EntityIceCreeper.class);
+				copyCreeperSpawns(EntityIllusionCreeper.class);
+				copyCreeperSpawns(EntityLightCreeper.class);
+				copyCreeperSpawns(EntityElectricCreeper.class);
+				copyCreeperSpawns(EntityMagmaCreeper.class);
+				copyCreeperSpawns(EntityPsychicCreeper.class);
+				copyCreeperSpawns(EntityReverseCreeper.class);
+				copyCreeperSpawns(EntitySpiderCreeper.class);
+				copyCreeperSpawns(EntitySpringCreeper.class);
+				copyCreeperSpawns(EntityStoneCreeper.class);
+				copyCreeperSpawns(EntityWaterCreeper.class);
+				copyCreeperSpawns(EntityWindCreeper.class);
+			}
 		}
 
 		private static int entityID = 0;
@@ -200,6 +233,29 @@ public class ModLoader {
 			final EntityEntryBuilder<E> builder = EntityEntryBuilder.create();
 			final ResourceLocation registryName = new ResourceLocation(ElementalCreepers.MODID, name);
 			return builder.id(registryName, entityID++).name(ElementalCreepers.MODID + ":" + name);
+		}
+
+		private static BiomeDictionary.Type[] validOverworldBiomeTypes = { BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.SWAMP, BiomeDictionary.Type.JUNGLE, BiomeDictionary.Type.WASTELAND, BiomeDictionary.Type.MAGICAL, BiomeDictionary.Type.BEACH, BiomeDictionary.Type.SANDY, BiomeDictionary.Type.SNOWY, BiomeDictionary.Type.MOUNTAIN };
+
+		public static void addOverworldSpawn(Class<? extends EntityLiving> entityClass, int spawnprob, int min, int max, EnumCreatureType type) {
+			for (BiomeDictionary.Type biomeType : validOverworldBiomeTypes) {
+				Set<Biome> biomeSet = BiomeDictionary.getBiomes(biomeType);
+				EntityRegistry.addSpawn(entityClass, spawnprob, min, max, type, biomeSet.toArray(new Biome[biomeSet.size()]));
+			}
+		}
+
+		public static void addOverworldSpawn(Class<? extends EntityLiving> entityClass, int spawnprob, int min, int max) {
+			addOverworldSpawn(entityClass, spawnprob, min, max, EnumCreatureType.MONSTER);
+		}
+
+		public static void addNetherSpawn(Class<? extends EntityLiving> entityClass, int spawnprob, int min, int max) {
+			Set<Biome> biomeSet = BiomeDictionary.getBiomes(BiomeDictionary.Type.NETHER);
+			EntityRegistry.addSpawn(entityClass, spawnprob, min, max, EnumCreatureType.MONSTER, biomeSet.toArray(new Biome[biomeSet.size()]));
+		}
+
+		public static void addEndSpawn(Class<? extends EntityLiving> entityClass, int spawnprob, int min, int max) {
+			Set<Biome> biomeSet = BiomeDictionary.getBiomes(BiomeDictionary.Type.END);
+			EntityRegistry.addSpawn(entityClass, spawnprob, min, max, EnumCreatureType.MONSTER, biomeSet.toArray(new Biome[biomeSet.size()]));
 		}
 
 		private static Biome[] getBiomes(final BiomeDictionary.Type type) {

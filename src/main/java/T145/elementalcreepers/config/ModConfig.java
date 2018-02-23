@@ -26,18 +26,26 @@ public class ModConfig {
 
 	public static class General {
 
+		@Config.Comment("Whether or not elemental creepers should spawn like normal creepers or basically overwrite them")
+		@Config.RequiresMcRestart
+		public boolean reasonableSpawnRates;
+
 		@Config.Comment("Whether or not to target every close & visible mob if the creeper can throw TNT")
+		@Config.RequiresWorldRestart
 		public boolean ballisticCreeperAI;
 
 		@Config.Comment("Whether or not certain explosions are characteristically dome shaped")
-		public boolean domeExplosion;
+		@Config.RequiresWorldRestart
+		public boolean domeExplosion = true;
 
 		@Config.Comment("Sets the max number of cookies dropped by the Cookie Creeper")
 		@Config.RangeInt(min = 1, max = 64)
+		@Config.RequiresWorldRestart
 		public int cookieCreeperAmount = 5;
 
 		@Config.Comment("Percent chance of a ghost creeper spawning")
 		@Config.RangeInt(min = 1, max = 100)
+		@Config.RequiresWorldRestart
 		public int ghostCreeperChance = 35;
 	}
 
