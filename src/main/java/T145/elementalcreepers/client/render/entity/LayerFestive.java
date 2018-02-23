@@ -18,11 +18,11 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class LayerSpecialEvent implements LayerRenderer {
+public class LayerFestive implements LayerRenderer {
 
 	private final RenderLiving renderer;
 
-	public LayerSpecialEvent(RenderLiving renderLiving) {
+	public LayerFestive(RenderLiving renderLiving) {
 		this.renderer = renderLiving;
 	}
 
@@ -55,11 +55,11 @@ public class LayerSpecialEvent implements LayerRenderer {
 		if (!stack.isEmpty()) {
 			GlStateManager.pushMatrix();
 
-			if ((model instanceof ModelCreeper)) {
+			if (model instanceof ModelCreeper) {
 				((ModelCreeper) model).head.postRender(0.0625F);
-			} else if ((model instanceof ModelSpiderCreeper)) {
+			} else if (model instanceof ModelSpiderCreeper) {
 				((ModelSpiderCreeper) model).head.postRender(0.0625F);
-			} else if ((model instanceof ModelFriendlyCreeper)) {
+			} else if (model instanceof ModelFriendlyCreeper) {
 				((ModelFriendlyCreeper) model).head.postRender(0.0625F);
 			}
 

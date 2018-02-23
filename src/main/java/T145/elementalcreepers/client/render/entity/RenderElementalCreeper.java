@@ -26,7 +26,7 @@ public class RenderElementalCreeper extends RenderCreeper {
 			this.entityTexture = new ResourceLocation(ElementalCreepers.MODID, "textures/entities/" + textureName + ".png");
 		}
 
-		addLayer(new LayerSpecialEvent(this));
+		addLayer(new LayerFestive(this));
 	}
 
 	public RenderElementalCreeper(RenderManager renderManager, String textureName) {

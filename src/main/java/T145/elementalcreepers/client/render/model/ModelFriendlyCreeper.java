@@ -25,67 +25,67 @@ public class ModelFriendlyCreeper extends ModelBase {
 		this(0.0F);
 	}
 
-	public ModelFriendlyCreeper(float par1) {
-		byte b0 = 4;
-		this.head = new ModelRenderer(this, 0, 0);
-		this.head.addBox(-4.0F, -8.0F, -4.0F, 8, 8, 8, par1);
-		this.head.setRotationPoint(0.0F, b0, 0.0F);
-		this.creeperArmor = new ModelRenderer(this, 32, 0);
-		this.creeperArmor.addBox(-4.0F, -8.0F, -4.0F, 8, 8, 8, par1 + 0.5F);
-		this.creeperArmor.setRotationPoint(0.0F, b0, 0.0F);
-		this.body = new ModelRenderer(this, 16, 16);
-		this.body.addBox(-4.0F, 0.0F, -2.0F, 8, 12, 4, par1);
-		this.body.setRotationPoint(0.0F, b0, 0.0F);
-		this.leg1 = new ModelRenderer(this, 0, 16);
-		this.leg1.addBox(-2.0F, 0.0F, -2.0F, 4, 6, 4, par1);
-		this.leg1.setRotationPoint(-2.0F, 12 + b0, 4.0F);
-		this.leg2 = new ModelRenderer(this, 0, 16);
-		this.leg2.addBox(-2.0F, 0.0F, -2.0F, 4, 6, 4, par1);
-		this.leg2.setRotationPoint(2.0F, 12 + b0, 4.0F);
-		this.leg3 = new ModelRenderer(this, 0, 16);
-		this.leg3.addBox(-2.0F, 0.0F, -2.0F, 4, 6, 4, par1);
-		this.leg3.setRotationPoint(-2.0F, 12 + b0, -4.0F);
-		this.leg4 = new ModelRenderer(this, 0, 16);
-		this.leg4.addBox(-2.0F, 0.0F, -2.0F, 4, 6, 4, par1);
-		this.leg4.setRotationPoint(2.0F, 12 + b0, -4.0F);
+	public ModelFriendlyCreeper(float scale) {
+		byte pivotYOffset = 4;
+		head = new ModelRenderer(this, 0, 0);
+		head.addBox(-4.0F, -8.0F, -4.0F, 8, 8, 8, scale);
+		head.setRotationPoint(0.0F, pivotYOffset, 0.0F);
+		creeperArmor = new ModelRenderer(this, 32, 0);
+		creeperArmor.addBox(-4.0F, -8.0F, -4.0F, 8, 8, 8, scale + 0.5F);
+		creeperArmor.setRotationPoint(0.0F, pivotYOffset, 0.0F);
+		body = new ModelRenderer(this, 16, 16);
+		body.addBox(-4.0F, 0.0F, -2.0F, 8, 12, 4, scale);
+		body.setRotationPoint(0.0F, pivotYOffset, 0.0F);
+		leg1 = new ModelRenderer(this, 0, 16);
+		leg1.addBox(-2.0F, 0.0F, -2.0F, 4, 6, 4, scale);
+		leg1.setRotationPoint(-2.0F, 12 + pivotYOffset, 4.0F);
+		leg2 = new ModelRenderer(this, 0, 16);
+		leg2.addBox(-2.0F, 0.0F, -2.0F, 4, 6, 4, scale);
+		leg2.setRotationPoint(2.0F, 12 + pivotYOffset, 4.0F);
+		leg3 = new ModelRenderer(this, 0, 16);
+		leg3.addBox(-2.0F, 0.0F, -2.0F, 4, 6, 4, scale);
+		leg3.setRotationPoint(-2.0F, 12 + pivotYOffset, -4.0F);
+		leg4 = new ModelRenderer(this, 0, 16);
+		leg4.addBox(-2.0F, 0.0F, -2.0F, 4, 6, 4, scale);
+		leg4.setRotationPoint(2.0F, 12 + pivotYOffset, -4.0F);
 	}
 
 	@Override
-	public void render(Entity par1Entity, float par2, float par3, float par4, float par5, float par6, float par7) {
-		setRotationAngles(par2, par3, par4, par5, par6, par7, par1Entity);
-		if (this.isChild) {
+	public void render(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entity);
+		if (isChild) {
 			float f6 = 2.0F;
 			GL11.glPushMatrix();
 			GL11.glScalef(0.7F, 0.7F, 0.7F);
-			GL11.glTranslatef(0.0F, this.childYOffset * par7, 0.0F);
-			this.head.render(par7);
+			GL11.glTranslatef(0.0F, childYOffset * scale, 0.0F);
+			head.render(scale);
 			GL11.glPopMatrix();
 			GL11.glPushMatrix();
 			GL11.glScalef(1.0F / f6, 1.0F / f6, 1.0F / f6);
-			GL11.glTranslatef(0.0F, 24.0F * par7, 0.0F);
-			this.body.render(par7);
-			this.leg1.render(par7);
-			this.leg2.render(par7);
-			this.leg3.render(par7);
-			this.leg4.render(par7);
+			GL11.glTranslatef(0.0F, 24.0F * scale, 0.0F);
+			body.render(scale);
+			leg1.render(scale);
+			leg2.render(scale);
+			leg3.render(scale);
+			leg4.render(scale);
 			GL11.glPopMatrix();
 		} else {
-			this.head.render(par7);
-			this.body.render(par7);
-			this.leg1.render(par7);
-			this.leg2.render(par7);
-			this.leg3.render(par7);
-			this.leg4.render(par7);
+			head.render(scale);
+			body.render(scale);
+			leg1.render(scale);
+			leg2.render(scale);
+			leg3.render(scale);
+			leg4.render(scale);
 		}
 	}
 
 	@Override
-	public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity par7Entity) {
-		this.head.rotateAngleY = (par4 / 57.295776F);
-		this.head.rotateAngleX = (par5 / 57.295776F);
-		this.leg1.rotateAngleX = (MathHelper.cos(par1 * 0.6662F) * 1.4F * par2);
-		this.leg2.rotateAngleX = (MathHelper.cos(par1 * 0.6662F + 3.1415927F) * 1.4F * par2);
-		this.leg3.rotateAngleX = (MathHelper.cos(par1 * 0.6662F + 3.1415927F) * 1.4F * par2);
-		this.leg4.rotateAngleX = (MathHelper.cos(par1 * 0.6662F) * 1.4F * par2);
+	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale, Entity entity) {
+		head.rotateAngleY = (netHeadYaw / 57.295776F);
+		head.rotateAngleX = (headPitch / 57.295776F);
+		leg1.rotateAngleX = (MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount);
+		leg2.rotateAngleX = (MathHelper.cos(limbSwing * 0.6662F + 3.1415927F) * 1.4F * limbSwingAmount);
+		leg3.rotateAngleX = (MathHelper.cos(limbSwing * 0.6662F + 3.1415927F) * 1.4F * limbSwingAmount);
+		leg4.rotateAngleX = (MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount);
 	}
 }

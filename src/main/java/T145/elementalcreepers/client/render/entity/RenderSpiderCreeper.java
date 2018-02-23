@@ -18,7 +18,7 @@ public class RenderSpiderCreeper extends RenderLiving {
 
 	public RenderSpiderCreeper(RenderManager renderManager) {
 		super(renderManager, new ModelSpiderCreeper(), 0.5F);
-		addLayer(new LayerSpecialEvent(this));
+		addLayer(new LayerFestive(this));
 		addLayer(new LayerSpiderCharge(this));
 	}
 
