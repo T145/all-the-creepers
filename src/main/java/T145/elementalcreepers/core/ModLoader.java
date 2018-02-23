@@ -9,6 +9,7 @@ import T145.elementalcreepers.entities.EntityCookieCreeper;
 import T145.elementalcreepers.entities.EntityDarkCreeper;
 import T145.elementalcreepers.entities.EntityEarthCreeper;
 import T145.elementalcreepers.entities.EntityElectricCreeper;
+import T145.elementalcreepers.entities.EntityEnderCreeper;
 import T145.elementalcreepers.entities.EntityFireCreeper;
 import T145.elementalcreepers.entities.EntityFireworkCreeper;
 import T145.elementalcreepers.entities.EntityFurnaceCreeper;
@@ -73,6 +74,11 @@ public class ModLoader {
 					.build(),
 					createBuilder("EarthCreeper")
 					.entity(EntityEarthCreeper.class)
+					.tracker(80, 3, true)
+					.egg(0x0DA70B, 0x101010)
+					.build(),
+					createBuilder("EnderCreeper")
+					.entity(EntityEnderCreeper.class)
 					.tracker(80, 3, true)
 					.egg(0x0DA70B, 0x101010)
 					.build(),
@@ -169,6 +175,7 @@ public class ModLoader {
 			copyCreeperSpawns(EntityCookieCreeper.class);
 			copyCreeperSpawns(EntityDarkCreeper.class);
 			copyCreeperSpawns(EntityEarthCreeper.class);
+			copyCreeperSpawns(EntityEnderCreeper.class);
 			copyCreeperSpawns(EntityFireCreeper.class);
 			copyCreeperSpawns(EntityFireworkCreeper.class);
 			copyCreeperSpawns(EntityFurnaceCreeper.class);
@@ -256,6 +263,7 @@ public class ModLoader {
 			registerRenderer(EntityCookieCreeper.class, "cookiecreeper");
 			registerRenderer(EntityDarkCreeper.class, "darkcreeper");
 			registerRenderer(EntityEarthCreeper.class, "earthcreeper");
+			registerRenderer(EntityEnderCreeper.class, "endercreeper");
 			registerRenderer(EntityFireCreeper.class, "firecreeper");
 			registerRenderer(EntityFireworkCreeper.class, "fireworkcreeper");
 			registerRenderer(EntityFurnaceCreeper.class, "furnacecreeper");
