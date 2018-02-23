@@ -12,7 +12,7 @@ import net.minecraft.world.World;
 
 public class EntityHydrogenCreeper extends EntityBaseCreeper {
 
-	protected EntityAIThrowTNT throwingAI = new EntityAIThrowTNT(this);
+	protected EntityAIThrowTNT throwingAI = new EntityAIThrowTNT(this, 8D);
 
 	public EntityHydrogenCreeper(World world) {
 		super(world);

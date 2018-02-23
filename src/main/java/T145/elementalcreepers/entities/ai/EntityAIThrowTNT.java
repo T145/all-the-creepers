@@ -1,7 +1,5 @@
 package T145.elementalcreepers.entities.ai;
 
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 import T145.elementalcreepers.config.ModConfig;
@@ -10,50 +8,55 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.item.EntityTNTPrimed;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.math.AxisAlignedBB;
 
 public class EntityAIThrowTNT extends EntityAIBase {
 
-	protected EntityBaseCreeper creeper;
+	protected final EntityBaseCreeper creeper;
+	protected final double range;
 	protected EntityLivingBase target;
 	protected int attackCooldown;
 
-	public EntityAIThrowTNT(EntityBaseCreeper creeper) {
+	public EntityAIThrowTNT(EntityBaseCreeper creeper, double range) {
 		this.creeper = creeper;
+		this.range = range;
 	}
 
 	@Override
 	public boolean shouldExecute() {
 		if (ModConfig.general.ballisticCreeperAI) {
-			double range = 4.5D;
-			List<Entity> targets = creeper.getEntityWorld().getEntitiesWithinAABBExcludingEntity(creeper, creeper.getEntityBoundingBox().expand(range, range, range));
+			AxisAlignedBB bb = new AxisAlignedBB(creeper.posX - range, creeper.posY - range, creeper.posZ - range, creeper.posX + range, creeper.posY + range, creeper.posZ + range);
+			List<Entity> entities = creeper.getEntityWorld().getEntitiesWithinAABBExcludingEntity(creeper, bb);
 
-			if (!targets.isEmpty()) {
-				HashMap<Float, EntityLivingBase> distances = new HashMap<>();
+			if (!entities.isEmpty()) {
+				float dist = Float.POSITIVE_INFINITY;
 
-				for (Entity entity : targets) {
+				for (Entity entity : entities) {
 					if (entity instanceof EntityLivingBase) {
+						float newDist = creeper.getDistance(entity);
 						EntityLivingBase creature = (EntityLivingBase) entity;
-						distances.put(creeper.getDistance(entity), creature);
-					}
-				}
 
-				if (!distances.isEmpty()) {
-					target = distances.get(Collections.min(distances.keySet()));
+						if (creature instanceof EntityPlayer) {
+							EntityPlayer player = (EntityPlayer) creature;
+
+							if (player.capabilities.isCreativeMode) {
+								break;
+							}
+						}
+
+						if (newDist < dist) {
+							dist = newDist;
+							target = creature;
+						}
+					}
 				}
 			}
 		} else {
 			target = creeper.getAttackTarget();
 		}
 
-		if (target == null || !target.isEntityAlive()) {
-			return false;
-		} else {
-			if (creeper.getDistance(target) > 2.0D && creeper.canEntityBeSeen(target)) {
-				return true;
-			}
-
-			return false;
-		}
+		return target != null && target.isEntityAlive() && creeper.canEntityBeSeen(target) && creeper.getDistance(target) > 2.0D;
 	}
 
 	@Override
@@ -81,7 +84,7 @@ public class EntityAIThrowTNT extends EntityAIBase {
 	@Override
 	public void updateTask() {
 		if (target != null && --attackCooldown <= 0) {
-			if (!creeper.getEntityWorld().isRemote && !(creeper.getCreeperState() > 0)) {
+			if (!creeper.getEntityWorld().isRemote && creeper.getCreeperState() <= 0) {
 				throwTNT(target, false);
 			}
 			attackCooldown = 60;

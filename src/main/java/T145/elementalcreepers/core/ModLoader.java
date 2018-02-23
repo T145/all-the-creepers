@@ -183,7 +183,7 @@ public class ModLoader {
 				addOverworldSpawn(EntityDarkCreeper.class, ModConfig.spawnRate.darkCreeperSpawn, 1, 3);
 				addOverworldSpawn(EntityLightCreeper.class, ModConfig.spawnRate.lightCreeperSpawn, 1, 3);
 				addOverworldSpawn(EntityEarthCreeper.class, ModConfig.spawnRate.earthCreeperSpawn, 1, 3);
-				addNetherSpawn(EntityMagmaCreeper.class, ModConfig.spawnRate.magmaCreeperSpawn, 1, 2);
+				//addNetherSpawn(EntityMagmaCreeper.class, ModConfig.spawnRate.magmaCreeperSpawn, 1, 2);
 				addOverworldSpawn(EntityReverseCreeper.class, ModConfig.spawnRate.reverseCreeperSpawn, 1, 1);
 				addOverworldSpawn(EntityIceCreeper.class, ModConfig.spawnRate.iceCreeperSpawn, 1, 3);
 				addOverworldSpawn(EntityPsychicCreeper.class, ModConfig.spawnRate.psychicCreeperSpawn, 1, 3);
@@ -193,7 +193,7 @@ public class ModLoader {
 				addOverworldSpawn(EntityWindCreeper.class, ModConfig.spawnRate.windCreeperSpawn, 1, 2);
 				addOverworldSpawn(EntityHydrogenCreeper.class, ModConfig.spawnRate.hydrogenCreeperSpawn, 1, 1);
 				addOverworldSpawn(EntityEnderCreeper.class, ModConfig.spawnRate.enderCreeperSpawn, 1, 2);
-				addEndSpawn(EntityEnderCreeper.class, ModConfig.spawnRate.enderCreeperSpawn * 5, 1, 3);
+				//addEndSpawn(EntityEnderCreeper.class, ModConfig.spawnRate.enderCreeperSpawn * 5, 1, 3);
 				addOverworldSpawn(EntityStoneCreeper.class, ModConfig.spawnRate.stoneCreeperSpawn, 1, 3);
 				//addOverworldSpawn(EntitySolarCreeper.class, ModConfig.spawnRate.solarCreeperSpawn, 1, 1);
 				addOverworldSpawn(EntityCakeCreeper.class, ModConfig.spawnRate.cakeCreeperSpawn, 1, 3);
@@ -225,6 +225,12 @@ public class ModLoader {
 				copyCreeperSpawns(EntityWaterCreeper.class);
 				copyCreeperSpawns(EntityWindCreeper.class);
 			}
+
+			addNetherSpawn(EntityFireCreeper.class, ModConfig.spawnRate.fireCreeperSpawn, 1, 3);
+			addNetherSpawn(EntityMagmaCreeper.class, ModConfig.spawnRate.magmaCreeperSpawn, 1, 2);
+			addEndSpawn(EntityEnderCreeper.class, ModConfig.spawnRate.enderCreeperSpawn * 5, 1, 3);
+
+			// TODO: Add dimension blacklist/whitelist
 		}
 
 		private static int entityID = 0;
