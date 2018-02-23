@@ -44,13 +44,14 @@ public class EntityFireworkCreeper extends EntityBaseCreeper {
 
 	@Override
 	public void createExplosion(int explosionPower, boolean griefingEnabled) {
-		int radius = getPowered() ? ModConfig.fireworkCreeperRadius * explosionPower : ModConfig.fireworkCreeperRadius;
+		int radius = getPowered() ? ModConfig.explosionRadii.fireworkCreeperRadius * explosionPower : ModConfig.explosionRadii.fireworkCreeperRadius;
 
 		if (!world.isRemote) {
 			world.spawnEntity(new EntityFireworkRocket(world, posX, posY, posZ, getRandomFirework()));
 		}
 
-		List<Entity> entities = world.getEntitiesWithinAABBExcludingEntity(this, new AxisAlignedBB(posX - radius, posY - radius, posZ - radius, posX + radius, posY + radius, posZ + radius));
+		AxisAlignedBB bounds = new AxisAlignedBB(posX - radius, posY - radius, posZ - radius, posX + radius, posY + radius, posZ + radius);
+		List<Entity> entities = world.getEntitiesWithinAABBExcludingEntity(this, bounds);
 
 		if (!entities.isEmpty()) {
 			for (Entity entity : entities) {

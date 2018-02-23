@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class ElementalCreepers {
 
 	public static final String MODID = "elementalcreepers";
-	public static final String NAME = "Elemental Creepers";
+	public static final String NAME = "ElementalCreepers";
 	public static final String VERSION = "$version";
 	public static final Logger LOG = LogManager.getLogger(MODID);
 

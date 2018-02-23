@@ -230,7 +230,7 @@ public class ModLoader {
 					return;
 				}
 
-				if (entity.world.rand.nextInt(100) < ModConfig.ghostCreeperChance) {
+				if (entity.world.rand.nextInt(100) < ModConfig.general.ghostCreeperChance) {
 					EntityGhostCreeper ghost = new EntityGhostCreeper(entity.world);
 					ghost.setLocationAndAngles(entity.posX, entity.posY, entity.posZ, entity.rotationYaw, entity.rotationPitch);
 					entity.world.spawnEntity(ghost);
@@ -247,7 +247,7 @@ public class ModLoader {
 				EntitySpringCreeper creeper = (EntitySpringCreeper) entity;
 
 				if (!creeper.world.isRemote && creeper.isSprung()) {
-					creeper.world.createExplosion(creeper, creeper.posX, creeper.posY - 2.0D, creeper.posZ, creeper.getExplosionRadius() * ((event.getAmount() < 6.0F ? 6.0F : event.getAmount()) / 6.0F), creeper.world.getGameRules().getBoolean("mobGriefing"));
+					creeper.world.createExplosion(creeper, creeper.posX, creeper.posY - 2.0D, creeper.posZ, creeper.getExplosionPower() * ((event.getAmount() < 6.0F ? 6.0F : event.getAmount()) / 6.0F), creeper.world.getGameRules().getBoolean("mobGriefing"));
 					creeper.setDead();
 				}
 			}

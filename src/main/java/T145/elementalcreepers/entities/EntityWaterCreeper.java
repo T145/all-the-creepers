@@ -13,9 +13,9 @@ public class EntityWaterCreeper extends EntityBaseCreeper {
 
 	@Override
 	public void createExplosion(int explosionPower, boolean griefingEnabled) {
-		int radius = getPowered() ? ModConfig.waterCreeperRadius * explosionPower : ModConfig.waterCreeperRadius;
+		int radius = getPowered() ? ModConfig.explosionRadii.waterCreeperRadius * explosionPower : ModConfig.explosionRadii.waterCreeperRadius;
 
-		if (ModConfig.domeExplosion) {
+		if (ModConfig.general.domeExplosion) {
 			domeExplosion(radius, Blocks.WATER);
 		} else {
 			wildExplosion(radius, Blocks.WATER);

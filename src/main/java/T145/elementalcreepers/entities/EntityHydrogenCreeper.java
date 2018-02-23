@@ -7,18 +7,6 @@ import T145.elementalcreepers.entities.ai.EntityAIThrowTNT;
 import T145.elementalcreepers.entities.base.EntityBaseCreeper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.ai.EntityAIAttackMelee;
-import net.minecraft.entity.ai.EntityAIAvoidEntity;
-import net.minecraft.entity.ai.EntityAICreeperSwell;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.monster.IMob;
-import net.minecraft.entity.passive.EntityOcelot;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 
@@ -38,7 +26,7 @@ public class EntityHydrogenCreeper extends EntityBaseCreeper {
 
 	@Override
 	public void createExplosion(int explosionPower, boolean griefingEnabled) {
-		float radius = getPowered() ? ModConfig.hydrogenCreeperRadius * 1.5F : ModConfig.hydrogenCreeperRadius;
+		float radius = getPowered() ? ModConfig.explosionRadii.hydrogenCreeperRadius * 1.5F : ModConfig.explosionRadii.hydrogenCreeperRadius;
 		AxisAlignedBB bounds = new AxisAlignedBB(posX - radius, posY - radius, posZ - radius, posX + radius, posY + radius, posZ + radius);
 		List<Entity> entities = world.getEntitiesWithinAABBExcludingEntity(this, bounds);
 

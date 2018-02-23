@@ -33,7 +33,7 @@ public class EntityIceCreeper extends EntityBaseCreeper {
 
 	@Override
 	public void createExplosion(int explosionPower, boolean griefingEnabled) {
-		int radius = getPowered() ? ModConfig.iceCreeperRadius * explosionPower : ModConfig.iceCreeperRadius;
+		int radius = getPowered() ? ModConfig.explosionRadii.iceCreeperRadius * explosionPower : ModConfig.explosionRadii.iceCreeperRadius;
 
 		for (int x = -radius; x <= radius; x++) {
 			for (int y = -radius; y <= radius; y++) {
@@ -54,7 +54,7 @@ public class EntityIceCreeper extends EntityBaseCreeper {
 			}
 		}
 
-		if (ModConfig.domeExplosion) {
+		if (ModConfig.general.domeExplosion) {
 			domeExplosion(radius, Blocks.SNOW);
 		} else {
 			for (int x = -radius; x <= radius; x++) {

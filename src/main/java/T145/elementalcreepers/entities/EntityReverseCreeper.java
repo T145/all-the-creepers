@@ -18,7 +18,7 @@ public class EntityReverseCreeper extends EntityBaseCreeper {
 	@Override
 	public void createExplosion(int explosionPower, boolean griefingEnabled) {
 		if (griefingEnabled) {
-			int radius = (int) (getPowered() ? ModConfig.reverseCreeperRadius * 1.5F : ModConfig.reverseCreeperRadius);
+			int radius = (int) (getPowered() ? ModConfig.explosionRadii.reverseCreeperRadius * 1.5F : ModConfig.explosionRadii.reverseCreeperRadius);
 			IBlockState[][][] states = new IBlockState[radius * 2 + 2][radius * 2 + 2][radius * 2 + 2];
 			TileEntity[][][] tiles = new TileEntity[radius * 2 + 2][radius * 2 + 2][radius * 2 + 2];
 

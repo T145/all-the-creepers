@@ -13,9 +13,9 @@ public class EntityEarthCreeper extends EntityBaseCreeper {
 
 	@Override
 	public void createExplosion(int explosionPower, boolean griefingEnabled) {
-		int radius = getPowered() ? ModConfig.earthCreeperRadius * explosionPower : ModConfig.earthCreeperRadius;
+		int radius = getPowered() ? ModConfig.explosionRadii.earthCreeperRadius * explosionPower : ModConfig.explosionRadii.earthCreeperRadius;
 
-		if (ModConfig.domeExplosion) {
+		if (ModConfig.general.domeExplosion) {
 			domeExplosion(radius, Blocks.DIRT);
 		} else {
 			wildExplosion(radius, Blocks.DIRT);

@@ -28,7 +28,7 @@ public class EntitySpiderCreeper extends EntityBaseCreeper {
 
 	@Override
 	public void createExplosion(int explosionPower, boolean griefingEnabled) {
-		int radius = getPowered() ? ModConfig.spiderCreeperRadius * explosionPower : ModConfig.spiderCreeperRadius;
+		int radius = getPowered() ? ModConfig.explosionRadii.spiderCreeperRadius * explosionPower : ModConfig.explosionRadii.spiderCreeperRadius;
 		AxisAlignedBB bounds = new AxisAlignedBB(posX - radius, posY - radius, posZ - radius, posX + radius, posY + radius, posZ + radius);
 		List<Entity> entities = world.getEntitiesWithinAABBExcludingEntity(this, bounds);
 

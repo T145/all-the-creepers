@@ -3,7 +3,6 @@ package T145.elementalcreepers.entities.ai;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import T145.elementalcreepers.config.ModConfig;
 import T145.elementalcreepers.entities.base.EntityBaseCreeper;
@@ -24,7 +23,7 @@ public class EntityAIThrowTNT extends EntityAIBase {
 
 	@Override
 	public boolean shouldExecute() {
-		if (ModConfig.ballisticCreeperAI) {
+		if (ModConfig.general.ballisticCreeperAI) {
 			double range = 4.5D;
 			List<Entity> targets = creeper.getEntityWorld().getEntitiesWithinAABBExcludingEntity(creeper, creeper.getEntityBoundingBox().expand(range, range, range));
 

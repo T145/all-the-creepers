@@ -32,7 +32,7 @@ public class EntityDarkCreeper extends EntityBaseCreeper {
 
 	@Override
 	public void createExplosion(int explosionPower, boolean griefingEnabled) {
-		int radius = getPowered() ? ModConfig.darkCreeperRadius * explosionPower : ModConfig.darkCreeperRadius;
+		int radius = getPowered() ? ModConfig.explosionRadii.darkCreeperRadius * explosionPower : ModConfig.explosionRadii.darkCreeperRadius;
 
 		for (int x = -radius; x <= radius; x++) {
 			for (int y = -radius; y <= radius; y++) {

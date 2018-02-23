@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 public class EntitySpringCreeper extends EntityBaseCreeper {
 
 	private boolean isSprung;
-	private float radius;
+	private float power;
 
 	public EntitySpringCreeper(World world) {
 		super(world);
@@ -44,13 +44,13 @@ public class EntitySpringCreeper extends EntityBaseCreeper {
 		return isSprung;
 	}
 
-	public float getExplosionRadius() {
-		return radius;
+	public float getExplosionPower() {
+		return power;
 	}
 
 	@Override
 	public void createExplosion(int explosionPower, boolean griefingEnabled) {
-		radius = getPowered() ? ModConfig.springCreeperPower * 1.5F : ModConfig.springCreeperPower;
+		power = getPowered() ? ModConfig.explosionPower.springCreeperPower * 1.5F : ModConfig.explosionPower.springCreeperPower;
 
 		if (world.isRemote) {
 			spawnExplosionParticle();

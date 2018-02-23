@@ -1,17 +1,16 @@
 package T145.elementalcreepers.entities;
 
-import T145.elementalcreepers.config.ModConfig;
 import T145.elementalcreepers.entities.base.EntityBaseCreeper;
 import net.minecraft.world.World;
 
-public class EntityGhostCreeper extends EntityBaseCreeper {
+public class EntityFriendlyCreeper extends EntityBaseCreeper {
 
-	public EntityGhostCreeper(World world) {
+	public EntityFriendlyCreeper(World world) {
 		super(world);
 	}
 
 	@Override
 	public void createExplosion(int explosionPower, boolean griefingEnabled) {
-		world.createExplosion(this, posX, posY, posZ, ModConfig.explosionRadii.ghostCreeperRadius, false);
+		
 	}
 }
