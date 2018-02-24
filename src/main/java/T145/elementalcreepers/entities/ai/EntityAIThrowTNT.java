@@ -33,7 +33,7 @@ public class EntityAIThrowTNT extends EntityAIBase {
 				float dist = Float.POSITIVE_INFINITY;
 
 				for (Entity entity : entities) {
-					if (entity instanceof EntityLivingBase) {
+					if (entity instanceof EntityLivingBase && !(entity.isImmuneToExplosions())) {
 						float newDist = creeper.getDistance(entity);
 						EntityLivingBase creature = (EntityLivingBase) entity;
 
