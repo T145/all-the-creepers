@@ -14,7 +14,6 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
@@ -29,13 +28,13 @@ public class EntitySpiderCreeper extends EntityBaseCreeper {
 	@Override
 	public void createExplosion(int explosionPower, boolean griefingEnabled) {
 		int radius = getPowered() ? ModConfig.explosionRadii.spiderCreeperRadius * explosionPower : ModConfig.explosionRadii.spiderCreeperRadius;
-		AxisAlignedBB bounds = new AxisAlignedBB(posX - radius, posY - radius, posZ - radius, posX + radius, posY + radius, posZ + radius);
-		List<Entity> entities = world.getEntitiesWithinAABBExcludingEntity(this, bounds);
+		AxisAlignedBB bb = new AxisAlignedBB(posX - radius, posY - radius, posZ - radius, posX + radius, posY + radius, posZ + radius);
+		List<Entity> entities = world.getEntitiesWithinAABBExcludingEntity(this, bb);
 
 		for (int x = -radius; x <= radius; ++x) {
 			for (int y = -radius; y <= radius; ++y) {
 				for (int z = -radius; z <= radius; ++z) {
-					BlockPos pos = new BlockPos(posX + x, posY + y, posZ + z);
+					pos.setPos(posX + x, posY + y, posZ + z);
 
 					if (rand.nextInt(100) < 2 && world.isAirBlock(pos)) {
 						world.setBlockState(pos, Blocks.WEB.getDefaultState());

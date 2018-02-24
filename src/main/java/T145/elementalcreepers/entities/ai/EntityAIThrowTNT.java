@@ -27,7 +27,7 @@ public class EntityAIThrowTNT extends EntityAIBase {
 	public boolean shouldExecute() {
 		if (ModConfig.general.ballisticCreeperAI) {
 			AxisAlignedBB bb = new AxisAlignedBB(creeper.posX - range, creeper.posY - range, creeper.posZ - range, creeper.posX + range, creeper.posY + range, creeper.posZ + range);
-			List<Entity> entities = creeper.getEntityWorld().getEntitiesWithinAABBExcludingEntity(creeper, bb);
+			List<Entity> entities = creeper.world.getEntitiesWithinAABBExcludingEntity(creeper, bb);
 
 			if (!entities.isEmpty()) {
 				float dist = Float.POSITIVE_INFINITY;
@@ -66,7 +66,7 @@ public class EntityAIThrowTNT extends EntityAIBase {
 	}
 
 	public void throwTNT(EntityLivingBase target, boolean longThrow) {
-		EntityTNTPrimed tnt = new EntityTNTPrimed(creeper.getEntityWorld(), creeper.posX, creeper.posY, creeper.posZ, creeper);
+		EntityTNTPrimed tnt = new EntityTNTPrimed(creeper.world, creeper.posX, creeper.posY, creeper.posZ, creeper);
 		tnt.setLocationAndAngles(creeper.posX, creeper.posY, creeper.posZ, creeper.rotationYaw, 0.0F);
 		tnt.motionX = (target.posX - tnt.posX) / 18D;
 		tnt.motionY = (target.posY - tnt.posY) / 18D + 0.5D;
@@ -78,13 +78,13 @@ public class EntityAIThrowTNT extends EntityAIBase {
 			tnt.setFuse(30);
 		}
 
-		creeper.getEntityWorld().spawnEntity(tnt);
+		creeper.world.spawnEntity(tnt);
 	}
 
 	@Override
 	public void updateTask() {
 		if (target != null && --attackCooldown <= 0) {
-			if (!creeper.getEntityWorld().isRemote && creeper.getCreeperState() <= 0) {
+			if (!creeper.world.isRemote && creeper.getCreeperState() <= 0) {
 				throwTNT(target, false);
 			}
 			attackCooldown = 60;

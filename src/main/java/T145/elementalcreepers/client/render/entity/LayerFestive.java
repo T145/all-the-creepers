@@ -1,9 +1,8 @@
 package T145.elementalcreepers.client.render.entity;
 
-import java.util.Calendar;
-
 import T145.elementalcreepers.client.render.model.ModelFriendlyCreeper;
 import T145.elementalcreepers.client.render.model.ModelSpiderCreeper;
+import T145.elementalcreepers.util.Constants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelCreeper;
@@ -29,19 +28,17 @@ public class LayerFestive implements LayerRenderer {
 	@Override
 	public void doRenderLayer(EntityLivingBase entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		if (entity != null && !entity.isInvisible()) {
-			int day = Calendar.getInstance().get(5);
-			int month = Calendar.getInstance().get(2);
 			ItemStack stack = ItemStack.EMPTY;
 
-			if (month == 9 && day == 31) {
+			if (Constants.MONTH == 9 && Constants.DAY == 31) {
 				stack = new ItemStack(Blocks.PUMPKIN, 1);
 			}
 
-			if (month == 10 && day == 12) {
+			if (Constants.MONTH == 10 && Constants.DAY == 12) {
 				stack = new ItemStack(Blocks.SPONGE, 1);
 			}
 
-			if (month == 11 && day == 25) {
+			if (Constants.MONTH == 11 && Constants.DAY == 25) {
 				stack = new ItemStack(Blocks.SNOW);
 			}
 

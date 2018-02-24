@@ -165,8 +165,8 @@ public class EntityEnderCreeper extends EntityBaseCreeper {
 	@Override
 	public void createExplosion(int explosionPower, boolean griefingEnabled) {
 		float radius = getPowered() ? 4.5F : 3F;
-		AxisAlignedBB bounds = new AxisAlignedBB(posX - radius, posY - radius, posZ - radius, posX + radius, posY + radius, posZ + radius);
-		List<Entity> entities = world.getEntitiesWithinAABBExcludingEntity(this, bounds);
+		AxisAlignedBB bb = new AxisAlignedBB(posX - radius, posY - radius, posZ - radius, posX + radius, posY + radius, posZ + radius);
+		List<Entity> entities = world.getEntitiesWithinAABBExcludingEntity(this, bb);
 
 		world.createExplosion(this, posX, posY, posZ, radius, false);
 

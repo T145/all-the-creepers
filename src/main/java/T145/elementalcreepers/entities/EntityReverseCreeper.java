@@ -6,7 +6,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class EntityReverseCreeper extends EntityBaseCreeper {
@@ -31,10 +30,10 @@ public class EntityReverseCreeper extends EntityBaseCreeper {
 						double ex = posX + x;
 						double ey = posY + y;
 						double ez = posZ + z;
-						BlockPos pos = new BlockPos(ex, ey, ez);
+						pos.setPos(ex, ey, ez);
 						IBlockState state = world.getBlockState(pos);
 
-						if ((state != null) && (state.getBlock() != null)) {
+						if (state != null && state.getBlock() != null) {
 							Block id = state.getBlock();
 
 							if (id != Blocks.BEDROCK) {
@@ -53,7 +52,7 @@ public class EntityReverseCreeper extends EntityBaseCreeper {
 			for (int x = -radius - 1; x <= radius; x++) {
 				for (int y = -radius - 1; y <= radius; y++) {
 					for (int z = -radius - 1; z <= radius; z++) {
-						BlockPos pos = new BlockPos(posX + x, posY + y, posZ + z);
+						pos.setPos(posX + x, posY + y, posZ + z);
 						IBlockState state = states[x + radius + 1][2 * radius - (y + radius)][z + radius + 1];
 						TileEntity te = tiles[x + radius + 1][2 * radius - (y + radius)][z + radius + 1];
 

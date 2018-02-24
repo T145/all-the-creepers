@@ -18,15 +18,11 @@ public class EntityIceCreeper extends EntityBaseCreeper {
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
 
-		if (!world.isRemote) {
-			for (int i = 0; i < 4; i++) {
-				if (Math.round(posX + 0.5D) != Math.round(prevPosX + 0.5D) || Math.round(posY) != Math.round(prevPosY) || Math.round(posZ + 0.5D) != Math.round(prevPosZ + 0.5D)) {
-					BlockPos pos = new BlockPos(Math.round(prevPosX), Math.round(prevPosY), Math.round(prevPosZ));
+		if (!world.isRemote && (Math.round(posX + 0.5D) != Math.round(prevPosX + 0.5D) || Math.round(posY) != Math.round(prevPosY) || Math.round(posZ + 0.5D) != Math.round(prevPosZ + 0.5D))) {
+			BlockPos pos = new BlockPos(Math.round(prevPosX), Math.round(prevPosY), Math.round(prevPosZ));
 
-					if (world.isAirBlock(pos) && Blocks.SNOW_LAYER.canPlaceBlockAt(world, pos)) {
-						world.setBlockState(pos, Blocks.SNOW_LAYER.getDefaultState());
-					}
-				}
+			if (world.isAirBlock(pos) && Blocks.SNOW_LAYER.canPlaceBlockAt(world, pos)) {
+				world.setBlockState(pos, Blocks.SNOW_LAYER.getDefaultState());
 			}
 		}
 	}
@@ -38,7 +34,7 @@ public class EntityIceCreeper extends EntityBaseCreeper {
 		for (int x = -radius; x <= radius; x++) {
 			for (int y = -radius; y <= radius; y++) {
 				for (int z = -radius; z <= radius; z++) {
-					BlockPos pos = new BlockPos(posX + x, posY + y, posZ + z);
+					pos.setPos(posX + x, posY + y, posZ + z);
 					IBlockState state = world.getBlockState(pos);
 
 					if (state != null && state.getBlock() != null) {
@@ -60,7 +56,7 @@ public class EntityIceCreeper extends EntityBaseCreeper {
 			for (int x = -radius; x <= radius; x++) {
 				for (int y = -radius; y <= radius; y++) {
 					for (int z = -radius; z <= radius; z++) {
-						BlockPos pos = new BlockPos(posX + x, posY + y, posZ + z);
+						pos.setPos(posX + x, posY + y, posZ + z);
 
 						if (Blocks.DIRT.canPlaceBlockAt(world, pos) && !Blocks.DIRT.canPlaceBlockAt(world, new BlockPos(posX + x, posY + y - 1, posZ + z))) {
 							if (rand.nextBoolean()) {

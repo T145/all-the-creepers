@@ -8,7 +8,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class EntityFurnaceCreeper extends EntityBaseCreeper {
@@ -26,7 +25,7 @@ public class EntityFurnaceCreeper extends EntityBaseCreeper {
 			for (int x = -1; x < 2; x++) {
 				for (int y = -1; y < 3; y++) {
 					for (int z = -1; z < 2; z++) {
-						BlockPos pos = new BlockPos(player.posX + x, Math.floor(player.getEntityBoundingBox().minY + y), player.posZ + z);
+						pos.setPos(player.posX + x, player.getEntityBoundingBox().minY + y, player.posZ + z);
 
 						if (world.isAirBlock(pos)) {
 							if (x == -1 && z == 0 && y == 1) {
@@ -46,8 +45,8 @@ public class EntityFurnaceCreeper extends EntityBaseCreeper {
 	@Override
 	public void createExplosion(int explosionPower, boolean griefingEnabled) {
 		int radius = getPowered() ? ModConfig.explosionRadii.furnaceCreeperRadius * explosionPower : ModConfig.explosionRadii.furnaceCreeperRadius;
-		AxisAlignedBB bounds = new AxisAlignedBB(posX - radius, posY - radius, posZ - radius, posX + radius, posY + radius, posZ + radius);
-		List<EntityPlayer> players = world.getEntitiesWithinAABB(EntityPlayer.class, bounds);
+		AxisAlignedBB bb = new AxisAlignedBB(posX - radius, posY - radius, posZ - radius, posX + radius, posY + radius, posZ + radius);
+		List<EntityPlayer> players = world.getEntitiesWithinAABB(EntityPlayer.class, bb);
 
 		if (!players.isEmpty()) {
 			for (EntityPlayer player : players) {

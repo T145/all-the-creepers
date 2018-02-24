@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.play.server.SPacketEntityEquipment;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
@@ -25,6 +26,8 @@ import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 public abstract class EntityBaseCreeper extends EntityCreeper {
+
+	protected final MutableBlockPos pos = new MutableBlockPos();
 
 	public EntityBaseCreeper(World world) {
 		super(world);
@@ -279,7 +282,7 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
 		for (int x = -radius; x <= radius; x++) {
 			for (int y = -radius; y <= radius; y++) {
 				for (int z = -radius; z <= radius; z++) {
-					BlockPos pos = new BlockPos(posX + x, posY + y, posZ + z);
+					pos.setPos(posX + x, posY + y, posZ + z);
 
 					if (block.canPlaceBlockAt(world, pos) && Math.sqrt(Math.pow(x, 2.0D) + Math.pow(y, 2.0D) + Math.pow(z, 2.0D)) <= radius && rand.nextInt(4) < 3) {
 						world.setBlockState(pos, block.getStateFromMeta(meta), 2);
@@ -297,7 +300,7 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
 		for (int x = -radius; x <= radius; x++) {
 			for (int y = -radius; y <= radius; y++) {
 				for (int z = -radius; z <= radius; z++) {
-					BlockPos pos = new BlockPos(posX + x, posY + y, posZ + z);
+					pos.setPos(posX + x, posY + y, posZ + z);
 
 					if (block.canPlaceBlockAt(world, pos) && !block.canPlaceBlockAt(world, new BlockPos(posX + x, posY + y - 1, posZ + z)) && rand.nextBoolean()) {
 						world.setBlockState(pos, block.getStateFromMeta(meta), 2);

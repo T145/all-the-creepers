@@ -24,7 +24,7 @@ public class EntityFireCreeper extends EntityBaseCreeper {
 		for (int x = -radius; x <= radius; x++) {
 			for (int y = -radius; y <= radius; y++) {
 				for (int z = -radius; z <= radius; z++) {
-					BlockPos pos = new BlockPos(posX + x, posY + y, posZ + z);
+					pos.setPos(posX + x, posY + y, posZ + z);
 
 					if (Blocks.DIRT.canPlaceBlockAt(world, pos) && !Blocks.DIRT.canPlaceBlockAt(world, new BlockPos(posX + x, posY + y - 1, posZ + z)) && rand.nextBoolean()) {
 						if (griefingEnabled) {

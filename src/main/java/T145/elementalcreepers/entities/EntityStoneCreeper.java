@@ -7,7 +7,6 @@ import T145.elementalcreepers.entities.base.EntityBaseCreeper;
 import T145.elementalcreepers.util.Constants;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
@@ -24,7 +23,7 @@ public class EntityStoneCreeper extends EntityBaseCreeper {
 		for (int x = -radius; x <= radius; x++) {
 			for (int y = -radius; y <= radius; y++) {
 				for (int z = -radius; z <= radius; z++) {
-					BlockPos pos = new BlockPos(posX + x, posY + y, posZ + z);
+					pos.setPos(posX + x, posY + y, posZ + z);
 					IBlockState state = world.getBlockState(pos);
 
 					if (state != null && state.getBlock() != null) {

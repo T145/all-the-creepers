@@ -14,7 +14,6 @@ import T145.elementalcreepers.entities.EntityElectricCreeper;
 import T145.elementalcreepers.entities.EntityEnderCreeper;
 import T145.elementalcreepers.entities.EntityFireCreeper;
 import T145.elementalcreepers.entities.EntityFireworkCreeper;
-import T145.elementalcreepers.entities.EntityFriendlyCreeper;
 import T145.elementalcreepers.entities.EntityFurnaceCreeper;
 import T145.elementalcreepers.entities.EntityGhostCreeper;
 import T145.elementalcreepers.entities.EntityHydrogenCreeper;
