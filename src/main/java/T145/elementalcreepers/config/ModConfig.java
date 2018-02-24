@@ -66,6 +66,9 @@ public class ModConfig {
 		@Config.Comment("Sets the Earth Creeper explosion radius")
 		public int earthCreeperRadius = 8;
 
+		@Config.Comment("Sets the Ender Creeper explosion radius")
+		public int enderCreeperRadius = 8;
+
 		@Config.Comment("Sets the Psychic Creeper explosion radius")
 		public int psychicCreeperRadius = 5;
 
