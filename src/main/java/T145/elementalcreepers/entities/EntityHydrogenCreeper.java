@@ -32,7 +32,7 @@ public class EntityHydrogenCreeper extends EntityBaseCreeper {
 
 		if (!entities.isEmpty()) {
 			for (Entity entity : entities) {
-				if (entity instanceof EntityLivingBase) {
+				if (entity instanceof EntityLivingBase && !(entity.isImmuneToExplosions())) {
 					EntityLivingBase creature = (EntityLivingBase) entity;
 					throwingAI.throwTNT(creature, true);
 				}
