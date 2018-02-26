@@ -12,7 +12,7 @@ Redux of the original Elemental Creepers mod!
 
 1. [Dependencies](https://github.com/T145/elemental-creepers#dependencies)
 2. [Workspace Setup](https://github.com/T145/elemental-creepers#workspace-setup)
-3. [License](https://github.com/T145/elemental-creepers#development)
+3. [Project License](https://github.com/T145/elemental-creepers#license)
 4. [Dev Support](https://github.com/T145/elemental-creepers#support)
 5. [Contributing](https://github.com/T145/elemental-creepers/blob/master/.github/CONTRIBUTING.md)
 
