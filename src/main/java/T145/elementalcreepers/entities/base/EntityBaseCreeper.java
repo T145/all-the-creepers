@@ -3,6 +3,7 @@ package T145.elementalcreepers.entities.base;
 import java.lang.reflect.InvocationTargetException;
 
 import T145.elementalcreepers.ElementalCreepers;
+import T145.elementalcreepers.config.ModConfig;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -285,7 +286,7 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
 					pos.setPos(posX + x, posY + y, posZ + z);
 
 					if (block.canPlaceBlockAt(world, pos) && Math.sqrt(Math.pow(x, 2.0D) + Math.pow(y, 2.0D) + Math.pow(z, 2.0D)) <= radius && rand.nextInt(4) < 3) {
-						world.setBlockState(pos, block.getStateFromMeta(meta), 2);
+						world.setBlockState(pos, block.getStateFromMeta(meta), ModConfig.general.updatePlacedBlocks ? 3 : 2);
 					}
 				}
 			}
@@ -303,7 +304,7 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
 					pos.setPos(posX + x, posY + y, posZ + z);
 
 					if (block.canPlaceBlockAt(world, pos) && !block.canPlaceBlockAt(world, new BlockPos(posX + x, posY + y - 1, posZ + z)) && rand.nextBoolean()) {
-						world.setBlockState(pos, block.getStateFromMeta(meta), 2);
+						world.setBlockState(pos, block.getStateFromMeta(meta), ModConfig.general.updatePlacedBlocks ? 3 : 2);
 					}
 				}
 			}

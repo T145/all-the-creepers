@@ -38,6 +38,10 @@ public class ModConfig {
 		@Config.RequiresWorldRestart
 		public boolean domeExplosion = true;
 
+		@Config.Comment("Whether or not placed blocks get updated upon generation; i.e. fluid blocks flow")
+		@Config.RequiresWorldRestart
+		public boolean updatePlacedBlocks = true;
+
 		@Config.Comment("Sets the max number of cookies dropped by the Cookie Creeper")
 		@Config.RangeInt(min = 1, max = 64)
 		@Config.RequiresWorldRestart
@@ -47,6 +51,10 @@ public class ModConfig {
 		@Config.RangeInt(min = 1, max = 100)
 		@Config.RequiresWorldRestart
 		public int ghostCreeperChance = 35;
+
+		@Config.Comment("Range in which the zombie creeper looks for fallen allies")
+		@Config.RequiresWorldRestart
+		public int zombieCreeperRange = 8;
 	}
 
 	public static class CreeperExplosionRadii {
@@ -185,6 +193,9 @@ public class ModConfig {
 
 		@Config.Comment("Sets the Furnace Creeper Spawn weight")
 		public int furnaceCreeperSpawn = 1;
+
+		@Config.Comment("Sets the Ender Creeper Spawn weight")
+		public int zombieCreeperSpawn = 4;
 	}
 
 	public static void sync() {
