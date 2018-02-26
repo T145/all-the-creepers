@@ -44,18 +44,18 @@ If you don't have Apple's Command Line Utilities installed before installing Hom
 
 ## Workspace Setup
 
-Execute a file in the `scripts` from the project directory to build automatically.
+Execute a file in the `scripts` with the project directory as your working directory to build automatically:
 ```bash
-./scripts/build
+./scripts/build*
 ```
-If you don't have Gradle installed, just run the script that corresponds to your OS and ends with a `w`.
-Else just use a regular script.
+If you don't have Gradle installed, just run the script that works with your OS and ends with a `w`;
+this will install the Gradle wrapper once.
 Depending on your internet connection and the processing power of your machine, it may take a while to build.
 For most people it takes about 10 minutes.
 Once it completes, just open up the generated `eclipse` directory in your IDE of choice.
 If you're using IntelliJ's IDEA,
 there should be an Eclipse plugin that's automatically installed with it from version 13 and on for compatibility.
-After the project loads, be sure to rename the project in the IDE to `magistics`.
+After the project loads, be sure to rename the project in the IDE to `elementalcreepers`.
 This will likely force any installed Git plugins to reload, as is the case with Eclipse.
 
 ---
