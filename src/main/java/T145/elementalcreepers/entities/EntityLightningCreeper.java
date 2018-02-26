@@ -10,9 +10,9 @@ import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 
-public class EntityElectricCreeper extends EntityBaseCreeper {
+public class EntityLightningCreeper extends EntityBaseCreeper {
 
-	public EntityElectricCreeper(World world) {
+	public EntityLightningCreeper(World world) {
 		super(world);
 	}
 

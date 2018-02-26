@@ -10,11 +10,11 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 
-public class EntityHydrogenCreeper extends EntityBaseCreeper {
+public class EntityBallisticCreeper extends EntityBaseCreeper {
 
 	protected EntityAIThrowTNT throwingAI = new EntityAIThrowTNT(this, 8D);
 
-	public EntityHydrogenCreeper(World world) {
+	public EntityBallisticCreeper(World world) {
 		super(world);
 		tasks.addTask(4, throwingAI); // avoid ocelots first to nuke them!
 	}

@@ -1,32 +1,39 @@
 
-entity.elementalcreepers:FireCreeper.name=Fire Creeper
-entity.elementalcreepers:WaterCreeper.name=Water Creeper
-entity.elementalcreepers:ElectricCreeper.name=Electric Creeper
+elementalcreepers.config.general=General
+elementalcreepers.config.general.tooltip=General Mod Settings
+
+elementalcreepers.config.creepers.explosion.radii=Explosion Radii
+elementalcreepers.config.creepers.explosion.radii.tooltip=Adjust Creeper Explosion Radii
+
+elementalcreepers.config.creepers.explosion.power=Explosion Power
+elementalcreepers.config.creepers.explosion.power.tooltip=Adjust Creeper Explosion Power
+
+elementalcreepers.config.creepers.spawnrate=Spawn Rates
+elementalcreepers.config.creepers.spawnrate.tooltip=Adjust Creeper Spawn Rates
+
+entity.elementalcreepers:BallisticCreeper.name=Ballistic Creeper
+entity.elementalcreepers:CakeCreeper.name=Cake Creeper
 entity.elementalcreepers:CookieCreeper.name=Cookie Creeper
 entity.elementalcreepers:DarkCreeper.name=Dark Creeper
-entity.elementalcreepers:LightCreeper.name=Light Creeper
 entity.elementalcreepers:EarthCreeper.name=Earth Creeper
-entity.elementalcreepers:MagmaCreeper.name=Magma Creeper
-entity.elementalcreepers:ReverseCreeper.name=Reverse Creeper
-entity.elementalcreepers:IceCreeper.name=Ice Creeper
+entity.elementalcreepers:EnderCreeper.name=Ender Creeper
+entity.elementalcreepers:FireCreeper.name=Fire Creeper
+entity.elementalcreepers:FireworkCreeper.name=Firework Creeper
 entity.elementalcreepers:FriendlyCreeper.name=Friendly Creeper
+entity.elementalcreepers:FurnaceCreeper.name=Furnace Creeper
 entity.elementalcreepers:GhostCreeper.name=Ghost Creeper
+entity.elementalcreepers:IceCreeper.name=Ice Creeper
 entity.elementalcreepers:FakeIllusionCreeper.name=Illusion Creeper
 entity.elementalcreepers:IllusionCreeper.name=Illusion Creeper
+entity.elementalcreepers:LightCreeper.name=Light Creeper
+entity.elementalcreepers:LightningCreeper.name=Lightning Creeper
+entity.elementalcreepers:MachinistCreeper.name=Machinist Creeper
+entity.elementalcreepers:MagmaCreeper.name=Magma Creeper
 entity.elementalcreepers:PsychicCreeper.name=Psychic Creeper
 entity.elementalcreepers:SpiderCreeper.name=Spider Creeper
-
-entity.elementalcreepers:WindCreeper.name=Wind Creeper
-entity.elementalcreepers:HydrogenCreeper.name=Hydrogen Creeper
-entity.elementalcreepers:EnderCreeper.name=Ender Creeper
-entity.elementalcreepers:StoneCreeper.name=Stone Creeper
-entity.elementalcreepers:SolarCreeper.name=Solar Creeper
-entity.elementalcreepers:CakeCreeper.name=Cake Creeper
-entity.elementalcreepers:FireworkCreeper.name=Firework Creeper
-entity.elementalcreepers:BigBadCreep.name=Big Bad Creep
 entity.elementalcreepers:SpringCreeper.name=Spring Creeper
-entity.elementalcreepers:SilverCreeper.name=Creeperfish
-entity.elementalcreepers:FurnaceCreeper.name=Furnace Creeper
-
-entity.elementalcreepers:EUCreeper.name=EU Creeper
-entity.elementalcreepers:RFCreeper.name=Flux Creeper
+entity.elementalcreepers:StoneCreeper.name=Stone Creeper
+entity.elementalcreepers:WaterCreeper.name=Water Creeper
+entity.elementalcreepers:WindCreeper.name=Wind Creeper
+entity.elementalcreepers:ReverseCreeper.name=Reverse Creeper
+entity.elementalcreepers:ZombieCreeper.name=Zombie Creeper
