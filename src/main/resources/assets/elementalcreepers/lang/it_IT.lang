@@ -1,31 +1,38 @@
-entity.elementalcreepers:FireCreeper.name=Creeper di Fuoco
-entity.elementalcreepers:WaterCreeper.name=Creeper dell'Acqua
-entity.elementalcreepers:ElectricCreeper.name=Creeper del Fulmine
+elementalcreepers.config.general=Generale
+elementalcreepers.config.general.tooltip=Impostazioni Generali della Mod
+
+elementalcreepers.config.creepers.explosion.radii=Raggi
+elementalcreepers.config.creepers.explosion.radii.tooltip=Modifica il raggio di esplosione dei creeper
+
+elementalcreepers.config.creepers.explosion.power=Potenza dell'esplosione
+elementalcreepers.config.creepers.explosion.power.tooltip=Modifica la potenza dell'esplosione dei creeper
+
+elementalcreepers.config.creepers.spawnrate=Ritmo di Spawn
+elementalcreepers.config.creepers.spawnrate.tooltip=Modifica il ritmo di spawn dei creeper
+
+entity.elementalcreepers:BallisticCreeper.name=Creeper Balistico
+entity.elementalcreepers:CakeCreeper.name=Creeper Torta
 entity.elementalcreepers:CookieCreeper.name=Creeper Biscotto
-entity.elementalcreepers:DarkCreeper.name=Creeper delle Tenebre
-entity.elementalcreepers:LightCreeper.name=Creeper della Luce
+entity.elementalcreepers:DarkCreeper.name=Creeper del Buio
 entity.elementalcreepers:EarthCreeper.name=Creeper della Terra
-entity.elementalcreepers:MagmaCreeper.name=Creeper Magma
-entity.elementalcreepers:ReverseCreeper.name=Creeper Sottosopra
-entity.elementalcreepers:IceCreeper.name=Creeper del Ghiaccio
+entity.elementalcreepers:EnderCreeper.name=Creeper dell'End
+entity.elementalcreepers:FireCreeper.name=Creeper del Fuoco
+entity.elementalcreepers:FireworkCreeper.name=Creeper Fuoco d'Artificio
 entity.elementalcreepers:FriendlyCreeper.name=Creeper Amichevole
+entity.elementalcreepers:FurnaceCreeper.name=Creeper Fornace
 entity.elementalcreepers:GhostCreeper.name=Creeper Fantasma
+entity.elementalcreepers:IceCreeper.name=Creeper del Ghiaccio
 entity.elementalcreepers:FakeIllusionCreeper.name=Creeper Illusionista
 entity.elementalcreepers:IllusionCreeper.name=Creeper Illusionista
+entity.elementalcreepers:LightCreeper.name=Creeper della Luce
+entity.elementalcreepers:LightningCreeper.name=Creeper dei Fulmini
+entity.elementalcreepers:MachinistCreeper.name=Creeper Macchinista
+entity.elementalcreepers:MagmaCreeper.name=Creeper del Magma
 entity.elementalcreepers:PsychicCreeper.name=Creeper Psichico
 entity.elementalcreepers:SpiderCreeper.name=Creeper Ragno
-
-entity.elementalcreepers:WindCreeper.name=Creeper del Vento
-entity.elementalcreepers:HydrogenCreeper.name=Creeper Balistico
-entity.elementalcreepers:EnderCreeper.name=Creeper dell'End
-entity.elementalcreepers:StoneCreeper.name=Creeper della Pietra
-entity.elementalcreepers:SolarCreeper.name=Creeper Solare
-entity.elementalcreepers:CakeCreeper.name=Creeper Torta
-entity.elementalcreepers:FireworkCreeper.name=Creeper Fuoco d'artificio
-entity.elementalcreepers:BigBadCreep.name=Gran Creeper Cattivo
 entity.elementalcreepers:SpringCreeper.name=Creeper Molla
-entity.elementalcreepers:SilverCreeper.name=Pesciolino Creeper
-entity.elementalcreepers:FurnaceCreeper.name=Creeper Fornace
-
-entity.elementalcreepers:EUCreeper.name=Creeper EU
-entity.elementalcreepers:RFCreeper.name=Creeper Flux
+entity.elementalcreepers:StoneCreeper.name=Creeper della Pietra
+entity.elementalcreepers:WaterCreeper.name=Creeper dell'Acqua
+entity.elementalcreepers:WindCreeper.name=Creeper del Vento
+entity.elementalcreepers:ReverseCreeper.name=Creeper Sottosopra
+entity.elementalcreepers:ZombieCreeper.name=Creeper Zombie
