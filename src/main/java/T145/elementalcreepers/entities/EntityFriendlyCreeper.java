@@ -29,6 +29,7 @@ import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntitySkeleton;
+import net.minecraft.entity.passive.AbstractHorse;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.entity.passive.EntityTameable;
@@ -51,9 +52,9 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
+import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -62,16 +63,17 @@ public class EntityFriendlyCreeper extends EntityTameable {
 	private static final DataParameter<Integer> STATE = EntityDataManager.<Integer>createKey(EntityFriendlyCreeper.class, DataSerializers.VARINT);
 	private static final DataParameter<Boolean> POWERED = EntityDataManager.<Boolean>createKey(EntityFriendlyCreeper.class, DataSerializers.BOOLEAN);
 	private static final DataParameter<Boolean> IGNITED = EntityDataManager.<Boolean>createKey(EntityFriendlyCreeper.class, DataSerializers.BOOLEAN);
-	private static final DataParameter<Boolean> ANGRY = EntityDataManager.<Boolean>createKey(EntityFriendlyCreeper.class, DataSerializers.BOOLEAN);
+	private static final DataParameter<Float> DATA_HEALTH_ID = EntityDataManager.<Float>createKey(EntityFriendlyCreeper.class, DataSerializers.FLOAT);
 	private static final DataParameter<Boolean> BEGGING = EntityDataManager.<Boolean>createKey(EntityFriendlyCreeper.class, DataSerializers.BOOLEAN);
 
-	private int lastActiveTime;
-	private int timeSinceIgnited;
-	private int fuseTime = 30;
-	private int explosionRadius = 3;
-	private int droppedSkulls;
 	private float headRotationCourse;
 	private float headRotationCourseOld;
+
+	public int lastActiveTime;
+	public int timeSinceIgnited;
+	public int fuseTime = 30;
+	public int explosionRadius = 3;
+	public int droppedSkulls;
 
 	public EntityFriendlyCreeper(World world) {
 		super(world);
@@ -79,16 +81,9 @@ public class EntityFriendlyCreeper extends EntityTameable {
 		setTamed(false);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * BEGIN EntityCreeper.class
-	 * 
-	 * @see net.minecraft.entity.monster.EntityCreeper
-	 */
-
+	@Override
 	protected void initEntityAI() {
-		this.aiSit = new EntityAISit(this);
+		aiSit = new EntityAISit(this);
 		tasks.addTask(1, new EntityAISwimming(this));
 		tasks.addTask(2, aiSit);
 		tasks.addTask(3, new EntityAIFriendlyCreeperSwell(this));
@@ -104,53 +99,65 @@ public class EntityFriendlyCreeper extends EntityTameable {
 		targetTasks.addTask(3, new EntityAIHurtByTarget(this, true, new Class[0]));
 	}
 
-	@Override
-	public int getMaxFallHeight() {
-		return getAttackTarget() == null ? 3 : 3 + (int) (getHealth() - 1.0F);
+	protected void applyEntityAttributes() {
+		super.applyEntityAttributes();
+		// getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
+		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3D);
+
+		if (isTamed()) {
+			getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
+		} else {
+			getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8.0D);
+		}
+
+		getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.0D);
 	}
 
 	@Override
-	public void fall(float distance, float damageMultiplier) {
-		super.fall(distance, damageMultiplier);
-		timeSinceIgnited = (int) (timeSinceIgnited + distance * 1.5F);
+	public void setAttackTarget(@Nullable EntityLivingBase entitylivingbaseIn) {
+		super.setAttackTarget(entitylivingbaseIn);
 
-		if (timeSinceIgnited > fuseTime - 5) {
-			timeSinceIgnited = fuseTime - 5;
+		if (entitylivingbaseIn == null) {
+			setAngry(false);
+		} else if (!isTamed()) {
+			setAngry(true);
 		}
+	}
+
+	@Override
+	protected void updateAITasks() {
+		dataManager.set(DATA_HEALTH_ID, getHealth());
 	}
 
 	@Override
 	protected void entityInit() {
 		super.entityInit();
+		dataManager.register(DATA_HEALTH_ID, getHealth());
+		dataManager.register(BEGGING, false);
 		dataManager.register(STATE, -1);
 		dataManager.register(POWERED, false);
 		dataManager.register(IGNITED, false);
-		dataManager.register(ANGRY, false);
-		dataManager.register(BEGGING, Boolean.valueOf(false));
-	}
-
-	public static void registerFixesCreeper(DataFixer fixer) {
-		EntityCreeper.registerFixesCreeper(fixer);
 	}
 
 	@Override
 	public void writeEntityToNBT(NBTTagCompound compound) {
 		super.writeEntityToNBT(compound);
+		compound.setBoolean("Angry", isAngry());
 
-		if (((Boolean) dataManager.get(POWERED)).booleanValue()) {
+		if (dataManager.get(POWERED)) {
 			compound.setBoolean("powered", true);
 		}
 
 		compound.setShort("Fuse", (short) fuseTime);
 		compound.setByte("ExplosionRadius", (byte) explosionRadius);
 		compound.setBoolean("ignited", hasIgnited());
-		compound.setBoolean("angry", isAngry());
 	}
 
 	@Override
 	public void readEntityFromNBT(NBTTagCompound compound) {
 		super.readEntityFromNBT(compound);
-		dataManager.set(POWERED, Boolean.valueOf(compound.getBoolean("powered")));
+		setAngry(compound.getBoolean("Angry"));
+		dataManager.set(POWERED, compound.getBoolean("powered"));
 
 		if (compound.hasKey("Fuse", 99)) {
 			fuseTime = compound.getShort("Fuse");
@@ -163,8 +170,15 @@ public class EntityFriendlyCreeper extends EntityTameable {
 		if (compound.getBoolean("ignited")) {
 			ignite();
 		}
+	}
 
-		setAngry(compound.getBoolean("angry"));
+	@Override
+	public void onLivingUpdate() {
+		super.onLivingUpdate();
+
+		if (!world.isRemote && getAttackTarget() == null && isAngry()) {
+			setAngry(false);
+		}
 	}
 
 	@Override
@@ -194,18 +208,223 @@ public class EntityFriendlyCreeper extends EntityTameable {
 			}
 		}
 
-		if (isSitting()) {
-			rotationPitch = 45.0F;
-		}
-
 		super.onUpdate();
-
 		headRotationCourseOld = headRotationCourse;
 
 		if (isBegging()) {
 			headRotationCourse += (1.0F - headRotationCourse) * 0.4F;
 		} else {
 			headRotationCourse += (0.0F - headRotationCourse) * 0.4F;
+		}
+	}
+
+	@Override
+	public boolean attackEntityFrom(DamageSource source, float amount) {
+		if (isEntityInvulnerable(source)) {
+			return false;
+		} else {
+			Entity entity = source.getTrueSource();
+
+			if (aiSit != null) {
+				aiSit.setSitting(false);
+			}
+
+			if (entity != null && !(entity instanceof EntityPlayer) && !(entity instanceof EntityArrow)) {
+				amount = (amount + 1.0F) / 2.0F;
+			}
+
+			return super.attackEntityFrom(source, amount);
+		}
+	}
+
+	@Override
+	public boolean attackEntityAsMob(Entity target) {
+		boolean flag = target.attackEntityFrom(DamageSource.causeMobDamage(this), (float) (getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue()));
+
+		if (flag) {
+			applyEnchantments(this, target);
+		}
+
+		return flag;
+	}
+
+	@Override
+	public void setTamed(boolean tamed) {
+		super.setTamed(tamed);
+
+		if (tamed) {
+			getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
+		} else {
+			getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8.0D);
+		}
+
+		getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
+	}
+
+	@Override
+	public boolean processInteract(EntityPlayer player, EnumHand hand) {
+		ItemStack itemstack = player.getHeldItem(hand);
+
+		if (itemstack.getItem() == Items.FLINT_AND_STEEL) {
+			world.playSound(player, posX, posY, posZ, SoundEvents.ITEM_FLINTANDSTEEL_USE, getSoundCategory(), 1.0F, rand.nextFloat() * 0.4F + 0.8F);
+			player.swingArm(hand);
+
+			if (!world.isRemote) {
+				ignite();
+				itemstack.damageItem(1, player);
+				return true;
+			}
+		}
+
+		if (isTamed()) {
+			if (!itemstack.isEmpty()) {
+				if (itemstack.getItem() instanceof ItemFood) {
+					ItemFood itemfood = (ItemFood) itemstack.getItem();
+
+					if (itemfood.isWolfsFavoriteMeat() && (dataManager.get(DATA_HEALTH_ID)).floatValue() < 20.0F) {
+						if (!player.capabilities.isCreativeMode) {
+							itemstack.shrink(1);
+						}
+
+						heal(itemfood.getHealAmount(itemstack));
+						return true;
+					}
+				} else if (itemstack.getItem() instanceof ItemArmor) {
+					ItemArmor armor = (ItemArmor) itemstack.getItem();
+					int slot = armor.armorType.getSlotIndex();
+					EntityEquipmentSlot equipmentSlot = EntityEquipmentSlot.fromString(armor.armorType.getName());
+
+					if ((slot >= 1 || slot <= 4) && getItemStackFromSlot(equipmentSlot).isEmpty()) {
+						setItemStackToSlot(equipmentSlot, itemstack);
+						return true;
+					}
+				}
+			}
+
+			if (isOwner(player) && !world.isRemote && !isBreedingItem(itemstack)) {
+				aiSit.setSitting(!isSitting());
+				isJumping = false;
+				navigator.clearPath();
+				setAttackTarget((EntityLivingBase) null);
+			}
+		} else if (itemstack.getItem() == Items.GUNPOWDER && !isAngry()) {
+			if (!player.capabilities.isCreativeMode) {
+				itemstack.shrink(1);
+			}
+
+			if (!world.isRemote) {
+				if (rand.nextInt(3) == 0 && !ForgeEventFactory.onAnimalTame(this, player)) {
+					setTamedBy(player);
+					navigator.clearPath();
+					setAttackTarget((EntityLivingBase) null);
+					aiSit.setSitting(true);
+					setHealth(20.0F);
+					playTameEffect(true);
+					world.setEntityState(this, (byte) 7);
+				} else {
+					playTameEffect(false);
+					world.setEntityState(this, (byte) 6);
+				}
+			}
+
+			return true;
+		}
+
+		return super.processInteract(player, hand);
+	}
+
+	@Override
+	public boolean isBreedingItem(ItemStack stack) {
+		if (!stack.isEmpty() && stack.getItem() instanceof ItemBlock) {
+			return Block.getBlockFromItem(stack.getItem()) instanceof BlockFlower;
+		}
+		return false;
+	}
+
+	@Override
+	public int getMaxSpawnedInChunk() {
+		return 8;
+	}
+
+	public boolean isAngry() {
+		return (dataManager.get(TAMED) & 2) != 0;
+	}
+
+	public void setAngry(boolean angry) {
+		byte b0 = dataManager.get(TAMED);
+
+		if (angry) {
+			dataManager.set(TAMED, (byte) (b0 | 2));
+		} else {
+			dataManager.set(TAMED, (byte) (b0 & -3));
+		}
+	}
+
+	@Override
+	public EntityFriendlyCreeper createChild(EntityAgeable ageable) {
+		EntityFriendlyCreeper creeper = new EntityFriendlyCreeper(world);
+		UUID uuid = getOwnerId();
+
+		if (uuid != null) {
+			creeper.setOwnerId(uuid);
+			creeper.setTamed(true);
+		}
+
+		return creeper;
+	}
+
+	public void setBegging(boolean beg) {
+		dataManager.set(BEGGING, beg);
+	}
+
+	@Override
+	public boolean canMateWith(EntityAnimal otherAnimal) {
+		if (otherAnimal == this || !isTamed() || !(otherAnimal instanceof EntityFriendlyCreeper)) {
+			return false;
+		} else {
+			EntityFriendlyCreeper creeper = (EntityFriendlyCreeper) otherAnimal;
+
+			if (!creeper.isTamed() || creeper.isSitting()) {
+				return false;
+			} else {
+				return isInLove() && creeper.isInLove();
+			}
+		}
+	}
+
+	public boolean isBegging() {
+		return dataManager.get(BEGGING);
+	}
+
+	@Override
+	public boolean shouldAttackEntity(EntityLivingBase target, EntityLivingBase owner) {
+		if (target instanceof EntityFriendlyCreeper) {
+			EntityFriendlyCreeper creeper = (EntityFriendlyCreeper) target;
+
+			if (creeper.isTamed() && creeper.getOwner() == owner) {
+				return false;
+			}
+		}
+
+		if (target instanceof EntityPlayer && owner instanceof EntityPlayer && !((EntityPlayer) owner).canAttackPlayer((EntityPlayer) target)) {
+			return false;
+		} else {
+			return !(target instanceof AbstractHorse) || !((AbstractHorse) target).isTame();
+		}
+	}
+
+	@Override
+	public int getMaxFallHeight() {
+		return getAttackTarget() == null ? 3 : 3 + (int) (getHealth() - 1.0F);
+	}
+
+	@Override
+	public void fall(float distance, float damageMultiplier) {
+		super.fall(distance, damageMultiplier);
+		timeSinceIgnited = (int) (timeSinceIgnited + distance * 1.5F);
+
+		if (timeSinceIgnited > fuseTime - 5) {
+			timeSinceIgnited = fuseTime - 5;
 		}
 	}
 
@@ -229,8 +448,8 @@ public class EntityFriendlyCreeper extends EntityTameable {
 				int j = Item.getIdFromItem(Items.RECORD_WAIT);
 				int k = i + rand.nextInt(j - i + 1);
 				dropItem(Item.getItemById(k), 1);
-			} else if (cause.getTrueSource() instanceof EntityFriendlyCreeper && cause.getTrueSource() != this && ((EntityFriendlyCreeper) cause.getTrueSource()).getPowered() && ((EntityFriendlyCreeper) cause.getTrueSource()).ableToCauseSkullDrop()) {
-				((EntityFriendlyCreeper) cause.getTrueSource()).incrementDroppedSkulls();
+			} else if (cause.getTrueSource() instanceof EntityCreeper && cause.getTrueSource() != this && ((EntityCreeper) cause.getTrueSource()).getPowered() && ((EntityCreeper) cause.getTrueSource()).ableToCauseSkullDrop()) {
+				((EntityCreeper) cause.getTrueSource()).incrementDroppedSkulls();
 				entityDropItem(new ItemStack(Items.SKULL, 1, 4), 0.0F);
 			}
 		}
@@ -241,12 +460,11 @@ public class EntityFriendlyCreeper extends EntityTameable {
 	}
 
 	@SideOnly(Side.CLIENT)
-	public float getCreeperFlashIntensity(float intensity) {
-		return (lastActiveTime + (timeSinceIgnited - lastActiveTime) * intensity) / (fuseTime - 2);
+	public float getCreeperFlashIntensity(float renderTicks) {
+		return (lastActiveTime + (timeSinceIgnited - lastActiveTime) * renderTicks) / (fuseTime - 2);
 	}
 
 	@Nullable
-	@Override
 	protected ResourceLocation getLootTable() {
 		return LootTableList.ENTITIES_CREEPER;
 	}
@@ -262,33 +480,23 @@ public class EntityFriendlyCreeper extends EntityTameable {
 	@Override
 	public void onStruckByLightning(EntityLightningBolt lightningBolt) {
 		super.onStruckByLightning(lightningBolt);
-		dataManager.set(POWERED, Boolean.valueOf(true));
+		dataManager.set(POWERED, true);
 	}
 
-	private void explode() {
-		if (!world.isRemote) {
-			boolean flag = world.getGameRules().getBoolean("mobGriefing");
-			float f = getPowered() ? 2.0F : 1.0F;
-			dead = true;
-			createExplosion(explosionRadius * f, flag);
-			setDead();
-			spawnLingeringCloud();
-		}
-	}
+	public void spawnLingeringCloud() {
+		Collection<PotionEffect> collection = getActivePotionEffects();
 
-	private void spawnLingeringCloud() {
-		Collection<PotionEffect> potionfx = getActivePotionEffects();
-
-		if (!potionfx.isEmpty()) {
+		if (!collection.isEmpty()) {
 			EntityAreaEffectCloud cloud = new EntityAreaEffectCloud(world, posX, posY, posZ);
+
 			cloud.setRadius(2.5F);
 			cloud.setRadiusOnUse(-0.5F);
 			cloud.setWaitTime(10);
 			cloud.setDuration(cloud.getDuration() / 2);
 			cloud.setRadiusPerTick(-cloud.getRadius() / cloud.getDuration());
 
-			for (PotionEffect potion : potionfx) {
-				cloud.addEffect(new PotionEffect(potion));
+			for (PotionEffect fx : collection) {
+				cloud.addEffect(new PotionEffect(fx));
 			}
 
 			world.spawnEntity(cloud);
@@ -296,11 +504,11 @@ public class EntityFriendlyCreeper extends EntityTameable {
 	}
 
 	public boolean hasIgnited() {
-		return dataManager.get(IGNITED).booleanValue();
+		return dataManager.get(IGNITED);
 	}
 
 	public void ignite() {
-		dataManager.set(IGNITED, Boolean.valueOf(true));
+		dataManager.set(IGNITED, true);
 	}
 
 	public boolean ableToCauseSkullDrop() {
@@ -311,241 +519,32 @@ public class EntityFriendlyCreeper extends EntityTameable {
 		++droppedSkulls;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * END EntityCreeper.class
-	 * 
-	 * @see net.minecraft.entity.monster.EntityCreeper
-	 */
-
-	public boolean isAngry() {
-		return dataManager.get(ANGRY);
-	}
-
-	public void setAngry(boolean angry) {
-		dataManager.set(ANGRY, angry);
-	}
-
-	public boolean isBegging() {
-		return dataManager.get(BEGGING);
-	}
-
-	public void setBegging(boolean beg) {
-		dataManager.set(BEGGING, Boolean.valueOf(beg));
-	}
-
-	@Override
-	public void onLivingUpdate() {
-		super.onLivingUpdate();
-
-		if (!world.isRemote && getAttackTarget() == null && isAngry()) {
-			setAngry(false);
-		}
-	}
-
-	@Override
-	protected void applyEntityAttributes() {
-		super.applyEntityAttributes();
-		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
-
-		if (isTamed()) {
-			getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
-		} else {
-			getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8.0D);
-		}
-	}
-
-	@Override
-	public void setAttackTarget(EntityLivingBase target) {
-		super.setAttackTarget(target);
-
-		if (target == null) {
-			setAngry(false);
-		} else if (!isTamed()) {
-			setAngry(true);
-		}
-	}
-
-	@Override
-	public boolean attackEntityFrom(DamageSource source, float amount) {
-		if (isEntityInvulnerable(source)) {
-			return false;
-		}
-
-		Entity entity = source.getTrueSource();
-
-		if (aiSit != null) {
-			aiSit.setSitting(false);
-		}
-
-		if (entity != null && !(entity instanceof EntityPlayer) && !(entity instanceof EntityArrow)) {
-			amount = (amount + 1) / 2;
-		}
-
-		return super.attackEntityFrom(source, amount);
-	}
-
-	@Override
-	public boolean attackEntityAsMob(Entity entity) {
-		int i = isTamed() ? 4 : 2;
-		return entity.attackEntityFrom(DamageSource.causeMobDamage(this), i);
-	}
-
-	public void createExplosion(float explosionRadius, boolean griefingEnabled) {
-		if (isTamed()) {
-			// do friendly explosion
-		} else {
-			world.createExplosion(this, posX, posY, posZ, explosionRadius, griefingEnabled);
-		}
-	}
-
-	@Override
-	public int getMaxSpawnedInChunk() {
-		return 8;
-	}
-
-	@Override
-	public boolean isBreedingItem(ItemStack stack) {
-		if (!stack.isEmpty() && stack.getItem() instanceof ItemBlock) {
-			return Block.getBlockFromItem(stack.getItem()) instanceof BlockFlower;
-		}
-		return false;
-	}
-
-	@Override
-	public boolean canMateWith(EntityAnimal tameable) {
-		if (tameable == this || !isTamed() || !(tameable instanceof EntityFriendlyCreeper)) {
-			return false;
-		}
-
-		EntityFriendlyCreeper creeper = (EntityFriendlyCreeper) tameable;
-		return creeper.isTamed();
-	}
-
-	@Override
-	public EntityAgeable createChild(EntityAgeable entityAgeable) {
-		EntityFriendlyCreeper child = new EntityFriendlyCreeper(world);
-		UUID id = getOwnerId();
-
-		if (id != null) {
-			child.setOwnerId(id);
-			child.setTamed(true);
-		}
-
-		return child;
-	}
-
-	@Override
-	public void setTamed(boolean tamed) {
-		super.setTamed(tamed);
-
-		if (tamed) {
-			getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
-		} else {
-			getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8.0D);
-		}
-	}
-
-	public void shrinkStack(EntityPlayer player, ItemStack stack) {
-		if (!player.capabilities.isCreativeMode) {
-			stack.shrink(1);
-
-			if (stack.isEmpty()) {
-				player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
-			}
-		}
-	}
-
-	@Override
-	public boolean processInteract(EntityPlayer player, EnumHand hand) {
-		ItemStack stack = player.getHeldItem(hand);
-
-		if (!world.isRemote && !stack.isEmpty() && stack.getItem() == Items.SPAWN_EGG) {
-			EntityAgeable baby = createChild(this);
-
-			if (baby != null) {
-				baby.setGrowingAge(41536);
-				baby.setLocationAndAngles(posX, posY, posZ, 0.0F, 0.0F);
-				world.spawnEntity(baby);
-
-				if (stack.hasDisplayName()) {
-					baby.setCustomNameTag(stack.getDisplayName());
-				}
-
-				shrinkStack(player, stack);
-				return true;
-			}
-		}
-
-		if (isTamed()) {
-			if (!stack.isEmpty()) {
-				if (stack.getItem() instanceof ItemFood) {
-					ItemFood itemfood = (ItemFood) stack.getItem();
-
-					if (getHealth() < 20.0F) {
-						heal(itemfood.getHealAmount(stack));
-						shrinkStack(player, stack);
-						return true;
-					}
-				} else if (stack.getItem() instanceof ItemArmor) {
-					ItemArmor armor = (ItemArmor) stack.getItem();
-					int slot = armor.armorType.getSlotIndex();
-					EntityEquipmentSlot equipmentSlot = EntityEquipmentSlot.fromString(armor.armorType.getName());
-
-					if ((slot >= 1 || slot <= 4) && getItemStackFromSlot(equipmentSlot).isEmpty()) {
-						setItemStackToSlot(equipmentSlot, stack);
-						return true;
-					}
-				}
-			}
-
-			if (isOwner(player) && !world.isRemote && !isBreedingItem(stack)) {
-				aiSit.setSitting(!isSitting());
-				isJumping = false;
-				setAttackTarget(null);
-				setRevengeTarget(null);
-			}
-		} else if (!stack.isEmpty()) {
-
-			// base creeper interaction
-			if (stack.getItem() == Items.FLINT_AND_STEEL) {
-				world.playSound(player, posX, posY, posZ, SoundEvents.ITEM_FLINTANDSTEEL_USE, getSoundCategory(), 1.0F, rand.nextFloat() * 0.4F + 0.8F);
-				player.swingArm(hand);
-
-				if (!world.isRemote) {
-					ignite();
-					stack.damageItem(1, player);
-					return true;
-				}
-			}
-
-			if (stack.getItem() == Items.GUNPOWDER && !isAngry()) {
-				shrinkStack(player, stack);
-
-				if (!world.isRemote) {
-					if (rand.nextInt(3) == 0) {
-						setTamed(true);
-						setAttackTarget(null);
-						aiSit.setSitting(true);
-						setHealth(20.0F);
-						setOwnerId(player.getUniqueID());
-						playTameEffect(true);
-						world.setEntityState(this, (byte) 7);
-					} else {
-						playTameEffect(false);
-						world.setEntityState(this, (byte) 6);
-					}
-				}
-			}
-		}
-
-		return super.processInteract(player, hand);
-	}
-
 	@SideOnly(Side.CLIENT)
 	public ResourceLocation getActiveTexture() {
 		String path = isTamed() ? "textures/entities/friendlycreeper1.png" : "textures/entities/friendlycreeper0.png";
 		return new ResourceLocation(ElementalCreepers.MODID, path);
+	}
+
+
+	/////////////////////////////////////////////////////////////////////////
+
+
+	public void explode() {
+		if (!world.isRemote) {
+			boolean canGrief = world.getGameRules().getBoolean("mobGriefing");
+			int explosionPower = explosionRadius * (getPowered() ? 2 : 1);
+			dead = true;
+			createExplosino(explosionPower, canGrief);
+			setDead();
+			spawnLingeringCloud();
+		}
+	}
+
+	public void createExplosino(int explosionPower, boolean canGrief) {
+		if (isTamed()) {
+			// do friendly explosion
+		} else {
+			world.createExplosion(this, posX, posY, posZ, explosionRadius, canGrief);
+		}
 	}
 }

@@ -6,41 +6,40 @@ import net.minecraft.entity.ai.EntityAIBase;
 
 public class EntityAIFriendlyCreeperSwell extends EntityAIBase {
 
-	private final EntityFriendlyCreeper swellingCreeper;
-	private Entity creeperAttackTarget;
+	private final EntityFriendlyCreeper creeper;
+	private Entity target;
 
-	public EntityAIFriendlyCreeperSwell(EntityFriendlyCreeper par1EntityCreeper) {
-		this.swellingCreeper = par1EntityCreeper;
+	public EntityAIFriendlyCreeperSwell(EntityFriendlyCreeper creeper) {
+		this.creeper = creeper;
 		setMutexBits(1);
 	}
 
 	@Override
 	public boolean shouldExecute() {
-		Entity var1 = this.swellingCreeper.getAttackTarget();
-		return (this.swellingCreeper.getCreeperState() > 0) || ((var1 != null) && (this.swellingCreeper.getDistance(var1) < 9.0D));
+		return creeper.getCreeperState() > 0 || (creeper.getAttackTarget() != null && creeper.getDistance(creeper.getAttackTarget()) < 9.0D);
 	}
 
 	@Override
 	public void startExecuting() {
-		this.creeperAttackTarget = this.swellingCreeper.getAttackTarget();
+		target = creeper.getAttackTarget();
 	}
 
 	@Override
 	public void resetTask() {
-		this.creeperAttackTarget = null;
+		target = null;
 	}
 
 	@Override
 	public void updateTask() {
-		this.creeperAttackTarget = this.swellingCreeper.getAttackTarget();
-		if (this.creeperAttackTarget == null) {
-			this.swellingCreeper.setCreeperState(-1);
-		} else if (this.swellingCreeper.getDistance(this.creeperAttackTarget) > 49.0D) {
-			this.swellingCreeper.setCreeperState(-1);
-		} else if (!this.swellingCreeper.getEntitySenses().canSee(this.creeperAttackTarget)) {
-			this.swellingCreeper.setCreeperState(-1);
+		target = creeper.getAttackTarget();
+		if (target == null) {
+			creeper.setCreeperState(-1);
+		} else if (creeper.getDistance(target) > 49.0D) {
+			creeper.setCreeperState(-1);
+		} else if (!creeper.getEntitySenses().canSee(target)) {
+			creeper.setCreeperState(-1);
 		} else {
-			this.swellingCreeper.setCreeperState(1);
+			creeper.setCreeperState(1);
 		}
 	}
 }
