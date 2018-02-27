@@ -17,7 +17,7 @@ public class EntityLightningCreeper extends EntityBaseCreeper {
 	}
 
 	@Override
-	public void createExplosion(int explosionPower, boolean griefingEnabled) {
+	public void createExplosion(int explosionPower, boolean canGrief) {
 		float radius = getPowered() ? ModConfig.explosionRadii.electricCreeperRadius * 1.5F : ModConfig.explosionRadii.electricCreeperRadius;
 		AxisAlignedBB bb = new AxisAlignedBB(posX - radius, posY - radius, posZ - radius, posX + radius, posY + radius, posZ + radius);
 		List<Entity> entities = world.getEntitiesWithinAABBExcludingEntity(this, bb);

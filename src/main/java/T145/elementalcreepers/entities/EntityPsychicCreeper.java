@@ -13,10 +13,10 @@ public class EntityPsychicCreeper extends EntityBaseCreeper {
 	}
 
 	@Override
-	public void createExplosion(int explosionPower, boolean griefingEnabled) {
+	public void createExplosion(int explosionPower, boolean canGrief) {
 		if (!world.isRemote) {
 			int radius = ModConfig.explosionRadii.psychicCreeperRadius * explosionPower;
-			ExplosionBase explosion = new ExplosionPsychic(world, this, posX, posY, posZ, ModConfig.explosionPower.psychicCreeperPower, radius, false, griefingEnabled);
+			ExplosionBase explosion = new ExplosionPsychic(world, this, posX, posY, posZ, ModConfig.explosionPower.psychicCreeperPower, radius, false, canGrief);
 			explosion.doExplosionA();
 		}
 	}

@@ -65,10 +65,10 @@ public class EntityIllusionCreeper extends EntityBaseCreeper {
 	}
 
 	@Override
-	public void createExplosion(int explosionPower, boolean griefingEnabled) {
+	public void createExplosion(int explosionPower, boolean canGrief) {
 		if (!illusion) {
 			int exPower = 2 * explosionPower; // original was 3x
-			world.createExplosion(this, posX, posY, posZ, exPower, griefingEnabled);
+			world.createExplosion(this, posX, posY, posZ, exPower, canGrief);
 		} else {
 			spawnExplosionParticle();
 		}

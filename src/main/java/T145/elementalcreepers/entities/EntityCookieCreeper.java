@@ -14,7 +14,7 @@ public class EntityCookieCreeper extends EntityBaseCreeper {
 	}
 
 	@Override
-	public void createExplosion(int explosionPower, boolean griefingEnabled) {
+	public void createExplosion(int explosionPower, boolean canGrief) {
 		for (int i = 0; i < ModConfig.general.cookieCreeperAmount; ++i) {
 			EntityItem cookie = new EntityItem(world, posX, posY, posZ, new ItemStack(Items.COOKIE));
 			cookie.motionY = 0.5D;

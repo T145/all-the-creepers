@@ -49,7 +49,7 @@ public class EntitySpringCreeper extends EntityBaseCreeper {
 	}
 
 	@Override
-	public void createExplosion(int explosionPower, boolean griefingEnabled) {
+	public void createExplosion(int explosionPower, boolean canGrief) {
 		power = getPowered() ? ModConfig.explosionPower.springCreeperPower * 1.5F : ModConfig.explosionPower.springCreeperPower;
 
 		if (world.isRemote) {

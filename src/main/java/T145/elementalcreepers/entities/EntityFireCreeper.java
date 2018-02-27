@@ -18,7 +18,7 @@ public class EntityFireCreeper extends EntityBaseCreeper {
 	}
 
 	@Override
-	public void createExplosion(int explosionPower, boolean griefingEnabled) {
+	public void createExplosion(int explosionPower, boolean canGrief) {
 		int radius = getPowered() ? ModConfig.explosionRadii.fireCreeperRadius * explosionPower : ModConfig.explosionRadii.fireCreeperRadius;
 
 		for (int x = -radius; x <= radius; x++) {
@@ -27,7 +27,7 @@ public class EntityFireCreeper extends EntityBaseCreeper {
 					pos.setPos(posX + x, posY + y, posZ + z);
 
 					if (Blocks.DIRT.canPlaceBlockAt(world, pos) && !Blocks.DIRT.canPlaceBlockAt(world, new BlockPos(posX + x, posY + y - 1, posZ + z)) && rand.nextBoolean()) {
-						if (griefingEnabled) {
+						if (canGrief) {
 							world.setBlockState(pos, Blocks.FIRE.getDefaultState());
 						} else {
 							List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(posX - radius, posY - radius, posZ - radius, posX + radius, posY + radius, posZ + radius));

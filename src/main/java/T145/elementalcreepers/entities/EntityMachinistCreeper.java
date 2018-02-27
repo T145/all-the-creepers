@@ -11,7 +11,7 @@ public class EntityMachinistCreeper extends EntityBaseCreeper {
 	}
 
 	@Override
-	public void createExplosion(int explosionPower, boolean griefingEnabled) {
+	public void createExplosion(int explosionPower, boolean canGrief) {
 		// TODO Auto-generated method stub
 
 	}

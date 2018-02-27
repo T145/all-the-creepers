@@ -26,7 +26,7 @@ public class EntitySpiderCreeper extends EntityBaseCreeper {
 	}
 
 	@Override
-	public void createExplosion(int explosionPower, boolean griefingEnabled) {
+	public void createExplosion(int explosionPower, boolean canGrief) {
 		int radius = getPowered() ? ModConfig.explosionRadii.spiderCreeperRadius * explosionPower : ModConfig.explosionRadii.spiderCreeperRadius;
 		AxisAlignedBB bb = new AxisAlignedBB(posX - radius, posY - radius, posZ - radius, posX + radius, posY + radius, posZ + radius);
 		List<Entity> entities = world.getEntitiesWithinAABBExcludingEntity(this, bb);
@@ -55,7 +55,7 @@ public class EntitySpiderCreeper extends EntityBaseCreeper {
 					}
 
 					if (i > 0) {
-						((EntityLivingBase) entity).addPotionEffect(new PotionEffect(MobEffects.POISON, i * 20, 0));
+						((EntityLivingBase) entity).addPotionEffect(new PotionEffect(MobEffects.POISON, i * 40, 0));
 					}
 				}
 			}

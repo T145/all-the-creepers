@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import T145.elementalcreepers.ElementalCreepers;
-import T145.elementalcreepers.client.render.entity.RenderElementalCreeper;
+import T145.elementalcreepers.client.render.entity.RenderBaseCreeper;
 import T145.elementalcreepers.client.render.entity.RenderFriendlyCreeper;
 import T145.elementalcreepers.client.render.entity.RenderSpiderCreeper;
 import T145.elementalcreepers.config.ModConfig;
@@ -377,7 +377,7 @@ public class ModLoader {
 			registerRenderer(EntityFireCreeper.class, "firecreeper");
 			registerRenderer(EntityFireworkCreeper.class, "fireworkcreeper");
 			registerRenderer(EntityFurnaceCreeper.class, "furnacecreeper");
-			RenderingRegistry.registerEntityRenderingHandler(EntityGhostCreeper.class, renderManager -> new RenderElementalCreeper(renderManager, null, true));
+			RenderingRegistry.registerEntityRenderingHandler(EntityGhostCreeper.class, renderManager -> new RenderBaseCreeper(renderManager, true));
 			RenderingRegistry.registerEntityRenderingHandler(EntityFriendlyCreeper.class, renderManager -> new RenderFriendlyCreeper(renderManager));
 			registerRenderer(EntityBallisticCreeper.class, "hydrogencreeper");
 			registerRenderer(EntityIceCreeper.class, "icecreeper");
@@ -396,7 +396,7 @@ public class ModLoader {
 		}
 
 		private static void registerRenderer(Class creeper, String textureName) {
-			RenderingRegistry.registerEntityRenderingHandler(creeper, renderManager -> new RenderElementalCreeper(renderManager, textureName));
+			RenderingRegistry.registerEntityRenderingHandler(creeper, renderManager -> new RenderBaseCreeper(renderManager, textureName));
 		}
 	}
 }

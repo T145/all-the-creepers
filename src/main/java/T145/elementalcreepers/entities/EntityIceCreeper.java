@@ -28,7 +28,7 @@ public class EntityIceCreeper extends EntityBaseCreeper {
 	}
 
 	@Override
-	public void createExplosion(int explosionPower, boolean griefingEnabled) {
+	public void createExplosion(int explosionPower, boolean canGrief) {
 		int radius = getPowered() ? ModConfig.explosionRadii.iceCreeperRadius * explosionPower : ModConfig.explosionRadii.iceCreeperRadius;
 
 		for (int x = -radius; x <= radius; x++) {
