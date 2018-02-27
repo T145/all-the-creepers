@@ -5,22 +5,24 @@ import java.util.Set;
 
 import T145.elementalcreepers.ElementalCreepers;
 import T145.elementalcreepers.client.render.entity.RenderElementalCreeper;
+import T145.elementalcreepers.client.render.entity.RenderFriendlyCreeper;
 import T145.elementalcreepers.client.render.entity.RenderSpiderCreeper;
 import T145.elementalcreepers.config.ModConfig;
+import T145.elementalcreepers.entities.EntityBallisticCreeper;
 import T145.elementalcreepers.entities.EntityCakeCreeper;
 import T145.elementalcreepers.entities.EntityCookieCreeper;
 import T145.elementalcreepers.entities.EntityDarkCreeper;
 import T145.elementalcreepers.entities.EntityEarthCreeper;
-import T145.elementalcreepers.entities.EntityLightningCreeper;
 import T145.elementalcreepers.entities.EntityEnderCreeper;
 import T145.elementalcreepers.entities.EntityFireCreeper;
 import T145.elementalcreepers.entities.EntityFireworkCreeper;
+import T145.elementalcreepers.entities.EntityFriendlyCreeper;
 import T145.elementalcreepers.entities.EntityFurnaceCreeper;
 import T145.elementalcreepers.entities.EntityGhostCreeper;
-import T145.elementalcreepers.entities.EntityBallisticCreeper;
 import T145.elementalcreepers.entities.EntityIceCreeper;
 import T145.elementalcreepers.entities.EntityIllusionCreeper;
 import T145.elementalcreepers.entities.EntityLightCreeper;
+import T145.elementalcreepers.entities.EntityLightningCreeper;
 import T145.elementalcreepers.entities.EntityMagmaCreeper;
 import T145.elementalcreepers.entities.EntityPsychicCreeper;
 import T145.elementalcreepers.entities.EntityReverseCreeper;
@@ -102,6 +104,11 @@ public class ModLoader {
 					.build(),
 					createBuilder("FurnaceCreeper")
 					.entity(EntityFurnaceCreeper.class)
+					.tracker(80, 3, true)
+					.egg(0x0DA70B, 0x101010)
+					.build(),
+					createBuilder("FriendlyCreeper")
+					.entity(EntityFriendlyCreeper.class)
 					.tracker(80, 3, true)
 					.egg(0x0DA70B, 0x101010)
 					.build(),
@@ -202,7 +209,7 @@ public class ModLoader {
 				addOverworldSpawn(EntityPsychicCreeper.class, ModConfig.spawnRate.psychicCreeperSpawn, 1, 3);
 				addOverworldSpawn(EntityIllusionCreeper.class, ModConfig.spawnRate.illusionCreeperSpawn, 1, 1);
 				addOverworldSpawn(EntitySpiderCreeper.class, ModConfig.spawnRate.spiderCreeperSpawn, 1, 3);
-				//addOverworldSpawn(EntityFriendlyCreeper.class, ModConfig.spawnRate.friendlyCreeperSpawn, 1, 2, EnumCreatureType.CREATURE);
+				addOverworldSpawn(EntityFriendlyCreeper.class, ModConfig.spawnRate.friendlyCreeperSpawn, 1, 2, EnumCreatureType.CREATURE);
 				addOverworldSpawn(EntityWindCreeper.class, ModConfig.spawnRate.windCreeperSpawn, 1, 2);
 				addOverworldSpawn(EntityBallisticCreeper.class, ModConfig.spawnRate.hydrogenCreeperSpawn, 1, 1);
 				addOverworldSpawn(EntityEnderCreeper.class, ModConfig.spawnRate.enderCreeperSpawn, 1, 2);
@@ -221,7 +228,7 @@ public class ModLoader {
 				copyCreeperSpawns(EntityFireCreeper.class);
 				copyCreeperSpawns(EntityFireworkCreeper.class);
 				copyCreeperSpawns(EntityFurnaceCreeper.class);
-				//copyCreeperSpawns(EntityFriendlyCreeper.class);
+				copyCreeperSpawns(EntityFriendlyCreeper.class);
 				copyCreeperSpawns(EntityBallisticCreeper.class);
 				copyCreeperSpawns(EntityIceCreeper.class);
 				copyCreeperSpawns(EntityIllusionCreeper.class);
@@ -298,8 +305,7 @@ public class ModLoader {
 			EntityLivingBase entity = event.getEntityLiving();
 			boolean killedByPlayer = damage.getDamageType().equals("player") || trueSource instanceof EntityPlayer;
 
-			if (killedByPlayer && entity instanceof EntityCreeper && !(entity instanceof EntityGhostCreeper)) {
-				// && !(entity instanceof EntityFriendlyCreeper)
+			if (killedByPlayer && entity instanceof EntityCreeper && !(entity instanceof EntityGhostCreeper) && !(entity instanceof EntityFriendlyCreeper)) {
 				if (entity instanceof EntityIllusionCreeper && ((EntityIllusionCreeper) entity).isIllusion()) {
 					return;
 				}
@@ -372,6 +378,7 @@ public class ModLoader {
 			registerRenderer(EntityFireworkCreeper.class, "fireworkcreeper");
 			registerRenderer(EntityFurnaceCreeper.class, "furnacecreeper");
 			RenderingRegistry.registerEntityRenderingHandler(EntityGhostCreeper.class, renderManager -> new RenderElementalCreeper(renderManager, null, true));
+			RenderingRegistry.registerEntityRenderingHandler(EntityFriendlyCreeper.class, renderManager -> new RenderFriendlyCreeper(renderManager));
 			registerRenderer(EntityBallisticCreeper.class, "hydrogencreeper");
 			registerRenderer(EntityIceCreeper.class, "icecreeper");
 			registerRenderer(EntityIllusionCreeper.class, "illusioncreeper");

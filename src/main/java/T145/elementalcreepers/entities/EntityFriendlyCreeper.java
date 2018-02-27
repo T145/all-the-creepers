@@ -6,7 +6,6 @@ import java.util.UUID;
 import javax.annotation.Nullable;
 
 import T145.elementalcreepers.ElementalCreepers;
-import T145.elementalcreepers.api.IEntityCreeper;
 import T145.elementalcreepers.entities.ai.EntityAIFriendlyCreeperSwell;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
@@ -58,7 +57,7 @@ import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class EntityFriendlyCreeper extends EntityTameable implements IEntityCreeper {
+public class EntityFriendlyCreeper extends EntityTameable {
 
 	private static final DataParameter<Integer> STATE = EntityDataManager.<Integer>createKey(EntityFriendlyCreeper.class, DataSerializers.VARINT);
 	private static final DataParameter<Boolean> POWERED = EntityDataManager.<Boolean>createKey(EntityFriendlyCreeper.class, DataSerializers.BOOLEAN);
@@ -242,7 +241,6 @@ public class EntityFriendlyCreeper extends EntityTameable implements IEntityCree
 	}
 
 	@SideOnly(Side.CLIENT)
-	@Override
 	public float getCreeperFlashIntensity(float intensity) {
 		return (lastActiveTime + (timeSinceIgnited - lastActiveTime) * intensity) / (fuseTime - 2);
 	}
