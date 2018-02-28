@@ -117,7 +117,7 @@ public class ModLoader {
 					.tracker(80, 3, true)
 					.egg(0x0DA70B, 0x101010)
 					.build(),
-					createBuilder("HydrogenCreeper")
+					createBuilder("BallisticCreeper")
 					.entity(EntityBallisticCreeper.class)
 					.tracker(80, 3, true)
 					.egg(0x0DA70B, 0x101010)
@@ -137,7 +137,7 @@ public class ModLoader {
 					.tracker(80, 3, true)
 					.egg(0x0DA70B, 0x101010)
 					.build(),
-					createBuilder("ElectricCreeper")
+					createBuilder("LightningCreeper")
 					.entity(EntityLightningCreeper.class)
 					.tracker(80, 3, true)
 					.egg(0x0DA70B, 0x101010)

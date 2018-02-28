@@ -341,11 +341,6 @@ public class EntityFriendlyCreeper extends EntityTameable {
 		return false;
 	}
 
-	@Override
-	public int getMaxSpawnedInChunk() {
-		return 8;
-	}
-
 	public boolean isAngry() {
 		return (dataManager.get(TAMED) & 2) != 0;
 	}
