@@ -209,7 +209,6 @@ public class ModLoader {
 				addOverworldSpawn(EntityPsychicCreeper.class, ModConfig.spawnRate.psychicCreeperSpawn, 1, 3);
 				addOverworldSpawn(EntityIllusionCreeper.class, ModConfig.spawnRate.illusionCreeperSpawn, 1, 1);
 				addOverworldSpawn(EntitySpiderCreeper.class, ModConfig.spawnRate.spiderCreeperSpawn, 1, 3);
-				addOverworldSpawn(EntityFriendlyCreeper.class, ModConfig.spawnRate.friendlyCreeperSpawn, 1, 2, EnumCreatureType.CREATURE);
 				addOverworldSpawn(EntityWindCreeper.class, ModConfig.spawnRate.windCreeperSpawn, 1, 2);
 				addOverworldSpawn(EntityBallisticCreeper.class, ModConfig.spawnRate.hydrogenCreeperSpawn, 1, 1);
 				addOverworldSpawn(EntityEnderCreeper.class, ModConfig.spawnRate.enderCreeperSpawn, 1, 2);
@@ -228,7 +227,6 @@ public class ModLoader {
 				copyCreeperSpawns(EntityFireCreeper.class);
 				copyCreeperSpawns(EntityFireworkCreeper.class);
 				copyCreeperSpawns(EntityFurnaceCreeper.class);
-				copyCreeperSpawns(EntityFriendlyCreeper.class);
 				copyCreeperSpawns(EntityBallisticCreeper.class);
 				copyCreeperSpawns(EntityIceCreeper.class);
 				copyCreeperSpawns(EntityIllusionCreeper.class);
@@ -245,6 +243,7 @@ public class ModLoader {
 				copyCreeperSpawns(EntityZombieCreeper.class);
 			}
 
+			addOverworldSpawn(EntityFriendlyCreeper.class, ModConfig.spawnRate.friendlyCreeperSpawn, 1, 2, EnumCreatureType.CREATURE);
 			addNetherSpawn(EntityFireCreeper.class, ModConfig.spawnRate.fireCreeperSpawn, 1, 3);
 			addNetherSpawn(EntityMagmaCreeper.class, ModConfig.spawnRate.magmaCreeperSpawn, 1, 2);
 			addEndSpawn(EntityEnderCreeper.class, ModConfig.spawnRate.enderCreeperSpawn * 5, 1, 3);

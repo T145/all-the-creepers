@@ -1,14 +1,20 @@
 package T145.elementalcreepers.entities;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import com.google.common.collect.Lists;
+
 import T145.elementalcreepers.ElementalCreepers;
 import T145.elementalcreepers.entities.ai.EntityAIFriendlyCreeperSwell;
+import T145.elementalcreepers.explosion.ExplosionFriendly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.ParticleFirework;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityAreaEffectCloud;
@@ -41,9 +47,11 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -51,6 +59,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
@@ -361,8 +370,8 @@ public class EntityFriendlyCreeper extends EntityTameable {
 		UUID uuid = getOwnerId();
 
 		if (uuid != null) {
-			creeper.setOwnerId(uuid);
-			creeper.setTamed(true);
+			setOwnerId(uuid);
+			setTamed(true);
 		}
 
 		return creeper;
@@ -379,10 +388,10 @@ public class EntityFriendlyCreeper extends EntityTameable {
 		} else {
 			EntityFriendlyCreeper creeper = (EntityFriendlyCreeper) otherAnimal;
 
-			if (!creeper.isTamed() || creeper.isSitting()) {
+			if (!isTamed() || isSitting()) {
 				return false;
 			} else {
-				return isInLove() && creeper.isInLove();
+				return isInLove() && isInLove();
 			}
 		}
 	}
@@ -396,7 +405,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
 		if (target instanceof EntityFriendlyCreeper) {
 			EntityFriendlyCreeper creeper = (EntityFriendlyCreeper) target;
 
-			if (creeper.isTamed() && creeper.getOwner() == owner) {
+			if (isTamed() && getOwner() == owner) {
 				return false;
 			}
 		}
@@ -529,17 +538,49 @@ public class EntityFriendlyCreeper extends EntityTameable {
 			boolean canGrief = world.getGameRules().getBoolean("mobGriefing");
 			int explosionPower = explosionRadius * (getPowered() ? 2 : 1);
 			dead = true;
-			createExplosino(explosionPower, canGrief);
+			createExplosion(explosionPower, canGrief);
 			setDead();
 			spawnLingeringCloud();
 		}
 	}
 
-	public void createExplosino(int explosionPower, boolean canGrief) {
+	public void createExplosion(int explosionPower, boolean canGrief) {
 		if (isTamed()) {
-			// do friendly explosion
+			ExplosionFriendly explosion = new ExplosionFriendly(world, this, posX, posY, posZ, explosionPower, explosionRadius, canGrief);
+			explosion.doExplosionA();
+
+			world.playSound(null, posX, posY, posZ, SoundEvents.ENTITY_FIREWORK_TWINKLE, SoundCategory.BLOCKS, 0.5F, (1.0F + (rand.nextFloat() - rand.nextFloat()) * 0.2F) * 0.7F);
+			Minecraft.getMinecraft().effectRenderer.addEffect(new ParticleFirework.Starter(world, posX, posY + (getPowered() ? 2.5F : 0.5F), posZ, 0, 0, 0, Minecraft.getMinecraft().effectRenderer, generateTag()));
 		} else {
 			world.createExplosion(this, posX, posY, posZ, explosionRadius, canGrief);
 		}
+	}
+
+	private NBTTagCompound generateTag() {
+		NBTTagCompound fireworkTag = new NBTTagCompound();
+		NBTTagCompound fireworkItemTag = new NBTTagCompound();
+		NBTTagList nbttaglist = new NBTTagList();
+		List<Integer> list = Lists.<Integer>newArrayList();
+
+		list.add(ItemDye.DYE_COLORS[1]);
+		list.add(ItemDye.DYE_COLORS[11]);
+		list.add(ItemDye.DYE_COLORS[4]);
+
+		for (int i = 0; i < rand.nextInt(3) + 3; i++) {
+			list.add(ItemDye.DYE_COLORS[rand.nextInt(15)]);
+		}
+
+		int[] colours = new int[list.size()];
+
+		for (int i = 0; i < colours.length; i++) {
+			colours[i] = list.get(i);
+		}
+
+		fireworkTag.setIntArray("Colors", colours);
+		fireworkTag.setBoolean("Flicker", true);
+		fireworkTag.setByte("Type", (byte) (getPowered() ? 3 : 4));
+		nbttaglist.appendTag(fireworkTag);
+		fireworkItemTag.setTag("Explosions", nbttaglist);
+		return fireworkItemTag;
 	}
 }

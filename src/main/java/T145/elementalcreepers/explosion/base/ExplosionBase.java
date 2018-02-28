@@ -18,6 +18,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
+import net.minecraftforge.event.ForgeEventFactory;
 
 public abstract class ExplosionBase extends Explosion {
 
@@ -42,10 +43,7 @@ public abstract class ExplosionBase extends Explosion {
 		this.size = size;
 	}
 
-	public boolean doDamage() {
-		return true;
-	}
-
+	@Override
 	public void doExplosionA() {
 		Set<BlockPos> set = Sets.<BlockPos>newHashSet();
 
@@ -96,8 +94,9 @@ public abstract class ExplosionBase extends Explosion {
 		int j2 = MathHelper.floor(z - f3 - 1.0D);
 		int j1 = MathHelper.floor(z + f3 + 1.0D);
 		List<Entity> list = world.getEntitiesWithinAABBExcludingEntity(exploder, new AxisAlignedBB(k1, i2, j2, l1, i1, j1));
-		net.minecraftforge.event.ForgeEventFactory.onExplosionDetonate(world, this, list, f3);
 		Vec3d vec3d = new Vec3d(x, y, z);
+
+		ForgeEventFactory.onExplosionDetonate(world, this, list, f3);
 
 		for (int k2 = 0; k2 < list.size(); ++k2) {
 			Entity entity = list.get(k2);
@@ -117,7 +116,7 @@ public abstract class ExplosionBase extends Explosion {
 						d9 /= d13;
 						double d14 = world.getBlockDensity(vec3d, entity.getEntityBoundingBox());
 						double d10 = (1.0D - d12) * d14;
-						entity.attackEntityFrom(DamageSource.causeExplosionDamage(this), doDamage() ? ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * f3 + 1.0D)) : 1);
+						entity.attackEntityFrom(DamageSource.causeExplosionDamage(this), doDamage(entity) ? ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * f3 + 1.0D)) : 1);
 						double d11 = d10;
 
 						if (entity instanceof EntityLivingBase) {
@@ -137,6 +136,10 @@ public abstract class ExplosionBase extends Explosion {
 				}
 			}
 		}
+	}
+
+	public boolean doDamage(Entity entity) {
+		return true;
 	}
 
 	public abstract void editEntityMotion(Entity entity, double d5, double d7, double d9, double d10, double d11, double d12, double d13, double d14);

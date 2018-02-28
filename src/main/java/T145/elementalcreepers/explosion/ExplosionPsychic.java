@@ -11,7 +11,7 @@ public class ExplosionPsychic extends ExplosionBase {
 	}
 
 	@Override
-	public boolean doDamage() {
+	public boolean doDamage(Entity entity) {
 		return false;
 	}
 
