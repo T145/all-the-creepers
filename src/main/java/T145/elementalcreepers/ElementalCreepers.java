@@ -10,12 +10,13 @@ import net.minecraftforge.fml.common.Mod.Metadata;
 import net.minecraftforge.fml.common.ModMetadata;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = ElementalCreepers.MODID, name = ElementalCreepers.NAME, version = ElementalCreepers.VERSION)
+@Mod(modid = ElementalCreepers.MODID, name = ElementalCreepers.NAME, version = ElementalCreepers.VERSION, updateJSON = ElementalCreepers.UPDATE_JSON)
 public class ElementalCreepers {
 
 	public static final String MODID = "elementalcreepers";
 	public static final String NAME = "ElementalCreepers";
 	public static final String VERSION = "$version";
+	public static final String UPDATE_JSON = "https://github.com/T145/elemental-creepers/blob/master/update.json";
 	public static final Logger LOG = LogManager.getLogger(MODID);
 
 	@Instance(MODID)
