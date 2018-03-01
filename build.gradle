@@ -15,7 +15,7 @@ buildscript {
 }
 
 plugins {
-	id 'org.ajoberstar.grgit' version '2.1.0'
+	id 'org.ajoberstar.grgit' version '2.1.1'
 	id 'de.undercouch.download' version '3.3.0'
 }
 
@@ -59,7 +59,7 @@ minecraft {
 	makeObfSourceJar = false
 
 	replaceIn "${mod_id}.java"
-	replace "$version", project.version
+	replace "@VERSION@", project.version
 }
 
 processResources {

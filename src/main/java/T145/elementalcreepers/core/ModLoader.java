@@ -43,10 +43,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -61,8 +63,12 @@ import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 @ObjectHolder(ElementalCreepers.MODID)
 public class ModLoader {
 
+	private ModLoader() {}
+
 	@EventBusSubscriber(modid = ElementalCreepers.MODID)
 	public static class ServerLoader {
+
+		private ServerLoader() {}
 
 		@SubscribeEvent
 		public static void registerEntities(final RegistryEvent.Register<EntityEntry> event) {
@@ -193,8 +199,6 @@ public class ModLoader {
 				event.getRegistry().register(entry);
 				Constants.CREEPER_LIST.add((Class<? extends EntityCreeper>) entry.getEntityClass());
 			}
-
-			//event.getRegistry().registerAll(entries);
 
 			if (ModConfig.general.reasonableSpawnRates) {
 				addOverworldSpawn(EntityFireCreeper.class, ModConfig.spawnRate.fireCreeperSpawn, 1, 3);
@@ -361,10 +365,20 @@ public class ModLoader {
 				}
 			}
 		}
+
+		@SubscribeEvent
+		public static void onPlayerJoinedWorld(EntityJoinWorldEvent event) {
+			if (event.getEntity() instanceof EntityPlayer && UpdateChecker.hasUpdate()) {
+				EntityPlayer player = (EntityPlayer) event.getEntity();
+				player.sendMessage(new TextComponentString(UpdateChecker.getUpdateNotification()));
+			}
+		}
 	}
 
 	@EventBusSubscriber(modid = ElementalCreepers.MODID)
 	public static class ClientLoader {
+
+		private ClientLoader() {}
 
 		@SubscribeEvent
 		public static void onModelRegistration(ModelRegistryEvent event) {

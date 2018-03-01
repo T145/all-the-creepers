@@ -15,8 +15,8 @@ public class ElementalCreepers {
 
 	public static final String MODID = "elementalcreepers";
 	public static final String NAME = "ElementalCreepers";
-	public static final String VERSION = "$version";
-	public static final String UPDATE_JSON = "https://github.com/T145/elemental-creepers/blob/master/update.json";
+	public static final String VERSION = "@VERSION@";
+	public static final String UPDATE_JSON = "https://raw.githubusercontent.com/T145/elemental-creepers/master/update.json";
 	public static final Logger LOG = LogManager.getLogger(MODID);
 
 	@Instance(MODID)
