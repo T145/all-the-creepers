@@ -1,5 +1,6 @@
 package T145.elementalcreepers.client.render.entity;
 
+import T145.elementalcreepers.client.render.entity.layers.LayerBaseCharge;
 import T145.elementalcreepers.client.render.model.ModelSpiderCreeper;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;

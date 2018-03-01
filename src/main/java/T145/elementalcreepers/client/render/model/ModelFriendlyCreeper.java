@@ -2,6 +2,7 @@ package T145.elementalcreepers.client.render.model;
 
 import org.lwjgl.opengl.GL11;
 
+import T145.elementalcreepers.api.client.IModelCreeper;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
@@ -10,7 +11,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class ModelFriendlyCreeper extends ModelBase {
+public class ModelFriendlyCreeper extends ModelBase implements IModelCreeper {
 
 	public ModelRenderer head;
 	public ModelRenderer creeperArmor;
@@ -87,5 +88,10 @@ public class ModelFriendlyCreeper extends ModelBase {
 		leg2.rotateAngleX = (MathHelper.cos(limbSwing * 0.6662F + 3.1415927F) * 1.4F * limbSwingAmount);
 		leg3.rotateAngleX = (MathHelper.cos(limbSwing * 0.6662F + 3.1415927F) * 1.4F * limbSwingAmount);
 		leg4.rotateAngleX = (MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount);
+	}
+
+	@Override
+	public void postRenderHead() {
+		head.postRender(HEAD_OFFSET);
 	}
 }

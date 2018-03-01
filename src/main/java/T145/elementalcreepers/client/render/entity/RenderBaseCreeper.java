@@ -1,6 +1,8 @@
 package T145.elementalcreepers.client.render.entity;
 
 import T145.elementalcreepers.ElementalCreepers;
+import T145.elementalcreepers.client.render.entity.layers.LayerBaseCharge;
+import T145.elementalcreepers.client.render.entity.layers.LayerFestiveCreeper;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelCreeper;
 import net.minecraft.client.renderer.GlStateManager;
@@ -31,7 +33,7 @@ public class RenderBaseCreeper extends RenderCreeper {
 		}
 
 		layerRenderers.clear();
-		addLayer(new LayerFestive(this));
+		addLayer(new LayerFestiveCreeper(this));
 		addLayer(getChargeLayer(this));
 	}
 

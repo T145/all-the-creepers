@@ -26,6 +26,10 @@ public class ModConfig {
 
 	public static class General {
 
+		@Config.Comment("Whether or not holiday features")
+		@Config.RequiresMcRestart
+		public boolean festiveSpirit = true;
+
 		@Config.Comment("Whether or not elemental creepers should spawn like normal creepers or basically overwrite them")
 		@Config.RequiresMcRestart
 		public boolean reasonableSpawnRates;

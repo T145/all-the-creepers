@@ -1,7 +1,6 @@
-package T145.elementalcreepers.util;
+package T145.elementalcreepers.utils;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 
@@ -14,9 +13,6 @@ import net.minecraftforge.oredict.OreDictionary;
 public class Constants {
 
 	private Constants() {}
-
-	public static final int MONTH = Calendar.getInstance().get(2);
-	public static final int DAY = Calendar.getInstance().get(5);
 
 	public static final HashSet<Block> ROCK_SET = new HashSet<>();
 	public static final List<Class<? extends EntityCreeper> > CREEPER_LIST = new ArrayList<>();

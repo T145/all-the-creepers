@@ -1,4 +1,4 @@
-package T145.elementalcreepers.client.render.entity;
+package T145.elementalcreepers.client.render.entity.layers;
 
 import T145.elementalcreepers.entities.base.EntityBaseCreeper;
 import net.minecraft.client.Minecraft;

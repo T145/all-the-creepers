@@ -1,5 +1,7 @@
 package T145.elementalcreepers.client.render.entity;
 
+import T145.elementalcreepers.client.render.entity.layers.LayerFestiveCreeper;
+import T145.elementalcreepers.client.render.entity.layers.LayerFriendlyCharge;
 import T145.elementalcreepers.client.render.model.ModelFriendlyCreeper;
 import T145.elementalcreepers.entities.EntityFriendlyCreeper;
 import net.minecraft.client.renderer.GlStateManager;
@@ -15,7 +17,7 @@ public class RenderFriendlyCreeper extends RenderLiving<EntityFriendlyCreeper> {
 
 	public RenderFriendlyCreeper(RenderManager renderManager) {
 		super(renderManager, new ModelFriendlyCreeper(), 0.5F);
-		addLayer(new LayerFestive(this));
+		addLayer(new LayerFestiveCreeper(this));
 		addLayer(new LayerFriendlyCharge(this, new ModelFriendlyCreeper(2F)));
 	}
 

@@ -32,7 +32,7 @@ import T145.elementalcreepers.entities.EntityStoneCreeper;
 import T145.elementalcreepers.entities.EntityWaterCreeper;
 import T145.elementalcreepers.entities.EntityWindCreeper;
 import T145.elementalcreepers.entities.EntityZombieCreeper;
-import T145.elementalcreepers.util.Constants;
+import T145.elementalcreepers.utils.Constants;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;

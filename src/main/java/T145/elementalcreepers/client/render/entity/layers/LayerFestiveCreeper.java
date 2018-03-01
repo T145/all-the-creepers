@@ -1,8 +1,8 @@
-package T145.elementalcreepers.client.render.entity;
+package T145.elementalcreepers.client.render.entity.layers;
 
-import T145.elementalcreepers.client.render.model.ModelFriendlyCreeper;
-import T145.elementalcreepers.client.render.model.ModelSpiderCreeper;
-import T145.elementalcreepers.util.Constants;
+import T145.elementalcreepers.api.client.IModelCreeper;
+import T145.elementalcreepers.config.ModConfig;
+import T145.elementalcreepers.utils.HolidayUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelCreeper;
@@ -17,47 +17,59 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class LayerFestive implements LayerRenderer {
+public class LayerFestiveCreeper implements LayerRenderer {
 
 	private final RenderLiving renderer;
 
-	public LayerFestive(RenderLiving renderLiving) {
+	public LayerFestiveCreeper(RenderLiving renderLiving) {
 		this.renderer = renderLiving;
 	}
 
 	@Override
 	public void doRenderLayer(EntityLivingBase entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		if (entity != null && !entity.isInvisible()) {
-			ItemStack stack = ItemStack.EMPTY;
+		if (ModConfig.general.festiveSpirit && entity != null && !entity.isInvisible()) {
+			ItemStack stack = getHolidayStack();
 
-			if (Constants.MONTH == 9 && Constants.DAY == 31) {
-				stack = new ItemStack(Blocks.PUMPKIN, 1);
-			}
-
-			if (Constants.MONTH == 10 && Constants.DAY == 12) {
-				stack = new ItemStack(Blocks.SPONGE, 1);
-			}
-
-			if (Constants.MONTH == 11 && Constants.DAY == 25) {
-				stack = new ItemStack(Blocks.SNOW);
-			}
-
-			if (!stack.isEmpty() /* && (ModConfig.special) */) {
+			if (!stack.isEmpty()) {
 				renderItem(entity, stack, renderer.getMainModel());
 			}
 		}
+	}
+
+	private ItemStack getHolidayStack() {
+		if (HolidayUtils.isAprilFools()) {
+			return new ItemStack(Blocks.SPONGE);
+		}
+
+		if (HolidayUtils.isChristmas()) {
+			return new ItemStack(Blocks.SNOW);
+		}
+
+		if (HolidayUtils.isEarthDay()) {
+			return new ItemStack(Blocks.GRASS);
+		}
+
+		if (HolidayUtils.isHalloween()) {
+			return new ItemStack(Blocks.PUMPKIN);
+		}
+
+		if (HolidayUtils.isValentinesDay()) {
+			return new ItemStack(Blocks.WOOL, 1, 14);
+		}
+
+		return ItemStack.EMPTY;
 	}
 
 	private void renderItem(EntityLivingBase entity, ItemStack stack, ModelBase model) {
 		if (!stack.isEmpty()) {
 			GlStateManager.pushMatrix();
 
-			if (model instanceof ModelCreeper) {
-				((ModelCreeper) model).head.postRender(0.0625F);
-			} else if (model instanceof ModelSpiderCreeper) {
-				((ModelSpiderCreeper) model).head.postRender(0.0625F);
-			} else if (model instanceof ModelFriendlyCreeper) {
-				((ModelFriendlyCreeper) model).head.postRender(0.0625F);
+			if (model instanceof IModelCreeper) {
+				IModelCreeper creeperModel = (IModelCreeper) model;
+				creeperModel.postRenderHead();
+			} else {
+				ModelCreeper creeperModel = (ModelCreeper) model;
+				creeperModel.head.postRender(IModelCreeper.HEAD_OFFSET);
 			}
 
 			float scale = 0.675F;
