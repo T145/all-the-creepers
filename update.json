@@ -1,15 +1,15 @@
 {
 	"homepage": "https://minecraft.curseforge.com/projects/elemental-creepers-redux",
 	"1.12.2": {
-		"v1.4": "https://minecraft.curseforge.com/projects/elemental-creepers-redux/files/2533599",
-		"v1.8": "https://minecraft.curseforge.com/projects/elemental-creepers-redux/files/2533720",
-		"v2.0": "https://github.com/T145/elemental-creepers/releases/tag/2.0",
-		"v2.0.7": "https://github.com/T145/elemental-creepers/releases/tag/2.0.7",
-		"v3.3": "https://github.com/T145/elemental-creepers/releases/tag/v3.3",
-		"v3.8.3": "https://github.com/T145/elemental-creepers/releases/tag/v3.8.3"
+		"1.4": "https://minecraft.curseforge.com/projects/elemental-creepers-redux/files/2533599",
+		"1.8": "https://minecraft.curseforge.com/projects/elemental-creepers-redux/files/2533720",
+		"2.0-0-g4b6f879": "https://github.com/T145/elemental-creepers/releases/tag/2.0",
+		"2.0-7-gece75fa": "https://github.com/T145/elemental-creepers/releases/tag/2.0.7",
+		"v3.3-0-gc378010": "https://github.com/T145/elemental-creepers/releases/tag/v3.3",
+		"v3.8.3-g68a0adb": "https://github.com/T145/elemental-creepers/releases/tag/v3.8.3"
 	},
 	"promos": {
-		"1.12.2-latest": "v3.8.3",
-		"1.12.2-recommended": "v3.8.3"
+		"1.12.2-latest": "v3.8.3-g68a0adb",
+		"1.12.2-recommended": "v3.8.3-g68a0adb"
 	}
 }
