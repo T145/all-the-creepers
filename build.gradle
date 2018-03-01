@@ -5,7 +5,7 @@ buildscript {
 	repositories {
 		jcenter()
 		maven {
-			name 'forge'
+			name 'MinecraftForge Repo'
 			url 'http://files.minecraftforge.net/maven'
 		}
 	}
@@ -44,7 +44,7 @@ task setupWorkspace(type: Download, dependsOn: setupDecompWorkspace) {
 	}
 }
 
-version = grgit.describe(longDescr: true)
+version = grgit.describe(longDescr: true) - '-0'
 group = mod_group
 archivesBaseName = mod_id
 
