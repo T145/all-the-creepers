@@ -121,7 +121,6 @@ public class ModLoader {
 					createBuilder("GhostCreeper")
 					.entity(EntityGhostCreeper.class)
 					.tracker(80, 3, true)
-					.egg(0x0DA70B, 0x101010)
 					.build(),
 					createBuilder("BallisticCreeper")
 					.entity(EntityBallisticCreeper.class)
@@ -368,9 +367,12 @@ public class ModLoader {
 
 		@SubscribeEvent
 		public static void onPlayerJoinedWorld(EntityJoinWorldEvent event) {
-			if (event.getEntity() instanceof EntityPlayer && UpdateChecker.hasUpdate()) {
+			if (event.getEntity() instanceof EntityPlayer) {
 				EntityPlayer player = (EntityPlayer) event.getEntity();
-				player.sendMessage(new TextComponentString(UpdateChecker.getUpdateNotification()));
+
+				if (UpdateChecker.hasUpdate()) {
+					player.sendMessage(new TextComponentString(UpdateChecker.getUpdateNotification()));
+				}
 			}
 		}
 	}

@@ -26,7 +26,7 @@ public class ModConfig {
 
 	public static class General {
 
-		@Config.Comment("Whether or not holiday features")
+		@Config.Comment("Whether or not to enable holiday features")
 		@Config.RequiresMcRestart
 		public boolean festiveSpirit = true;
 

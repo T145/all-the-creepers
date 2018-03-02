@@ -28,6 +28,6 @@ public class UpdateChecker {
 	}
 
 	public static String getUpdateNotification() {
-		return "Elemental Creepers has an update! Download " + getLatestVersion() + " here: \n" + getResult().url;
+		return "Elemental Creepers has an update! Download " + getLatestVersion() + "!";
 	}
 }
