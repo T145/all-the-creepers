@@ -1,6 +1,11 @@
 package T145.elementalcreepers.core;
 
 import T145.elementalcreepers.ElementalCreepers;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.ForgeVersion;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
@@ -16,7 +21,7 @@ public class UpdateChecker {
 		ForgeVersion.CheckResult result = getResult();
 
 		if (result.status == ForgeVersion.Status.PENDING) {
-			ElementalCreepers.LOG.warn("Cannot check for updates, found status: PENDING!");
+			ElementalCreepers.LOG.warn("Cannot check for updates! Found status PENDING!");
 			return false;
 		}
 
@@ -27,7 +32,10 @@ public class UpdateChecker {
 		return getResult().target.toString();
 	}
 
-	public static String getUpdateNotification() {
-		return "Elemental Creepers has an update! Download " + getLatestVersion() + "!";
+	public static ITextComponent getUpdateNotification() {
+		ITextComponent prefix = new TextComponentTranslation("elementalcreepers.client.update.prefix").setStyle(new Style().setColor(TextFormatting.GREEN));
+		ITextComponent base = new TextComponentTranslation("elementalcreepers.client.update").setStyle(new Style().setColor(TextFormatting.GOLD));
+		ITextComponent postfix = new TextComponentString(TextFormatting.AQUA + getLatestVersion() + TextFormatting.GOLD + "!");
+		return prefix.appendSibling(base).appendSibling(postfix);
 	}
 }

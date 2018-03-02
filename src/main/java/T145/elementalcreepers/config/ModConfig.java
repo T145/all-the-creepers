@@ -26,6 +26,9 @@ public class ModConfig {
 
 	public static class General {
 
+		@Config.Comment("Sends you an in-game notification if an update is available")
+		public boolean checkForUpdates = true;
+
 		@Config.Comment("Whether or not to enable holiday features")
 		@Config.RequiresMcRestart
 		public boolean festiveSpirit = true;

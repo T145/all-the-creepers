@@ -367,11 +367,11 @@ public class ModLoader {
 
 		@SubscribeEvent
 		public static void onPlayerJoinedWorld(EntityJoinWorldEvent event) {
-			if (event.getEntity() instanceof EntityPlayer) {
+			if (ModConfig.general.checkForUpdates && event.getWorld().isRemote && event.getEntity() instanceof EntityPlayer) {
 				EntityPlayer player = (EntityPlayer) event.getEntity();
 
 				if (UpdateChecker.hasUpdate()) {
-					player.sendMessage(new TextComponentString(UpdateChecker.getUpdateNotification()));
+					player.sendMessage(UpdateChecker.getUpdateNotification());
 				}
 			}
 		}
