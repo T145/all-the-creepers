@@ -123,13 +123,11 @@ public abstract class ExplosionBase extends Explosion {
 							d11 = EnchantmentProtection.getBlastDamageReduction((EntityLivingBase) entity, d10);
 						}
 
-						editEntityMotion(entity, d5, d7, d9, d10, d11, d12, d13, d14);
+						if (editEntityMotion(entity, d5, d7, d9, d10, d11, d12, d13, d14) && entity instanceof EntityPlayer) {
+							EntityPlayer entityplayer = (EntityPlayer) entity;
 
-						if (entity instanceof EntityPlayer) {
-							EntityPlayer player = (EntityPlayer) entity;
-
-							if (!player.isSpectator() && (!player.isCreative() || !player.capabilities.isFlying)) {
-								getPlayerKnockbackMap().put(player, new Vec3d(d5 * d10, d7 * d10, d9 * d10));
+							if (!entityplayer.isSpectator() && (!entityplayer.isCreative() || !entityplayer.capabilities.isFlying)) {
+								getPlayerKnockbackMap().put(entityplayer, new Vec3d(d5 * d10, d7 * d10, d9 * d10));
 							}
 						}
 					}
@@ -142,5 +140,10 @@ public abstract class ExplosionBase extends Explosion {
 		return true;
 	}
 
-	public abstract void editEntityMotion(Entity entity, double d5, double d7, double d9, double d10, double d11, double d12, double d13, double d14);
+	public boolean editEntityMotion(Entity entity, double d5, double d7, double d9, double d10, double d11, double d12, double d13, double d14) {
+		entity.motionX += d5 * d11;
+		entity.motionY += d7 * d11;
+		entity.motionZ += d9 * d11;
+		return true;
+	}
 }
