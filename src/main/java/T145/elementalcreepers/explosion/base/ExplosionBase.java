@@ -20,27 +20,15 @@ import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraftforge.event.ForgeEventFactory;
 
-public abstract class ExplosionBase extends Explosion {
+public class ExplosionBase extends Explosion {
 
 	public static final int RANGE = 16;
 
-	protected final World world;
-	protected final Entity exploder;
-	protected final double x;
-	protected final double y;
-	protected final double z;
 	protected final double explosionPower;
-	protected final float size;
 
 	public ExplosionBase(World world, Entity exploder, double x, double y, double z, double explosionPower, float size, boolean flaming, boolean damagesTerrain) {
 		super(world, exploder, x, y, z, size, flaming, damagesTerrain);
-		this.world = world;
-		this.exploder = exploder;
-		this.x = x;
-		this.y = y;
-		this.z = z;
 		this.explosionPower = explosionPower;
-		this.size = size;
 	}
 
 	@Override
@@ -124,10 +112,10 @@ public abstract class ExplosionBase extends Explosion {
 						}
 
 						if (editEntityMotion(entity, d5, d7, d9, d10, d11, d12, d13, d14) && entity instanceof EntityPlayer) {
-							EntityPlayer entityplayer = (EntityPlayer) entity;
+							EntityPlayer player = (EntityPlayer) entity;
 
-							if (!entityplayer.isSpectator() && (!entityplayer.isCreative() || !entityplayer.capabilities.isFlying)) {
-								getPlayerKnockbackMap().put(entityplayer, new Vec3d(d5 * d10, d7 * d10, d9 * d10));
+							if (!player.isSpectator() && (!player.isCreative() || !player.capabilities.isFlying)) {
+								getPlayerKnockbackMap().put(player, new Vec3d(d5 * d10, d7 * d10, d9 * d10));
 							}
 						}
 					}
