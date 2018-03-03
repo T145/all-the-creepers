@@ -43,17 +43,16 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
@@ -366,13 +365,9 @@ public class ModLoader {
 		}
 
 		@SubscribeEvent
-		public static void onPlayerJoinedWorld(EntityJoinWorldEvent event) {
-			if (ModConfig.general.checkForUpdates && event.getWorld().isRemote && event.getEntity() instanceof EntityPlayer) {
-				EntityPlayer player = (EntityPlayer) event.getEntity();
-
-				if (UpdateChecker.hasUpdate()) {
-					player.sendMessage(UpdateChecker.getUpdateNotification());
-				}
+		public static void onPlayerJoinedWorld(PlayerLoggedInEvent event) {
+			if (ModConfig.general.checkForUpdates && UpdateChecker.hasUpdate()) {
+				event.player.sendMessage(UpdateChecker.getUpdateNotification());
 			}
 		}
 	}
