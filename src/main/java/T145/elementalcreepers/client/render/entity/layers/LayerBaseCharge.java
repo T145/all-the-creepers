@@ -1,5 +1,7 @@
 package T145.elementalcreepers.client.render.entity.layers;
 
+import org.lwjgl.opengl.GL11;
+
 import T145.elementalcreepers.entities.base.EntityBaseCreeper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
@@ -33,11 +35,11 @@ public class LayerBaseCharge implements LayerRenderer<EntityBaseCreeper> {
 			boolean flag = creeper.isInvisible();
 			GlStateManager.depthMask(!flag);
 			renderer.bindTexture(LIGHTNING_TEXTURE);
-			GlStateManager.matrixMode(5890);
+			GlStateManager.matrixMode(GL11.GL_TEXTURE);
 			GlStateManager.loadIdentity();
 			float f = creeper.ticksExisted + partialTicks;
 			GlStateManager.translate(f * 0.01F, f * 0.01F, 0.0F);
-			GlStateManager.matrixMode(5888);
+			GlStateManager.matrixMode(GL11.GL_MODELVIEW);
 			GlStateManager.enableBlend();
 			GlStateManager.color(0.5F, 0.5F, 0.5F, 1.0F);
 			GlStateManager.disableLighting();
@@ -46,9 +48,9 @@ public class LayerBaseCharge implements LayerRenderer<EntityBaseCreeper> {
 			Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
 			model.render(creeper, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 			Minecraft.getMinecraft().entityRenderer.setupFogColor(false);
-			GlStateManager.matrixMode(5890);
+			GlStateManager.matrixMode(GL11.GL_TEXTURE);
 			GlStateManager.loadIdentity();
-			GlStateManager.matrixMode(5888);
+			GlStateManager.matrixMode(GL11.GL_MODELVIEW);
 			GlStateManager.enableLighting();
 			GlStateManager.disableBlend();
 			GlStateManager.depthMask(flag);

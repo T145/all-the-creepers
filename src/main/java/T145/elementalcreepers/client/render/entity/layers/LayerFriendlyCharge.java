@@ -1,9 +1,10 @@
 package T145.elementalcreepers.client.render.entity.layers;
 
+import org.lwjgl.opengl.GL11;
+
+import T145.elementalcreepers.client.render.model.ModelFriendlyCreeper;
 import T145.elementalcreepers.entities.EntityFriendlyCreeper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelCreeper;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
@@ -15,41 +16,35 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class LayerFriendlyCharge implements LayerRenderer<EntityFriendlyCreeper> {
 
 	private static final ResourceLocation LIGHTNING_TEXTURE = new ResourceLocation("textures/entity/creeper/creeper_armor.png");
-	private final RenderLiving creeperRenderer;
-	private final ModelBase creeperModel;
+	private final RenderLiving renderer;
+	private final ModelFriendlyCreeper model = new ModelFriendlyCreeper(2F);
 
-	public LayerFriendlyCharge(RenderLiving creeperRenderer, ModelBase creeperModel) {
-		this.creeperRenderer = creeperRenderer;
-		this.creeperModel = creeperModel;
-	}
-
-	public LayerFriendlyCharge(RenderLiving creeperRenderer) {
-		this(creeperRenderer, new ModelCreeper(2F));
+	public LayerFriendlyCharge(RenderLiving renderer) {
+		this.renderer = renderer;
 	}
 
 	@Override
-	public void doRenderLayer(EntityFriendlyCreeper entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		if (entitylivingbaseIn.getPowered()) {
-			boolean flag = entitylivingbaseIn.isInvisible();
+	public void doRenderLayer(EntityFriendlyCreeper creeper, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+		if (creeper.getPowered()) {
+			boolean flag = creeper.isInvisible();
 			GlStateManager.depthMask(!flag);
-			this.creeperRenderer.bindTexture(LIGHTNING_TEXTURE);
-			GlStateManager.matrixMode(5890);
+			renderer.bindTexture(LIGHTNING_TEXTURE);
+			GlStateManager.matrixMode(GL11.GL_TEXTURE);
 			GlStateManager.loadIdentity();
-			float f = (float) entitylivingbaseIn.ticksExisted + partialTicks;
+			float f = creeper.ticksExisted + partialTicks;
 			GlStateManager.translate(f * 0.01F, f * 0.01F, 0.0F);
-			GlStateManager.matrixMode(5888);
+			GlStateManager.matrixMode(GL11.GL_MODELVIEW);
 			GlStateManager.enableBlend();
-			float f1 = 0.5F;
 			GlStateManager.color(0.5F, 0.5F, 0.5F, 1.0F);
 			GlStateManager.disableLighting();
 			GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE);
-			this.creeperModel.setModelAttributes(this.creeperRenderer.getMainModel());
+			model.setModelAttributes(renderer.getMainModel());
 			Minecraft.getMinecraft().entityRenderer.setupFogColor(true);
-			this.creeperModel.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+			model.render(creeper, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 			Minecraft.getMinecraft().entityRenderer.setupFogColor(false);
-			GlStateManager.matrixMode(5890);
+			GlStateManager.matrixMode(GL11.GL_TEXTURE);
 			GlStateManager.loadIdentity();
-			GlStateManager.matrixMode(5888);
+			GlStateManager.matrixMode(GL11.GL_MODELVIEW);
 			GlStateManager.enableLighting();
 			GlStateManager.disableBlend();
 			GlStateManager.depthMask(flag);

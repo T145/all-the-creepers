@@ -4,7 +4,7 @@ import java.util.Collections;
 
 import T145.elementalcreepers.config.ModConfig;
 import T145.elementalcreepers.entities.base.EntityBaseCreeper;
-import T145.elementalcreepers.utils.Constants;
+import T145.elementalcreepers.lib.Constants;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.world.Explosion;

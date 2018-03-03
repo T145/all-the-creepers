@@ -18,7 +18,7 @@ public class RenderFriendlyCreeper extends RenderLiving<EntityFriendlyCreeper> {
 	public RenderFriendlyCreeper(RenderManager renderManager) {
 		super(renderManager, new ModelFriendlyCreeper(), 0.5F);
 		addLayer(new LayerFestiveCreeper(this));
-		addLayer(new LayerFriendlyCharge(this, new ModelFriendlyCreeper(2F)));
+		addLayer(new LayerFriendlyCharge(this));
 	}
 
 	@Override

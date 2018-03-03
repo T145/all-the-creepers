@@ -2,7 +2,7 @@ package T145.elementalcreepers.entities;
 
 import T145.elementalcreepers.ElementalCreepers;
 import T145.elementalcreepers.entities.base.EntityBaseCreeper;
-import T145.elementalcreepers.utils.Constants;
+import T145.elementalcreepers.lib.Constants;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.nbt.NBTTagCompound;

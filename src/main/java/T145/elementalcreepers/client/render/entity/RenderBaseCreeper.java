@@ -1,5 +1,7 @@
 package T145.elementalcreepers.client.render.entity;
 
+import org.lwjgl.opengl.GL11;
+
 import T145.elementalcreepers.ElementalCreepers;
 import T145.elementalcreepers.client.render.entity.layers.LayerBaseCharge;
 import T145.elementalcreepers.client.render.entity.layers.LayerFestiveCreeper;
@@ -66,7 +68,7 @@ public class RenderBaseCreeper extends RenderCreeper {
 		if (translucent) {
 			GlStateManager.pushMatrix();
 			GlStateManager.enableBlend();
-			GlStateManager.blendFunc(770, 771);
+			GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 			GlStateManager.color(1.0F, 1.0F, 1.0F, 0.3F);
 		}
 
