@@ -43,7 +43,7 @@ public class ModConfig {
 
 		@Config.Comment("Whether or not certain explosions are characteristically dome shaped")
 		@Config.RequiresWorldRestart
-		public boolean domeExplosion = true;
+		public boolean domeExplosion;
 
 		@Config.Comment("Whether or not placed blocks get updated upon generation; i.e. fluid blocks flow")
 		@Config.RequiresWorldRestart
