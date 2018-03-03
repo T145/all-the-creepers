@@ -1,6 +1,5 @@
 package T145.elementalcreepers.client.render.entity.layers;
 
-import T145.elementalcreepers.api.client.IModelCreeper;
 import T145.elementalcreepers.config.ModConfig;
 import T145.elementalcreepers.utils.HolidayUtils;
 import net.minecraft.client.Minecraft;
@@ -18,6 +17,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class LayerFestiveCreeper implements LayerRenderer {
+
+	static final float HEAD_OFFSET = 0.0625F;
 
 	private final RenderLiving renderer;
 
@@ -63,15 +64,7 @@ public class LayerFestiveCreeper implements LayerRenderer {
 	private void renderItem(EntityLivingBase entity, ItemStack stack, ModelBase model) {
 		if (!stack.isEmpty()) {
 			GlStateManager.pushMatrix();
-
-			if (model instanceof IModelCreeper) {
-				IModelCreeper creeperModel = (IModelCreeper) model;
-				creeperModel.postRenderHead();
-			} else {
-				ModelCreeper creeperModel = (ModelCreeper) model;
-				creeperModel.head.postRender(IModelCreeper.HEAD_OFFSET);
-			}
-
+			((ModelCreeper) model).head.postRender(HEAD_OFFSET);
 			float scale = 0.675F;
 			GlStateManager.translate(0F, -0.34375F, 0F);
 			GlStateManager.scale(scale, -scale, scale);
