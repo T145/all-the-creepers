@@ -8,7 +8,6 @@ import T145.elementalcreepers.client.render.entity.layers.LayerFestiveCreeper;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelCreeper;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.entity.RenderCreeper;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.entity.monster.EntityCreeper;
@@ -18,7 +17,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class RenderBaseCreeper extends RenderCreeper {
+public class RenderBaseCreeper extends RenderAngryCreeper {
 
 	private final ResourceLocation texture;
 	private final boolean translucent;
@@ -83,6 +82,7 @@ public class RenderBaseCreeper extends RenderCreeper {
 
 	@Override
 	public ResourceLocation getEntityTexture(EntityCreeper creeper) {
+		super.getEntityTexture(creeper);
 		return texture;
 	}
 }

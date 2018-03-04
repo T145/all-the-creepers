@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import T145.elementalcreepers.ElementalCreepers;
+import T145.elementalcreepers.client.render.entity.RenderAngryCreeper;
 import T145.elementalcreepers.client.render.entity.RenderBaseCreeper;
 import T145.elementalcreepers.client.render.entity.RenderFriendlyCreeper;
 import T145.elementalcreepers.client.render.entity.RenderSpiderCreeper;
@@ -379,6 +380,7 @@ public class ModLoader {
 
 		@SubscribeEvent
 		public static void onModelRegistration(ModelRegistryEvent event) {
+			RenderingRegistry.registerEntityRenderingHandler(EntityCreeper.class, manager -> new RenderAngryCreeper(manager));
 			registerRenderer(EntityCakeCreeper.class, "cakecreeper");
 			registerRenderer(EntityCookieCreeper.class, "cookiecreeper");
 			registerRenderer(EntityDarkCreeper.class, "darkcreeper");
@@ -387,8 +389,8 @@ public class ModLoader {
 			registerRenderer(EntityFireCreeper.class, "firecreeper");
 			registerRenderer(EntityFireworkCreeper.class, "fireworkcreeper");
 			registerRenderer(EntityFurnaceCreeper.class, "furnacecreeper");
-			RenderingRegistry.registerEntityRenderingHandler(EntityGhostCreeper.class, renderManager -> new RenderBaseCreeper(renderManager, true));
-			RenderingRegistry.registerEntityRenderingHandler(EntityFriendlyCreeper.class, renderManager -> new RenderFriendlyCreeper(renderManager));
+			RenderingRegistry.registerEntityRenderingHandler(EntityGhostCreeper.class, manager -> new RenderBaseCreeper(manager, true));
+			RenderingRegistry.registerEntityRenderingHandler(EntityFriendlyCreeper.class, manager -> new RenderFriendlyCreeper(manager));
 			registerRenderer(EntityBallisticCreeper.class, "hydrogencreeper");
 			registerRenderer(EntityIceCreeper.class, "icecreeper");
 			registerRenderer(EntityIllusionCreeper.class, "illusioncreeper");
@@ -397,7 +399,7 @@ public class ModLoader {
 			registerRenderer(EntityMagmaCreeper.class, "magmacreeper");
 			registerRenderer(EntityPsychicCreeper.class, "psychiccreeper");
 			registerRenderer(EntityReverseCreeper.class, "reversecreeper");
-			RenderingRegistry.registerEntityRenderingHandler(EntitySpiderCreeper.class, renderManager -> new RenderSpiderCreeper(renderManager));
+			RenderingRegistry.registerEntityRenderingHandler(EntitySpiderCreeper.class, manager -> new RenderSpiderCreeper(manager));
 			registerRenderer(EntitySpringCreeper.class, "springcreeper");
 			registerRenderer(EntityStoneCreeper.class, "stonecreeper");
 			registerRenderer(EntityWaterCreeper.class, "watercreeper");
@@ -406,7 +408,7 @@ public class ModLoader {
 		}
 
 		private static void registerRenderer(Class creeper, String textureName) {
-			RenderingRegistry.registerEntityRenderingHandler(creeper, renderManager -> new RenderBaseCreeper(renderManager, textureName));
+			RenderingRegistry.registerEntityRenderingHandler(creeper, manager -> new RenderBaseCreeper(manager, textureName));
 		}
 	}
 }

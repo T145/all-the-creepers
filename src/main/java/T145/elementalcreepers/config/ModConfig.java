@@ -26,6 +26,9 @@ public class ModConfig {
 
 	public static class General {
 
+		@Config.Comment("Toggles Vazkii's old Creeper Temper effect across all creepers")
+		public boolean creeperTemper;
+
 		@Config.Comment("Sends you an in-game notification if an update is available")
 		public boolean checkForUpdates = true;
 

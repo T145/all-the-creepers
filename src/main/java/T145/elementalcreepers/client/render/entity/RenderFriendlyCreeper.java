@@ -3,6 +3,7 @@ package T145.elementalcreepers.client.render.entity;
 import T145.elementalcreepers.client.render.entity.layers.LayerFestiveCreeper;
 import T145.elementalcreepers.client.render.entity.layers.LayerFriendlyCharge;
 import T145.elementalcreepers.client.render.model.ModelFriendlyCreeper;
+import T145.elementalcreepers.config.ModConfig;
 import T145.elementalcreepers.entities.EntityFriendlyCreeper;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -22,7 +23,7 @@ public class RenderFriendlyCreeper extends RenderLiving<EntityFriendlyCreeper> {
 	}
 
 	@Override
-	protected void preRenderCallback(EntityFriendlyCreeper creeper, float partialTickTime) {
+	public void preRenderCallback(EntityFriendlyCreeper creeper, float partialTickTime) {
 		float f = creeper.getCreeperFlashIntensity(partialTickTime);
 		float f1 = 1.0F + MathHelper.sin(f * 100.0F) * f * 0.01F;
 		f = MathHelper.clamp(f, 0.0F, 1.0F);
@@ -34,7 +35,7 @@ public class RenderFriendlyCreeper extends RenderLiving<EntityFriendlyCreeper> {
 	}
 
 	@Override
-	protected int getColorMultiplier(EntityFriendlyCreeper creeper, float lightBrightness, float partialTickTime) {
+	public int getColorMultiplier(EntityFriendlyCreeper creeper, float lightBrightness, float partialTickTime) {
 		float f = creeper.getCreeperFlashIntensity(partialTickTime);
 
 		if ((int) (f * 10.0F) % 2 == 0) {
@@ -47,7 +48,12 @@ public class RenderFriendlyCreeper extends RenderLiving<EntityFriendlyCreeper> {
 	}
 
 	@Override
-	protected ResourceLocation getEntityTexture(EntityFriendlyCreeper entity) {
-		return entity.getActiveTexture();
+	public ResourceLocation getEntityTexture(EntityFriendlyCreeper creeper) {
+		if (ModConfig.general.creeperTemper && creeper.getCreeperState() == 1) {
+			float red = 1F - (creeper.getCreeperFlashIntensity(0F) / 1.17F + 0.1F);
+			GlStateManager.color(1F, red, red);
+		}
+
+		return creeper.getActiveTexture();
 	}
 }
