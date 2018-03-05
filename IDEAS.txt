@@ -1,0 +1,6 @@
+IDEAS
+
+- Add hats from Better Creepers as config option
+- Add variable creeper height as config option
+- Add Chameleon Creeper functionality (along w/ an instant invis option) as config option
+- Add InstaBoom functionality as config option

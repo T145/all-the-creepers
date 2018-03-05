@@ -7,6 +7,7 @@ import T145.elementalcreepers.ElementalCreepers;
 import T145.elementalcreepers.client.render.entity.RenderAngryCreeper;
 import T145.elementalcreepers.client.render.entity.RenderBaseCreeper;
 import T145.elementalcreepers.client.render.entity.RenderFriendlyCreeper;
+import T145.elementalcreepers.client.render.entity.RenderMagicCreeper;
 import T145.elementalcreepers.client.render.entity.RenderSpiderCreeper;
 import T145.elementalcreepers.config.ModConfig;
 import T145.elementalcreepers.entities.EntityBallisticCreeper;
@@ -24,6 +25,7 @@ import T145.elementalcreepers.entities.EntityIceCreeper;
 import T145.elementalcreepers.entities.EntityIllusionCreeper;
 import T145.elementalcreepers.entities.EntityLightCreeper;
 import T145.elementalcreepers.entities.EntityLightningCreeper;
+import T145.elementalcreepers.entities.EntityMagicCreeper;
 import T145.elementalcreepers.entities.EntityMagmaCreeper;
 import T145.elementalcreepers.entities.EntityPsychicCreeper;
 import T145.elementalcreepers.entities.EntityReverseCreeper;
@@ -191,7 +193,12 @@ public class ModLoader {
 					.entity(EntityZombieCreeper.class)
 					.tracker(80, 3, true)
 					.egg(0x0DA70B, 0x101010)
-					.build()
+					.build(),
+					createBuilder("MagicCreeper")
+					.entity(EntityMagicCreeper.class)
+					.tracker(80, 3, true)
+					.egg(0x0DA70B, 0x101010)
+					.build(),
 			};
 
 			for (EntityEntry entry : entries) {
@@ -221,6 +228,7 @@ public class ModLoader {
 				addOverworldSpawn(EntitySpringCreeper.class, ModConfig.spawnRate.springCreeperSpawn, 1, 3);
 				addOverworldSpawn(EntityFurnaceCreeper.class, ModConfig.spawnRate.furnaceCreeperSpawn, 1, 3);
 				addOverworldSpawn(EntityZombieCreeper.class, ModConfig.spawnRate.zombieCreeperSpawn, 1, 1);
+				addOverworldSpawn(EntityMagicCreeper.class, ModConfig.spawnRate.magicCreeperSpawn, 1, 3);
 			} else {
 				copyCreeperSpawns(EntityCakeCreeper.class);
 				copyCreeperSpawns(EntityCookieCreeper.class);
@@ -244,6 +252,7 @@ public class ModLoader {
 				copyCreeperSpawns(EntityWaterCreeper.class);
 				copyCreeperSpawns(EntityWindCreeper.class);
 				copyCreeperSpawns(EntityZombieCreeper.class);
+				copyCreeperSpawns(EntityMagicCreeper.class);
 			}
 
 			addOverworldSpawn(EntityFriendlyCreeper.class, ModConfig.spawnRate.friendlyCreeperSpawn, 1, 2, EnumCreatureType.CREATURE);
@@ -405,9 +414,12 @@ public class ModLoader {
 			registerRenderer(EntityWaterCreeper.class, "watercreeper");
 			registerRenderer(EntityWindCreeper.class, "windcreeper");
 			registerRenderer(EntityZombieCreeper.class, "zombiecreeper");
+
+			RenderingRegistry.registerEntityRenderingHandler(EntityMagicCreeper.class, manager -> new RenderMagicCreeper(manager));
 		}
 
 		private static void registerRenderer(Class creeper, String textureName) {
+			Constants.TEXTURE_LIST.add(textureName);
 			RenderingRegistry.registerEntityRenderingHandler(creeper, manager -> new RenderBaseCreeper(manager, textureName));
 		}
 	}

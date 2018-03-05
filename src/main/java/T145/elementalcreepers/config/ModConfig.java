@@ -122,6 +122,9 @@ public class ModConfig {
 
 		@Config.Comment("Sets the Furnace Creeper explosion radius")
 		public int furnaceCreeperRadius = 3;
+
+		@Config.Comment("Sets the Magic Creeper explosion radius")
+		public int magicCreeperRadius = 5;
 	}
 
 	public static class CreeperExplosionPower {
@@ -206,6 +209,9 @@ public class ModConfig {
 
 		@Config.Comment("Sets the Ender Creeper Spawn weight")
 		public int zombieCreeperSpawn = 4;
+
+		@Config.Comment("Sets the Magic Creeper Spawn weight")
+		public int magicCreeperSpawn = 6;
 	}
 
 	public static void sync() {
