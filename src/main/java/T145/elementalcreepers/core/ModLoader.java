@@ -18,6 +18,7 @@ import T145.elementalcreepers.entities.EntityEarthCreeper;
 import T145.elementalcreepers.entities.EntityEnderCreeper;
 import T145.elementalcreepers.entities.EntityFireCreeper;
 import T145.elementalcreepers.entities.EntityFireworkCreeper;
+import T145.elementalcreepers.entities.EntityFlashCreeper;
 import T145.elementalcreepers.entities.EntityFriendlyCreeper;
 import T145.elementalcreepers.entities.EntityFurnaceCreeper;
 import T145.elementalcreepers.entities.EntityGhostCreeper;
@@ -196,6 +197,11 @@ public class ModLoader {
 					.build(),
 					createBuilder("MagicCreeper")
 					.entity(EntityMagicCreeper.class)
+					.tracker(80, 3, true)
+					.egg(0x0DA70B, 0x101010)
+					.build(),
+					createBuilder("FlashCreeper")
+					.entity(EntityFlashCreeper.class)
 					.tracker(80, 3, true)
 					.egg(0x0DA70B, 0x101010)
 					.build(),
@@ -416,6 +422,7 @@ public class ModLoader {
 			registerRenderer(EntityZombieCreeper.class, "zombiecreeper");
 
 			RenderingRegistry.registerEntityRenderingHandler(EntityMagicCreeper.class, manager -> new RenderMagicCreeper(manager));
+			registerRenderer(EntityFlashCreeper.class, "flashcreeper");
 		}
 
 		private static void registerRenderer(Class creeper, String textureName) {

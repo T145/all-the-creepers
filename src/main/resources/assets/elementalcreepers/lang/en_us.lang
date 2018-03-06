@@ -43,4 +43,5 @@ entity.elementalcreepers:ZombieCreeper.name=Zombie Creeper
 
 # Wacky Creepers
 entity.elementalcreepers:MagicCreeper.name=Magic Creeper
+entity.elementalcreepers:FlashCreeper.name=Flash Creeper
 

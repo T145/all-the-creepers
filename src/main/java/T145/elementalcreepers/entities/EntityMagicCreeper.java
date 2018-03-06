@@ -120,6 +120,6 @@ public class EntityMagicCreeper extends EntityBaseCreeper {
 			}
 		}
 
-		//world.createExplosion(this, posX, posY, posZ, explosionPower, canGrief);
+		world.createExplosion(this, posX, posY, posZ, explosionPower, canGrief);
 	}
 }
