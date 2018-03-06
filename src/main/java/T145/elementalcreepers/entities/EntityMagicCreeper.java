@@ -6,11 +6,10 @@ import T145.elementalcreepers.config.ModConfig;
 import T145.elementalcreepers.entities.base.EntityBaseCreeper;
 import T145.elementalcreepers.lib.Constants;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
@@ -98,7 +97,7 @@ public class EntityMagicCreeper extends EntityBaseCreeper {
 		return Constants.HARMFUL_POTIONS[rand.nextInt(Constants.HARMFUL_POTIONS.length)];
 	}
 
-	private void castRandomSpell(EntityLiving target) {
+	private void castRandomSpell(EntityLivingBase target) {
 		byte durMod = 10;
 
 		if (world.getDifficulty() == EnumDifficulty.NORMAL) {
@@ -113,15 +112,14 @@ public class EntityMagicCreeper extends EntityBaseCreeper {
 	@Override
 	public void createExplosion(int explosionPower, boolean canGrief) {
 		int radius = getPowered() ? ModConfig.explosionRadii.magicCreeperRadius * explosionPower : ModConfig.explosionRadii.magicCreeperRadius;
-		AxisAlignedBB bb = new AxisAlignedBB(posX - radius, posY - radius, posZ - radius, posX + radius, posY + radius, posZ + radius);
-		List<EntityLiving> entities = world.getEntitiesWithinAABB(EntityLiving.class, bb);
+		List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, getAreaOfEffect(radius), entity -> entity != this);
 
-		for (EntityLiving entity : entities) {
-			if (!(entity instanceof EntityMagicCreeper)) {
+		if (!entities.isEmpty()) {
+			for (EntityLivingBase entity : entities) {
 				castRandomSpell(entity);
 			}
 		}
 
-		world.createExplosion(this, posX, posY, posZ, explosionPower, false);
+		//world.createExplosion(this, posX, posY, posZ, explosionPower, canGrief);
 	}
 }

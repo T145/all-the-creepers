@@ -3,6 +3,7 @@ package T145.elementalcreepers.entities.base;
 import T145.elementalcreepers.config.ModConfig;
 import net.minecraft.block.Block;
 import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.world.World;
@@ -21,7 +22,6 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
 			boolean canGrief = world.getGameRules().getBoolean("mobGriefing");
 			int explosionPower = explosionRadius * (getPowered() ? 2 : 1);
 			dead = diesAfterExplosion();
-			// world.createExplosion(this, posX, posY, posZ, explosionPower, canGrief);
 			createExplosion(explosionPower, canGrief);
 			isDead = diesAfterExplosion();
 			spawnLingeringCloud();
@@ -32,6 +32,10 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
 
 	public boolean diesAfterExplosion() {
 		return true;
+	}
+
+	public AxisAlignedBB getAreaOfEffect(double radius) {
+		return new AxisAlignedBB(posX - radius, posY - radius, posZ - radius, posX + radius, posY + radius, posZ + radius);
 	}
 
 	public void domeExplosion(int radius, Block block, int meta) {

@@ -12,6 +12,6 @@ public class EntityGhostCreeper extends EntityBaseCreeper {
 
 	@Override
 	public void createExplosion(int explosionPower, boolean canGrief) {
-		world.createExplosion(this, posX, posY, posZ, ModConfig.explosionRadii.ghostCreeperRadius, false);
+		world.createExplosion(this, posX, posY, posZ, ModConfig.explosionRadii.ghostCreeperRadius, canGrief);
 	}
 }

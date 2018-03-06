@@ -10,7 +10,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 
@@ -33,14 +32,11 @@ public class EntityEnderCreeper extends EntityBaseCreeper {
 	@Override
 	public void createExplosion(int explosionPower, boolean canGrief) {
 		float radius = getPowered() ? ModConfig.explosionRadii.enderCreeperRadius * 1.5F : ModConfig.explosionRadii.enderCreeperRadius;
-		AxisAlignedBB bb = new AxisAlignedBB(posX - radius, posY - radius, posZ - radius, posX + radius, posY + radius, posZ + radius);
-		List<Entity> entities = world.getEntitiesWithinAABBExcludingEntity(this, bb);
+		List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, getAreaOfEffect(radius), entity -> entity != this);
 
 		if (!entities.isEmpty()) {
-			for (Entity entity : entities) {
-				if (entity instanceof EntityLivingBase) {
-					teleportEntityRandomly(entity, 32);
-				}
+			for (EntityLivingBase entity : entities) {
+				teleportEntityRandomly(entity, 32);
 			}
 		}
 	}

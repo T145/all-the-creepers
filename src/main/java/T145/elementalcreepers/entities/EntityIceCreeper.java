@@ -3,9 +3,11 @@ package T145.elementalcreepers.entities;
 import T145.elementalcreepers.config.ModConfig;
 import T145.elementalcreepers.entities.base.EntityBaseCreeper;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 public class EntityIceCreeper extends EntityBaseCreeper {
@@ -18,10 +20,17 @@ public class EntityIceCreeper extends EntityBaseCreeper {
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
 
-		if (!world.isRemote && (Math.round(posX + 0.5D) != Math.round(prevPosX + 0.5D) || Math.round(posY) != Math.round(prevPosY) || Math.round(posZ + 0.5D) != Math.round(prevPosZ + 0.5D))) {
-			BlockPos pos = new BlockPos(Math.round(prevPosX), Math.round(prevPosY), Math.round(prevPosZ));
+		if (world.isRemote || !world.getGameRules().getBoolean("mobGriefing")) {
+			return;
+		}
 
-			if (world.isAirBlock(pos) && Blocks.SNOW_LAYER.canPlaceBlockAt(world, pos)) {
+		for (int i, j, k, l = 0; l < 4; ++l) {
+			i = MathHelper.floor(posX + ((l % 2 * 2 - 1) * 0.25F));
+			j = MathHelper.floor(posY);
+			k = MathHelper.floor(posZ + ((l / 2 % 2 * 2 - 1) * 0.25F));
+			pos.setPos(i, j, k);
+
+			if (world.getBlockState(pos).getMaterial() == Material.AIR && Blocks.SNOW_LAYER.canPlaceBlockAt(world, pos)) {
 				world.setBlockState(pos, Blocks.SNOW_LAYER.getDefaultState());
 			}
 		}

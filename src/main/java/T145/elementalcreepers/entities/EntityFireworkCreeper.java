@@ -5,14 +5,12 @@ import java.util.List;
 
 import T145.elementalcreepers.config.ModConfig;
 import T145.elementalcreepers.entities.base.EntityBaseCreeper;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityFireworkRocket;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 
 public class EntityFireworkCreeper extends EntityBaseCreeper {
@@ -50,19 +48,14 @@ public class EntityFireworkCreeper extends EntityBaseCreeper {
 			world.spawnEntity(new EntityFireworkRocket(world, posX, posY, posZ, getRandomFirework()));
 		}
 
-		AxisAlignedBB bounds = new AxisAlignedBB(posX - radius, posY - radius, posZ - radius, posX + radius, posY + radius, posZ + radius);
-		List<Entity> entities = world.getEntitiesWithinAABBExcludingEntity(this, bounds);
+		List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, getAreaOfEffect(radius), entity -> entity != this);
 
 		if (!entities.isEmpty()) {
-			for (Entity entity : entities) {
-				if (entity instanceof EntityLivingBase) {
-					EntityLivingBase entityLiving = (EntityLivingBase) entity;
-
-					if (rand.nextInt(2) == 0 && !world.isRemote) {
-						EntityFireworkRocket rocket = new EntityFireworkRocket(world, entityLiving.posX, entityLiving.posY, entityLiving.posZ, getRandomFirework());
-						world.spawnEntity(rocket);
-						entityLiving.startRiding(rocket);
-					}
+			for (EntityLivingBase entity : entities) {
+				if (rand.nextInt(2) == 0 && !world.isRemote) {
+					EntityFireworkRocket rocket = new EntityFireworkRocket(world, entity.posX, entity.posY, entity.posZ, getRandomFirework());
+					world.spawnEntity(rocket);
+					entity.startRiding(rocket);
 				}
 			}
 		}

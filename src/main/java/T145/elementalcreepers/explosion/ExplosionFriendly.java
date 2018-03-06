@@ -4,8 +4,6 @@ import T145.elementalcreepers.entities.EntityFriendlyCreeper;
 import T145.elementalcreepers.explosion.base.ExplosionBase;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntityTameable;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class ExplosionFriendly extends ExplosionBase {

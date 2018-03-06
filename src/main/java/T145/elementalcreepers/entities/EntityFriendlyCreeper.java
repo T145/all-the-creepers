@@ -110,7 +110,6 @@ public class EntityFriendlyCreeper extends EntityTameable {
 
 	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
-		// getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
 		getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.3D);
 
 		if (isTamed()) {
