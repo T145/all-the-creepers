@@ -62,6 +62,7 @@ import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
+import net.minecraftforge.fml.relauncher.Side;
 
 @ObjectHolder(ElementalCreepers.MODID)
 public class ModLoader {
@@ -388,7 +389,7 @@ public class ModLoader {
 		}
 	}
 
-	@EventBusSubscriber(modid = ElementalCreepers.MODID)
+	@EventBusSubscriber(value = Side.CLIENT, modid = ElementalCreepers.MODID)
 	public static class ClientLoader {
 
 		private ClientLoader() {}
