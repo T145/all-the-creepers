@@ -7,9 +7,7 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class Constants {
@@ -18,9 +16,6 @@ public class Constants {
 
 	public static final HashSet<Block> ROCK_SET = new HashSet<>();
 	public static final List<Class<? extends EntityCreeper> > CREEPER_LIST = new ArrayList<>();
-	public static final Potion[] HARMFUL_POTIONS = new Potion[] {
-			MobEffects.BLINDNESS, MobEffects.NAUSEA, MobEffects.MINING_FATIGUE, MobEffects.HUNGER, MobEffects.POISON, MobEffects.WEAKNESS, MobEffects.SLOWNESS
-	};
 	public static final List<String> TEXTURE_LIST = new ArrayList<>();
 
 	static {

@@ -82,8 +82,8 @@ public class ModConfig {
 		@Config.Comment("Sets the Ice Creeper explosion radius")
 		public int iceCreeperRadius = 8;
 
-		@Config.Comment("Sets the Electric Creeper explosion radius")
-		public int electricCreeperRadius = 5;
+		@Config.Comment("Sets the lightning Creeper explosion radius")
+		public int lightningCreeperRadius = 5;
 
 		@Config.Comment("Sets the Earth Creeper explosion radius")
 		public int earthCreeperRadius = 8;
@@ -115,8 +115,8 @@ public class ModConfig {
 		@Config.Comment("Sets the Wind Creeper explosion radius")
 		public int windCreeperRadius = 5;
 
-		@Config.Comment("Sets the Hydrogen (Bomb) Creeper explosion radius")
-		public int hydrogenCreeperRadius = 64;
+		@Config.Comment("Sets the ballistic (Bomb) Creeper explosion radius")
+		public int ballisticCreeperRadius = 64;
 
 		@Config.Comment("Sets the Stone Creeper explosion radius")
 		public int stoneCreeperRadius = 8;
@@ -151,8 +151,8 @@ public class ModConfig {
 		@Config.Comment("Sets the Water Creeper Spawn weight")
 		public int waterCreeperSpawn = 10;
 
-		@Config.Comment("Sets the Electric Creeper Spawn weight")
-		public int electricCreeperSpawn = 10;
+		@Config.Comment("Sets the lightning Creeper Spawn weight")
+		public int lightningCreeperSpawn = 10;
 
 		@Config.Comment("Sets the Cookie Creeper Spawn weight")
 		public int cookieCreeperSpawn = 10;
@@ -190,8 +190,8 @@ public class ModConfig {
 		@Config.Comment("Sets the Wind Creeper Spawn weight")
 		public int windCreeperSpawn = 10;
 
-		@Config.Comment("Sets the Hydrogen Creeper Spawn weight")
-		public int hydrogenCreeperSpawn = 1;
+		@Config.Comment("Sets the ballistic Creeper Spawn weight")
+		public int ballisticCreeperSpawn = 1;
 
 		@Config.Comment("Sets the Ender Creeper Spawn weight")
 		public int enderCreeperSpawn = 4;

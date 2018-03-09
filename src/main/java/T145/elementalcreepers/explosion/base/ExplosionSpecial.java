@@ -174,6 +174,7 @@ public class ExplosionSpecial extends Explosion {
 
 	@Override
 	public void doExplosionB(boolean spawnParticles) {
+		playBoom();
 		spawnParticlesHere();
 
 		if (damagesTerrain) {
@@ -181,7 +182,23 @@ public class ExplosionSpecial extends Explosion {
 				IBlockState state = world.getBlockState(pos);
 
 				if (spawnParticles) {
-					spawnParticlesAt(pos);
+					double d0 = pos.getX() + world.rand.nextFloat();
+					double d1 = pos.getY() + world.rand.nextFloat();
+					double d2 = pos.getZ() + world.rand.nextFloat();
+					double d3 = d0 - x;
+					double d4 = d1 - y;
+					double d5 = d2 - z;
+					double d6 = MathHelper.sqrt(d3 * d3 + d4 * d4 + d5 * d5);
+					d3 = d3 / d6;
+					d4 = d4 / d6;
+					d5 = d5 / d6;
+					double d7 = 0.5D / (d6 / size + 0.1D);
+					d7 = d7 * (world.rand.nextFloat() * world.rand.nextFloat() + 0.3F);
+					d3 = d3 * d7;
+					d4 = d4 * d7;
+					d5 = d5 * d7;
+
+					spawnParticlesAt(pos, d0, d1, d2, d3, d4, d5, d6, d7);
 				}
 
 				if (state.getMaterial() != Material.AIR) {
@@ -205,9 +222,11 @@ public class ExplosionSpecial extends Explosion {
 		}
 	}
 
-	public void spawnParticlesHere() {
+	public void playBoom() {
 		world.playSound(null, x, y, z, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 4.0F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
+	}
 
+	public void spawnParticlesHere() {
 		if (size >= 2.0F && damagesTerrain) {
 			world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, x, y, z, 1.0D, 0.0D, 0.0D);
 		} else {
@@ -215,22 +234,7 @@ public class ExplosionSpecial extends Explosion {
 		}
 	}
 
-	public void spawnParticlesAt(BlockPos affectedPos) {
-		double d0 = affectedPos.getX() + world.rand.nextFloat();
-		double d1 = affectedPos.getY() + world.rand.nextFloat();
-		double d2 = affectedPos.getZ() + world.rand.nextFloat();
-		double d3 = d0 - x;
-		double d4 = d1 - y;
-		double d5 = d2 - z;
-		double d6 = MathHelper.sqrt(d3 * d3 + d4 * d4 + d5 * d5);
-		d3 = d3 / d6;
-		d4 = d4 / d6;
-		d5 = d5 / d6;
-		double d7 = 0.5D / (d6 / size + 0.1D);
-		d7 = d7 * (world.rand.nextFloat() * world.rand.nextFloat() + 0.3F);
-		d3 = d3 * d7;
-		d4 = d4 * d7;
-		d5 = d5 * d7;
+	public void spawnParticlesAt(BlockPos pos, double d0, double d1, double d2, double d3, double d4, double d5, double d6, double d7) {
 		world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, (d0 + x) / 2.0D, (d1 + y) / 2.0D, (d2 + z) / 2.0D, d3, d4, d5);
 		world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0, d1, d2, d3, d4, d5);
 	}
