@@ -3,7 +3,7 @@ package T145.elementalcreepers.entities;
 import T145.elementalcreepers.config.ModConfig;
 import T145.elementalcreepers.entities.base.EntityBaseCreeper;
 import T145.elementalcreepers.explosion.ExplosionWind;
-import T145.elementalcreepers.explosion.base.ExplosionBase;
+import T145.elementalcreepers.explosion.base.ExplosionSpecial;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -33,9 +33,12 @@ public class EntityWindCreeper extends EntityBaseCreeper {
 
 	@Override
 	public void createExplosion(int explosionPower, boolean canGrief) {
-		int radius = ModConfig.explosionRadii.windCreeperRadius * explosionPower;
-		Biome biome = world.getBiome(pos.setPos(posX, posY, posZ));
-		ExplosionBase explosion = new ExplosionWind(world, this, posX, posY, posZ, ModConfig.explosionPower.windCreeperPower, radius, biome != null && BiomeDictionary.hasAnyType(biome) && (BiomeDictionary.hasType(biome, BiomeDictionary.Type.NETHER) || BiomeDictionary.hasType(biome, BiomeDictionary.Type.WASTELAND)), canGrief);
-		explosion.doExplosionA();
+		if (!world.isRemote) {
+			int radius = ModConfig.explosionRadii.windCreeperRadius * explosionPower;
+			Biome biome = world.getBiome(pos.setPos(this));
+			boolean causesFire = biome != null && (BiomeDictionary.hasType(biome, BiomeDictionary.Type.NETHER) || BiomeDictionary.hasType(biome, BiomeDictionary.Type.WASTELAND));
+			ExplosionSpecial explosion = new ExplosionWind(world, this, posX, posY, posZ, ModConfig.explosionPower.windCreeperPower, radius, causesFire, canGrief);
+			explosion.doExplosionA();
+		}
 	}
 }

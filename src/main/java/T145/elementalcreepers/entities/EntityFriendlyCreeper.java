@@ -545,7 +545,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
 
 	public void createExplosion(int explosionPower, boolean canGrief) {
 		if (isTamed()) {
-			ExplosionFriendly explosion = new ExplosionFriendly(world, this, posX, posY, posZ, explosionPower, explosionRadius, canGrief);
+			ExplosionFriendly explosion = new ExplosionFriendly(world, this, posX, posY, posZ, explosionRadius, canGrief);
 			explosion.doExplosionA();
 
 			world.playSound(null, posX, posY, posZ, SoundEvents.ENTITY_FIREWORK_TWINKLE, SoundCategory.BLOCKS, 0.5F, (1.0F + (rand.nextFloat() - rand.nextFloat()) * 0.2F) * 0.7F);

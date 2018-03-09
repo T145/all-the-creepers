@@ -26,6 +26,10 @@ public class ModConfig {
 
 	public static class General {
 
+		@Config.Comment("Whether or not explosions move flying players (doesn't include spectators)")
+		@Config.RequiresMcRestart
+		public boolean explosionsMoveFlyingPlayers = true;
+
 		@Config.Comment("Toggles Vazkii's old Creeper Temper effect across all creepers")
 		public boolean creeperTemper;
 

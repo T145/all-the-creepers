@@ -1,18 +1,21 @@
 package T145.elementalcreepers.explosion;
 
-import T145.elementalcreepers.explosion.base.ExplosionBase;
+import T145.elementalcreepers.explosion.base.ExplosionSpecial;
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
 
-public class ExplosionPsychic extends ExplosionBase {
+public class ExplosionPsychic extends ExplosionSpecial {
+
+	private final double explosionPower;
 
 	public ExplosionPsychic(World world, Entity exploder, double x, double y, double z, double explosionPower, float size, boolean flaming, boolean damagesTerrain) {
-		super(world, exploder, x, y, z, explosionPower, size, flaming, damagesTerrain);
+		super(world, exploder, x, y, z, size, flaming, damagesTerrain);
+		this.explosionPower = explosionPower;
 	}
 
 	@Override
-	public boolean doDamage(Entity entity) {
-		return false;
+	public float getExplosionDamage(double d10, double d7, double d9, double d14, double d102, double d11, float explosionSize) {
+		return 1F;
 	}
 
 	@Override
