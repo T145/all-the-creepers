@@ -7,10 +7,11 @@
 		"2.0-7-gece75fa": "https://github.com/T145/elemental-creepers/releases/tag/2.0.7",
 		"v3.3-0-gc378010": "https://github.com/T145/elemental-creepers/releases/tag/v3.3",
 		"v3.8.3-g68a0adb": "https://github.com/T145/elemental-creepers/releases/tag/v3.8.3",
-		"v4.0-g932607a": "https://github.com/T145/elemental-creepers/releases/tag/v4.0"
+		"v4.0-g932607a": "https://github.com/T145/elemental-creepers/releases/tag/v4.0",
+		"v4.1.gf82c179": "https://github.com/T145/elemental-creepers/releases/tag/v4.1"
 	},
 	"promos": {
-		"1.12.2-latest": "v4.0-g932607a",
-		"1.12.2-recommended": "v4.0-g932607a"
+		"1.12.2-latest": "v4.1.gf82c179",
+		"1.12.2-recommended": "v4.1.gf82c179"
 	}
 }
