@@ -64,8 +64,6 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.event.ForgeEventFactory;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityFriendlyCreeper extends EntityTameable {
 
@@ -462,7 +460,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
 		return dataManager.get(POWERED);
 	}
 
-	@SideOnly(Side.CLIENT)
+	//@SideOnly(Side.CLIENT)
 	public float getCreeperFlashIntensity(float renderTicks) {
 		return (lastActiveTime + (timeSinceIgnited - lastActiveTime) * renderTicks) / (fuseTime - 2);
 	}
@@ -522,7 +520,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
 		++droppedSkulls;
 	}
 
-	@SideOnly(Side.CLIENT)
+	//@SideOnly(Side.CLIENT)
 	public ResourceLocation getActiveTexture() {
 		String path = isTamed() ? "textures/entities/friendlycreeper1.png" : "textures/entities/friendlycreeper0.png";
 		return new ResourceLocation(ElementalCreepers.MODID, path);
