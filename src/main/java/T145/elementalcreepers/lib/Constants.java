@@ -2,10 +2,8 @@ package T145.elementalcreepers.lib;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -15,8 +13,7 @@ public class Constants {
 	private Constants() {}
 
 	public static final HashSet<Block> ROCK_SET = new HashSet<>();
-	public static final List<Class<? extends EntityCreeper> > CREEPER_LIST = new ArrayList<>();
-	public static final List<String> TEXTURE_LIST = new ArrayList<>();
+	public static final ArrayList<Class> CREEPERS = new ArrayList<>();
 
 	static {
 		for (ItemStack stack : OreDictionary.getOres("cobblestone")) {
@@ -36,7 +33,5 @@ public class Constants {
 		ROCK_SET.add(Blocks.STONE_SLAB);
 		ROCK_SET.add(Blocks.COBBLESTONE_WALL);
 		ROCK_SET.add(Blocks.DOUBLE_STONE_SLAB);
-
-		CREEPER_LIST.add(EntityCreeper.class);
 	}
 }

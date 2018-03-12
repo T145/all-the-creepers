@@ -197,7 +197,7 @@ public class ModLoader {
 
 			for (EntityEntry entry : entries) {
 				event.getRegistry().register(entry);
-				Constants.CREEPER_LIST.add((Class<? extends EntityCreeper>) entry.getEntityClass());
+				Constants.CREEPERS.add(entry.getEntityClass());
 			}
 
 			if (ModConfig.general.reasonableSpawnRates) {
@@ -409,7 +409,6 @@ public class ModLoader {
 		}
 
 		private static void registerRenderer(Class creeper, String textureName) {
-			Constants.TEXTURE_LIST.add(textureName);
 			RenderingRegistry.registerEntityRenderingHandler(creeper, manager -> new RenderBaseCreeper(manager, textureName));
 		}
 	}

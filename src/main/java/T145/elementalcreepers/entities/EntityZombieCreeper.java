@@ -4,7 +4,6 @@ import T145.elementalcreepers.ElementalCreepers;
 import T145.elementalcreepers.entities.base.EntityBaseCreeper;
 import T145.elementalcreepers.lib.Constants;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
@@ -38,10 +37,14 @@ public class EntityZombieCreeper extends EntityBaseCreeper {
 			float f = getPowered() ? 2.0F : 1.0F;
 			world.createExplosion(this, posX, posY, posZ, 3 * f, canGrief);
 		} else {
+			if (getPowered()) {
+				creeperCount *= 2;
+			}
+
 			for (int i = 0; i < creeperCount; ++i) {
 				try {
-					Class<? extends EntityCreeper> creepClass = Constants.CREEPER_LIST.get(rand.nextInt(Constants.CREEPER_LIST.size()));
-					EntityLivingBase creeper = creepClass.getConstructor(new Class[] { World.class }).newInstance(new Object[] { world });
+					Class creeperClass = Constants.CREEPERS.get(rand.nextInt(Constants.CREEPERS.size()));
+					EntityLivingBase creeper = (EntityLivingBase) creeperClass.getConstructor(new Class[] { World.class }).newInstance(new Object[] { world });
 
 					if (creeper != null) {
 						creeper.setPositionAndUpdate(posX, posY, posZ);
