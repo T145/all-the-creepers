@@ -36,13 +36,24 @@ public class EntityIllusionCreeper extends EntityBaseCreeper {
 	}
 
 	protected void spawnIllusionCreepers() {
-		for (int i = 0; i < 4; i++) {
-			EntityIllusionCreeper entity = new EntityIllusionCreeper(world);
-			entity.split = true;
-			entity.illusion = true;
-			entity.setPositionAndUpdate(posX, posY, posZ);
-			entity.motionY = 0.5D;
-			world.spawnEntity(entity);
+		for (int k = 0; k < 4; ++k) {
+			float f = ((k % 2) - 0.5F) * 1 / 4.0F;
+			float f1 = ((k / 2) - 0.5F) * 1 / 4.0F;
+			EntityIllusionCreeper creeper = new EntityIllusionCreeper(world);
+
+			if (hasCustomName()) {
+				creeper.setCustomNameTag(getCustomNameTag());
+			}
+
+			if (isNoDespawnRequired()) {
+				creeper.enablePersistence();
+			}
+
+			creeper.split = true;
+			creeper.illusion = true;
+			creeper.motionY = 0.5D;
+			creeper.setLocationAndAngles(posX + f, posY + 0.5D, posZ + f1, rand.nextFloat() * 360.0F, 0.0F);
+			world.spawnEntity(creeper);
 		}
 	}
 

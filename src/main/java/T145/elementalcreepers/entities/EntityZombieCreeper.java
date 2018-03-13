@@ -41,22 +41,27 @@ public class EntityZombieCreeper extends EntityBaseCreeper {
 				creeperCount *= 2;
 			}
 
-			for (int i = 0; i < creeperCount; ++i) {
-				try {
+			try {
+				for (int k = 0; k < creeperCount; ++k) {
+					float f = ((k % 2) - 0.5F) * 1 / 4.0F;
+					float f1 = ((k / 2) - 0.5F) * 1 / 4.0F;
 					Class creeperClass = Constants.CREEPERS.get(rand.nextInt(Constants.CREEPERS.size()));
 					EntityLivingBase creeper = (EntityLivingBase) creeperClass.getConstructor(new Class[] { World.class }).newInstance(new Object[] { world });
 
-					if (creeper != null) {
-						creeper.setPositionAndUpdate(posX, posY, posZ);
-						creeper.setRevengeTarget(getAttackTarget());
-						creeper.motionX = (0.8F * (rand.nextBoolean() ? 1 : -1));
-						creeper.motionY = 0.5D;
-						creeper.motionZ = (0.8F * (rand.nextBoolean() ? 1 : -1));
-						world.spawnEntity(creeper);
+					if (hasCustomName()) {
+						creeper.setCustomNameTag(getCustomNameTag());
 					}
-				} catch (Exception err) {
-					ElementalCreepers.LOG.catching(err);
+
+					creeper.setRevengeTarget(getAttackTarget());
+					creeper.motionX = (0.8F * (rand.nextBoolean() ? 1 : -1));
+					creeper.motionY = 0.5D;
+					creeper.motionZ = (0.8F * (rand.nextBoolean() ? 1 : -1));
+
+					creeper.setLocationAndAngles(posX + f, posY + 0.5D, posZ + f1, rand.nextFloat() * 360.0F, 0.0F);
+					world.spawnEntity(creeper);
 				}
+			} catch (Exception err) {
+				ElementalCreepers.LOG.catching(err);
 			}
 		}
 	}
