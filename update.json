@@ -8,10 +8,11 @@
 		"v3.3-0-gc378010": "https://github.com/T145/elemental-creepers/releases/tag/v3.3",
 		"v3.8.3-g68a0adb": "https://github.com/T145/elemental-creepers/releases/tag/v3.8.3",
 		"v4.0-g932607a": "https://github.com/T145/elemental-creepers/releases/tag/v4.0",
-		"v4.1.gf82c179": "https://github.com/T145/elemental-creepers/releases/tag/v4.1"
+		"v4.1.gf82c179": "https://github.com/T145/elemental-creepers/releases/tag/v4.1",
+		"v4.1.4.g9a92a3b": "https://minecraft.curseforge.com/projects/elemental-creepers-redux/files/2543311"
 	},
 	"promos": {
-		"1.12.2-latest": "v4.1.gf82c179",
-		"1.12.2-recommended": "v4.1.gf82c179"
+		"1.12.2-latest": "v4.1.4.g9a92a3b",
+		"1.12.2-recommended": "v4.1.4.g9a92a3b"
 	}
 }
