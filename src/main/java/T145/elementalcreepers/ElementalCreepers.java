@@ -3,11 +3,13 @@ package T145.elementalcreepers;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import T145.elementalcreepers.proxies.CommonProxy;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.Mod.Metadata;
 import net.minecraftforge.fml.common.ModMetadata;
+import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 @Mod(modid = ElementalCreepers.MODID, name = ElementalCreepers.NAME, version = ElementalCreepers.VERSION, updateJSON = ElementalCreepers.UPDATE_JSON)
@@ -17,10 +19,15 @@ public class ElementalCreepers {
 	public static final String NAME = "ElementalCreepers";
 	public static final String VERSION = "@VERSION@";
 	public static final String UPDATE_JSON = "https://raw.githubusercontent.com/T145/elemental-creepers/master/update.json";
+	public static final String COMMON_PROXY = "T145.elementalcreepers.proxies.CommonProxy";
+	public static final String CLIENT_PROXY = "T145.elementalcreepers.proxies.ClientProxy";
 	public static final Logger LOG = LogManager.getLogger(MODID);
 
 	@Instance(MODID)
 	public static ElementalCreepers instance;
+
+	@SidedProxy(serverSide = COMMON_PROXY, clientSide = CLIENT_PROXY)
+	public static CommonProxy proxy;
 
 	@Metadata
 	private ModMetadata meta;

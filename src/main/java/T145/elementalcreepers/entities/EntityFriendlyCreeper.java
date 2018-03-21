@@ -64,6 +64,8 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.event.ForgeEventFactory;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class EntityFriendlyCreeper extends EntityTameable {
 
@@ -460,7 +462,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
 		return dataManager.get(POWERED);
 	}
 
-	//@SideOnly(Side.CLIENT)
+	@SideOnly(Side.CLIENT)
 	public float getCreeperFlashIntensity(float renderTicks) {
 		return (lastActiveTime + (timeSinceIgnited - lastActiveTime) * renderTicks) / (fuseTime - 2);
 	}
@@ -520,7 +522,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
 		++droppedSkulls;
 	}
 
-	//@SideOnly(Side.CLIENT)
+	@SideOnly(Side.CLIENT)
 	public ResourceLocation getActiveTexture() {
 		String path = isTamed() ? "textures/entities/friendlycreeper1.png" : "textures/entities/friendlycreeper0.png";
 		return new ResourceLocation(ElementalCreepers.MODID, path);
@@ -547,7 +549,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
 			explosion.doExplosionA();
 
 			world.playSound(null, posX, posY, posZ, SoundEvents.ENTITY_FIREWORK_TWINKLE, SoundCategory.BLOCKS, 0.5F, (1.0F + (rand.nextFloat() - rand.nextFloat()) * 0.2F) * 0.7F);
-			Minecraft.getMinecraft().effectRenderer.addEffect(new ParticleFirework.Starter(world, posX, posY + (getPowered() ? 2.5F : 0.5F), posZ, 0, 0, 0, Minecraft.getMinecraft().effectRenderer, generateTag()));
+			ElementalCreepers.proxy.spawnCustomFireworks(world, posX, posY + (getPowered() ? 2.5F : 0.5F), posZ, generateTag());
 		} else {
 			world.createExplosion(this, posX, posY, posZ, explosionRadius, canGrief);
 		}
