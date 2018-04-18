@@ -8,17 +8,8 @@ import net.minecraft.util.math.Vec3i;
 
 public class MutableVec3d extends Vec3d {
 
-    /**
-     * Mutable X Coordinate
-     */
     protected double x;
-    /**
-     * Mutable Y Coordinate
-     */
     protected double y;
-    /**
-     * Mutable Z Coordinate
-     */
     protected double z;
 
     public MutableVec3d() {
@@ -36,52 +27,14 @@ public class MutableVec3d extends Vec3d {
         this.z = z_;
     }
 
-    /**
-     * Add the given coordinates to the coordinates of this Vec3d
-     */
-    // public Vec3d add(double x, double y, double z)
-    // {
-    // return super.add(x, y, z).toImmutable();
-    // }
-
-    /**
-     * Add the given coordinates to the coordinates of this Vec3d
-     */
-    // public Vec3d add(int x, int y, int z)
-    // {
-    // return super.add(x, y, z).toImmutable();
-    // }
-
-    /**
-     * Offsets this Vec3d n blocks in the given direction
-     */
-    // public Vec3d offset(EnumFacing facing, int n)
-    // {
-    // return super.offset(facing, n).toImmutable();
-    // }
-
-    // public Vec3d rotate(Rotation rotationIn)
-    // {
-    // return super.rotate(rotationIn).toImmutable();
-    // }
-
-    /**
-     * Gets the X coordinate.
-     */
     public double getX() {
         return x;
     }
 
-    /**
-     * Gets the Y coordinate.
-     */
     public double getY() {
         return y;
     }
 
-    /**
-     * Gets the Z coordinate.
-     */
     public double getZ() {
         return z;
     }
@@ -112,17 +65,4 @@ public class MutableVec3d extends Vec3d {
     public MutableVec3d move(EnumFacing facing, int n) {
         return setPos(x + facing.getFrontOffsetX() * n, y + facing.getFrontOffsetY() * n, z + facing.getFrontOffsetZ() * n);
     }
-
-    /**
-     * Returns a version of this Vec3d that is guaranteed to be immutable.
-     *
-     * <p>
-     * When storing a Vec3d given to you for an extended period of time, make sure
-     * you use this in case the value is changed internally.
-     * </p>
-     */
-    // public Vec3d toImmutable()
-    // {
-    // return new Vec3d(this);
-    // }
 }

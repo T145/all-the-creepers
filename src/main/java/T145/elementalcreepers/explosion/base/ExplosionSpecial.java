@@ -104,9 +104,7 @@ public class ExplosionSpecial extends Explosion {
 
         vec.setPos(x, y, z);
 
-        for (int k2 = 0; k2 < list.size(); ++k2) {
-            Entity entity = list.get(k2);
-
+        for (Entity entity : list) {
             if (!entity.isImmuneToExplosions()) {
                 double d12 = entity.getDistance(x, y, z) / f3;
 

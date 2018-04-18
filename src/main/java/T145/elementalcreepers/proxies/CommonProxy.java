@@ -48,9 +48,7 @@ public class CommonProxy {
         PacketHandler.registerMessages();
     }
 
-    public void init(FMLInitializationEvent event) {
-    }
+    public void init(FMLInitializationEvent event) {}
 
-    public void postInit(FMLPostInitializationEvent event) {
-    }
+    public void postInit(FMLPostInitializationEvent event) {}
 }

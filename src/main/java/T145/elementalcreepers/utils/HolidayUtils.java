@@ -4,12 +4,11 @@ import java.util.Calendar;
 
 public class HolidayUtils {
 
-    static Calendar holidayStart = Calendar.getInstance();
-    static Calendar holidayEnd = Calendar.getInstance();
-    static Calendar currTime = Calendar.getInstance();
+    private static Calendar holidayStart = Calendar.getInstance();
+    private static Calendar holidayEnd = Calendar.getInstance();
+    private static Calendar currTime = Calendar.getInstance();
 
-    private HolidayUtils() {
-    }
+    private HolidayUtils() {}
 
     public static boolean isValentinesDay() {
         setDate(holidayStart, Calendar.FEBRUARY, 13, false);
@@ -43,7 +42,7 @@ public class HolidayUtils {
 
     /* HELPER FUNCTIONS */
 
-    static void setDate(Calendar cal, int month, int date, boolean endOfDay) {
+    private static void setDate(Calendar cal, int month, int date, boolean endOfDay) {
         cal.clear();
         cal.set(Calendar.YEAR, Calendar.getInstance().get(Calendar.YEAR));
         cal.set(Calendar.MONTH, month);
@@ -62,7 +61,7 @@ public class HolidayUtils {
         }
     }
 
-    static boolean dateCheck() {
+    private static boolean dateCheck() {
         currTime = Calendar.getInstance();
         return currTime.after(holidayStart) && currTime.before(holidayEnd);
     }

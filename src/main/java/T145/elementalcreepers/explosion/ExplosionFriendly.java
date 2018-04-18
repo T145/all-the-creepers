@@ -41,6 +41,6 @@ public class ExplosionFriendly extends ExplosionSpecial {
 
     @Override
     public boolean editEntityMotion(Entity entity, double d5, double d7, double d9, double d10, double d11, double d12, double d13, double d14) {
-        return dealDamage(entity) ? super.editEntityMotion(entity, d5, d7, d9, d10, d11, d12, d13, d14) : false;
+        return dealDamage(entity) && super.editEntityMotion(entity, d5, d7, d9, d10, d11, d12, d13, d14);
     }
 }

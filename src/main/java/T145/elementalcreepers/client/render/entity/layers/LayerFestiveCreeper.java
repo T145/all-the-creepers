@@ -18,7 +18,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class LayerFestiveCreeper implements LayerRenderer {
 
-    static final float HEAD_OFFSET = 0.0625F;
+    private static final float HEAD_OFFSET = 0.0625F;
 
     private final RenderLiving renderer;
 
@@ -28,7 +28,7 @@ public class LayerFestiveCreeper implements LayerRenderer {
 
     @Override
     public void doRenderLayer(EntityLivingBase entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        if (ModConfig.general.festiveSpirit && entity != null && !entity.isInvisible()) {
+        if (ModConfig.general.festiveSpirit && !entity.isInvisible()) {
             ItemStack stack = getHolidayStack();
 
             if (!stack.isEmpty()) {
