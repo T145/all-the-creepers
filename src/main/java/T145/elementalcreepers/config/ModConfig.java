@@ -24,21 +24,16 @@ public class ModConfig {
     @Config.LangKey(ElementalCreepers.MODID + ".config.creepers.spawnrate")
     public static final CreeperSpawnRate spawnRate = new CreeperSpawnRate();
 
-    public static void sync() {
-        ConfigManager.sync(ElementalCreepers.MODID, Config.Type.INSTANCE);
-    }
-
     @SubscribeEvent
     public static void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
         if (event.getModID().equals(ElementalCreepers.MODID)) {
-            sync();
+            ConfigManager.sync(ElementalCreepers.MODID, Config.Type.INSTANCE);
         }
     }
 
     public static class General {
 
         @Config.Comment("Whether or not explosions move flying players (doesn't include spectators)")
-        @Config.RequiresMcRestart
         public boolean explosionsMoveFlyingPlayers = true;
 
         @Config.Comment("Toggles Vazkii's old Creeper Temper effect across all creepers")
@@ -48,7 +43,6 @@ public class ModConfig {
         public boolean checkForUpdates = true;
 
         @Config.Comment("Whether or not to enable holiday features")
-        @Config.RequiresMcRestart
         public boolean festiveSpirit = true;
 
         @Config.Comment("Whether or not elemental creepers should spawn like normal creepers or basically overwrite them")
@@ -56,29 +50,23 @@ public class ModConfig {
         public boolean reasonableSpawnRates;
 
         @Config.Comment("Whether or not to target every close & visible mob if the creeper can throw TNT")
-        @Config.RequiresWorldRestart
         public boolean ballisticCreeperAI;
 
         @Config.Comment("Whether or not certain explosions are characteristically dome shaped")
-        @Config.RequiresWorldRestart
         public boolean domeExplosion;
 
         @Config.Comment("Whether or not placed blocks get updated upon generation; i.e. fluid blocks flow")
-        @Config.RequiresWorldRestart
         public boolean updatePlacedBlocks = true;
 
         @Config.Comment("Sets the max number of cookies dropped by the Cookie Creeper")
         @Config.RangeInt(min = 1, max = 64)
-        @Config.RequiresWorldRestart
         public int cookieCreeperAmount = 5;
 
         @Config.Comment("Percent chance of a ghost creeper spawning")
         @Config.RangeInt(min = 1, max = 100)
-        @Config.RequiresWorldRestart
         public int ghostCreeperChance = 35;
 
         @Config.Comment("Range in which the zombie creeper looks for fallen allies")
-        @Config.RequiresWorldRestart
         public int zombieCreeperRange = 8;
     }
 
@@ -137,9 +125,6 @@ public class ModConfig {
 
         @Config.Comment("Sets the Furnace Creeper explosion radius")
         public int furnaceCreeperRadius = 3;
-
-        @Config.Comment("Sets the Magic Creeper explosion radius")
-        public int magicCreeperRadius = 5;
     }
 
     public static class CreeperExplosionPower {
@@ -224,8 +209,5 @@ public class ModConfig {
 
         @Config.Comment("Sets the Ender Creeper Spawn weight")
         public int zombieCreeperSpawn = 4;
-
-        @Config.Comment("Sets the Magic Creeper Spawn weight")
-        public int magicCreeperSpawn = 6;
     }
 }
