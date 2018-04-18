@@ -2,6 +2,7 @@ package T145.elementalcreepers.entities;
 
 import T145.elementalcreepers.entities.base.EntityBaseCreeper;
 import T145.elementalcreepers.utils.HolidayUtils;
+import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -25,7 +26,7 @@ public class EntityCakeCreeper extends EntityBaseCreeper {
             for (EnumFacing dir : EnumFacing.HORIZONTALS) {
                 BlockPos torchPos = pos.offset(dir);
 
-                if (Blocks.TORCH.canPlaceBlockAt(world, torchPos)) {
+                if (world.getBlockState(torchPos).getMaterial() != Material.AIR && Blocks.TORCH.canPlaceBlockAt(world, torchPos)) {
                     world.setBlockState(torchPos, Blocks.TORCH.getStateForPlacement(world, torchPos, dir, 0, 0, 0, 0, null, null), 3);
                 }
             }
