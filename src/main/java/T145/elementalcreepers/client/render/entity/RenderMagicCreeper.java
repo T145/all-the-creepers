@@ -10,12 +10,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class RenderMagicCreeper extends RenderBaseCreeper {
 
-	public RenderMagicCreeper(RenderManager manager) {
-		super(manager, new ModelMagicCreeper(), "magiccreeper");
-	}
+    public RenderMagicCreeper(RenderManager manager) {
+        super(manager, new ModelMagicCreeper(), "magiccreeper");
+    }
 
-	@Override
-	protected LayerRenderer getChargeLayer(RenderBaseCreeper renderer) {
-		return new LayerBaseCharge(renderer, new ModelMagicCreeper(2F));
-	}
+    @Override
+    protected LayerRenderer getChargeLayer(RenderBaseCreeper renderer) {
+        return new LayerBaseCharge(renderer, new ModelMagicCreeper(2F));
+    }
 }

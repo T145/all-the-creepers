@@ -9,16 +9,16 @@ import net.minecraft.world.World;
 
 public class EntityCookieCreeper extends EntityBaseCreeper {
 
-	public EntityCookieCreeper(World world) {
-		super(world);
-	}
+    public EntityCookieCreeper(World world) {
+        super(world);
+    }
 
-	@Override
-	public void createExplosion(int explosionPower, boolean canGrief) {
-		for (int i = 0; i < ModConfig.general.cookieCreeperAmount; ++i) {
-			EntityItem cookie = new EntityItem(world, posX, posY, posZ, new ItemStack(Items.COOKIE));
-			cookie.motionY = 0.5D;
-			world.spawnEntity(cookie);
-		}
-	}
+    @Override
+    public void createExplosion(int explosionPower, boolean canGrief) {
+        for (int i = 0; i < ModConfig.general.cookieCreeperAmount; ++i) {
+            EntityItem cookie = new EntityItem(world, posX, posY, posZ, new ItemStack(Items.COOKIE));
+            cookie.motionY = 0.5D;
+            world.spawnEntity(cookie);
+        }
+    }
 }

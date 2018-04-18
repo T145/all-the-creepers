@@ -7,18 +7,18 @@ import net.minecraft.world.World;
 
 public class EntityLightCreeper extends EntityBaseCreeper {
 
-	public EntityLightCreeper(World world) {
-		super(world);
-	}
+    public EntityLightCreeper(World world) {
+        super(world);
+    }
 
-	@Override
-	public void createExplosion(int explosionPower, boolean canGrief) {
-		int radius = getPowered() ? ModConfig.explosionRadii.lightCreeperRadius * explosionPower : ModConfig.explosionRadii.lightCreeperRadius;
+    @Override
+    public void createExplosion(int explosionPower, boolean canGrief) {
+        int radius = getPowered() ? ModConfig.explosionRadii.lightCreeperRadius * explosionPower : ModConfig.explosionRadii.lightCreeperRadius;
 
-		if (ModConfig.general.domeExplosion) {
-			domeExplosion(radius, Blocks.GLOWSTONE);
-		} else {
-			wildExplosion(radius, Blocks.GLOWSTONE);
-		}
-	}
+        if (ModConfig.general.domeExplosion) {
+            domeExplosion(radius, Blocks.GLOWSTONE);
+        } else {
+            wildExplosion(radius, Blocks.GLOWSTONE);
+        }
+    }
 }

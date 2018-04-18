@@ -7,18 +7,18 @@ import net.minecraft.world.World;
 
 public class EntityEarthCreeper extends EntityBaseCreeper {
 
-	public EntityEarthCreeper(World world) {
-		super(world);
-	}
+    public EntityEarthCreeper(World world) {
+        super(world);
+    }
 
-	@Override
-	public void createExplosion(int explosionPower, boolean canGrief) {
-		int radius = getPowered() ? ModConfig.explosionRadii.earthCreeperRadius * explosionPower : ModConfig.explosionRadii.earthCreeperRadius;
+    @Override
+    public void createExplosion(int explosionPower, boolean canGrief) {
+        int radius = getPowered() ? ModConfig.explosionRadii.earthCreeperRadius * explosionPower : ModConfig.explosionRadii.earthCreeperRadius;
 
-		if (ModConfig.general.domeExplosion) {
-			domeExplosion(radius, Blocks.DIRT);
-		} else {
-			wildExplosion(radius, Blocks.DIRT);
-		}
-	}
+        if (ModConfig.general.domeExplosion) {
+            domeExplosion(radius, Blocks.DIRT);
+        } else {
+            wildExplosion(radius, Blocks.DIRT);
+        }
+    }
 }

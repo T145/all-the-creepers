@@ -7,18 +7,18 @@ import net.minecraft.world.World;
 
 public class EntityWaterCreeper extends EntityBaseCreeper {
 
-	public EntityWaterCreeper(World world) {
-		super(world);
-	}
+    public EntityWaterCreeper(World world) {
+        super(world);
+    }
 
-	@Override
-	public void createExplosion(int explosionPower, boolean canGrief) {
-		int radius = getPowered() ? ModConfig.explosionRadii.waterCreeperRadius * explosionPower : ModConfig.explosionRadii.waterCreeperRadius;
+    @Override
+    public void createExplosion(int explosionPower, boolean canGrief) {
+        int radius = getPowered() ? ModConfig.explosionRadii.waterCreeperRadius * explosionPower : ModConfig.explosionRadii.waterCreeperRadius;
 
-		if (ModConfig.general.domeExplosion) {
-			domeExplosion(radius, Blocks.WATER);
-		} else {
-			wildExplosion(radius, Blocks.WATER);
-		}
-	}
+        if (ModConfig.general.domeExplosion) {
+            domeExplosion(radius, Blocks.WATER);
+        } else {
+            wildExplosion(radius, Blocks.WATER);
+        }
+    }
 }

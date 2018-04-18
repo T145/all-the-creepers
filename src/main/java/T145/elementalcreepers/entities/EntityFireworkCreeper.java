@@ -1,8 +1,5 @@
 package T145.elementalcreepers.entities;
 
-import java.awt.Color;
-import java.util.List;
-
 import T145.elementalcreepers.config.ModConfig;
 import T145.elementalcreepers.entities.base.EntityBaseCreeper;
 import net.minecraft.entity.EntityLivingBase;
@@ -13,51 +10,54 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 
+import java.awt.*;
+import java.util.List;
+
 public class EntityFireworkCreeper extends EntityBaseCreeper {
 
-	public EntityFireworkCreeper(World world) {
-		super(world);
-	}
+    public EntityFireworkCreeper(World world) {
+        super(world);
+    }
 
-	protected ItemStack getRandomFirework() {
-		ItemStack firework = new ItemStack(Items.FIREWORKS);
-		firework.setTagCompound(new NBTTagCompound());
+    protected ItemStack getRandomFirework() {
+        ItemStack firework = new ItemStack(Items.FIREWORKS);
+        firework.setTagCompound(new NBTTagCompound());
 
-		NBTTagCompound data = new NBTTagCompound();
-		data.setByte("Flight", (byte) 1);
+        NBTTagCompound data = new NBTTagCompound();
+        data.setByte("Flight", (byte) 1);
 
-		NBTTagList list = new NBTTagList();
-		NBTTagCompound fireworkData = new NBTTagCompound();
+        NBTTagList list = new NBTTagList();
+        NBTTagCompound fireworkData = new NBTTagCompound();
 
-		fireworkData.setByte("Trail", (byte) 1);
-		fireworkData.setByte("Type", (byte) 3);
-		fireworkData.setIntArray("Colors", new int[] { new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)).getRGB() });
+        fireworkData.setByte("Trail", (byte) 1);
+        fireworkData.setByte("Type", (byte) 3);
+        fireworkData.setIntArray("Colors", new int[]{new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)).getRGB()});
 
-		list.appendTag(fireworkData);
-		data.setTag("Explosions", list);
-		firework.getTagCompound().setTag("Fireworks", data);
+        list.appendTag(fireworkData);
+        data.setTag("Explosions", list);
+        firework.getTagCompound().setTag("Fireworks", data);
 
-		return firework;
-	}
+        return firework;
+    }
 
-	@Override
-	public void createExplosion(int explosionPower, boolean canGrief) {
-		int radius = getPowered() ? ModConfig.explosionRadii.fireworkCreeperRadius * explosionPower : ModConfig.explosionRadii.fireworkCreeperRadius;
+    @Override
+    public void createExplosion(int explosionPower, boolean canGrief) {
+        int radius = getPowered() ? ModConfig.explosionRadii.fireworkCreeperRadius * explosionPower : ModConfig.explosionRadii.fireworkCreeperRadius;
 
-		if (!world.isRemote) {
-			world.spawnEntity(new EntityFireworkRocket(world, posX, posY, posZ, getRandomFirework()));
-		}
+        if (!world.isRemote) {
+            world.spawnEntity(new EntityFireworkRocket(world, posX, posY, posZ, getRandomFirework()));
+        }
 
-		List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, getAreaOfEffect(radius), entity -> entity != this);
+        List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, getAreaOfEffect(radius), entity -> entity != this);
 
-		if (!entities.isEmpty()) {
-			for (EntityLivingBase entity : entities) {
-				if (rand.nextInt(2) == 0 && !world.isRemote) {
-					EntityFireworkRocket rocket = new EntityFireworkRocket(world, entity.posX, entity.posY, entity.posZ, getRandomFirework());
-					world.spawnEntity(rocket);
-					entity.startRiding(rocket);
-				}
-			}
-		}
-	}
+        if (!entities.isEmpty()) {
+            for (EntityLivingBase entity : entities) {
+                if (rand.nextInt(2) == 0 && !world.isRemote) {
+                    EntityFireworkRocket rocket = new EntityFireworkRocket(world, entity.posX, entity.posY, entity.posZ, getRandomFirework());
+                    world.spawnEntity(rocket);
+                    entity.startRiding(rocket);
+                }
+            }
+        }
+    }
 }

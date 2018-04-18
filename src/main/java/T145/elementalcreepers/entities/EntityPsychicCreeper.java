@@ -8,16 +8,16 @@ import net.minecraft.world.World;
 
 public class EntityPsychicCreeper extends EntityBaseCreeper {
 
-	public EntityPsychicCreeper(World world) {
-		super(world);
-	}
+    public EntityPsychicCreeper(World world) {
+        super(world);
+    }
 
-	@Override
-	public void createExplosion(int explosionPower, boolean canGrief) {
-		if (!world.isRemote) {
-			int radius = ModConfig.explosionRadii.psychicCreeperRadius * explosionPower;
-			ExplosionSpecial explosion = new ExplosionPsychic(world, this, posX, posY, posZ, ModConfig.explosionPower.psychicCreeperPower, radius, false, canGrief);
-			explosion.doExplosionA();
-		}
-	}
+    @Override
+    public void createExplosion(int explosionPower, boolean canGrief) {
+        if (!world.isRemote) {
+            int radius = ModConfig.explosionRadii.psychicCreeperRadius * explosionPower;
+            ExplosionSpecial explosion = new ExplosionPsychic(world, this, posX, posY, posZ, ModConfig.explosionPower.psychicCreeperPower, radius, false, canGrief);
+            explosion.doExplosionA();
+        }
+    }
 }

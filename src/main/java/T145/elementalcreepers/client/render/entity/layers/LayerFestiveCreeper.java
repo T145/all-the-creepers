@@ -18,63 +18,63 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class LayerFestiveCreeper implements LayerRenderer {
 
-	static final float HEAD_OFFSET = 0.0625F;
+    static final float HEAD_OFFSET = 0.0625F;
 
-	private final RenderLiving renderer;
+    private final RenderLiving renderer;
 
-	public LayerFestiveCreeper(RenderLiving renderLiving) {
-		this.renderer = renderLiving;
-	}
+    public LayerFestiveCreeper(RenderLiving renderLiving) {
+        this.renderer = renderLiving;
+    }
 
-	@Override
-	public void doRenderLayer(EntityLivingBase entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-		if (ModConfig.general.festiveSpirit && entity != null && !entity.isInvisible()) {
-			ItemStack stack = getHolidayStack();
+    @Override
+    public void doRenderLayer(EntityLivingBase entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
+        if (ModConfig.general.festiveSpirit && entity != null && !entity.isInvisible()) {
+            ItemStack stack = getHolidayStack();
 
-			if (!stack.isEmpty()) {
-				renderItem(entity, stack, renderer.getMainModel());
-			}
-		}
-	}
+            if (!stack.isEmpty()) {
+                renderItem(entity, stack, renderer.getMainModel());
+            }
+        }
+    }
 
-	private ItemStack getHolidayStack() {
-		if (HolidayUtils.isAprilFools()) {
-			return new ItemStack(Blocks.SPONGE);
-		}
+    private ItemStack getHolidayStack() {
+        if (HolidayUtils.isAprilFools()) {
+            return new ItemStack(Blocks.SPONGE);
+        }
 
-		if (HolidayUtils.isChristmas()) {
-			return new ItemStack(Blocks.SNOW);
-		}
+        if (HolidayUtils.isChristmas()) {
+            return new ItemStack(Blocks.SNOW);
+        }
 
-		if (HolidayUtils.isEarthDay()) {
-			return new ItemStack(Blocks.GRASS);
-		}
+        if (HolidayUtils.isEarthDay()) {
+            return new ItemStack(Blocks.GRASS);
+        }
 
-		if (HolidayUtils.isHalloween()) {
-			return new ItemStack(Blocks.PUMPKIN);
-		}
+        if (HolidayUtils.isHalloween()) {
+            return new ItemStack(Blocks.PUMPKIN);
+        }
 
-		if (HolidayUtils.isValentinesDay()) {
-			return new ItemStack(Blocks.WOOL, 1, 14);
-		}
+        if (HolidayUtils.isValentinesDay()) {
+            return new ItemStack(Blocks.WOOL, 1, 14);
+        }
 
-		return ItemStack.EMPTY;
-	}
+        return ItemStack.EMPTY;
+    }
 
-	private void renderItem(EntityLivingBase entity, ItemStack stack, ModelBase model) {
-		if (!stack.isEmpty()) {
-			GlStateManager.pushMatrix();
-			((ModelCreeper) model).head.postRender(HEAD_OFFSET);
-			float scale = 0.675F;
-			GlStateManager.translate(0F, -0.34375F, 0F);
-			GlStateManager.scale(scale, -scale, scale);
-			Minecraft.getMinecraft().getItemRenderer().renderItem(entity, stack, ItemCameraTransforms.TransformType.HEAD);
-			GlStateManager.popMatrix();
-		}
-	}
+    private void renderItem(EntityLivingBase entity, ItemStack stack, ModelBase model) {
+        if (!stack.isEmpty()) {
+            GlStateManager.pushMatrix();
+            ((ModelCreeper) model).head.postRender(HEAD_OFFSET);
+            float scale = 0.675F;
+            GlStateManager.translate(0F, -0.34375F, 0F);
+            GlStateManager.scale(scale, -scale, scale);
+            Minecraft.getMinecraft().getItemRenderer().renderItem(entity, stack, ItemCameraTransforms.TransformType.HEAD);
+            GlStateManager.popMatrix();
+        }
+    }
 
-	@Override
-	public boolean shouldCombineTextures() {
-		return false;
-	}
+    @Override
+    public boolean shouldCombineTextures() {
+        return false;
+    }
 }
