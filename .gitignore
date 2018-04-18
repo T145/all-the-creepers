@@ -33,6 +33,7 @@ hs_err_pid*
 *.iml
 *.ipr
 *.iws
+/out/
 
 # Project-specific dependencies
 /eclipse/
