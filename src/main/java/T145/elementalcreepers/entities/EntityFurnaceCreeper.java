@@ -16,7 +16,7 @@ public class EntityFurnaceCreeper extends EntityBaseCreeper {
         super(world);
     }
 
-    public void generateTrap(EntityPlayer player) {
+    private void generateTrap(EntityPlayer player) {
         IBlockState wall = Blocks.STONEBRICK.getDefaultState();
         IBlockState gate = Blocks.IRON_BARS.getDefaultState();
         IBlockState lava = Blocks.LAVA.getDefaultState();
@@ -27,14 +27,12 @@ public class EntityFurnaceCreeper extends EntityBaseCreeper {
                     for (int z = -1; z < 2; z++) {
                         pos.setPos(player.posX + x, player.getEntityBoundingBox().minY + y, player.posZ + z);
 
-                        if (world.isAirBlock(pos)) {
-                            if (x == -1 && z == 0 && y == 1) {
-                                world.setBlockState(pos, gate);
-                            } else if (x == 0 && z == 0 && y == 0) {
-                                world.setBlockState(pos, lava);
-                            } else if (x != 0 || z != 0 || y != 1) {
-                                world.setBlockState(pos, wall);
-                            }
+                        if (x == -1 && z == 0 && y == 1) {
+                            world.setBlockState(pos, gate);
+                        } else if (x == 0 && z == 0 && y == 0) {
+                            world.setBlockState(pos, lava);
+                        } else if (x != 0 || z != 0 || y != 1) {
+                            world.setBlockState(pos, wall);
                         }
                     }
                 }

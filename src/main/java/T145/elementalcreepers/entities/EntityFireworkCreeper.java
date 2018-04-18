@@ -19,7 +19,7 @@ public class EntityFireworkCreeper extends EntityBaseCreeper {
         super(world);
     }
 
-    protected ItemStack getRandomFirework() {
+    private ItemStack getRandomFirework() {
         ItemStack firework = new ItemStack(Items.FIREWORKS);
         firework.setTagCompound(new NBTTagCompound());
 

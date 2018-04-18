@@ -28,14 +28,14 @@ public class EntityIllusionCreeper extends EntityBaseCreeper {
         super.onUpdate();
     }
 
-    public void createIllusionsAndJump() {
+    private void createIllusionsAndJump() {
         if (!world.isRemote) {
             spawnIllusionCreepers();
             motionY = 0.5D;
         }
     }
 
-    protected void spawnIllusionCreepers() {
+    private void spawnIllusionCreepers() {
         for (int k = 0; k < 4; ++k) {
             float f = ((k % 2) - 0.5F) * 1 / 4.0F;
             float f1 = ((k / 2) - 0.5F) * 1 / 4.0F;

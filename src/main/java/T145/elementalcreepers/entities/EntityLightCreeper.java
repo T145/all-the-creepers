@@ -14,11 +14,6 @@ public class EntityLightCreeper extends EntityBaseCreeper {
     @Override
     public void createExplosion(int explosionPower, boolean canGrief) {
         int radius = getPowered() ? ModConfig.explosionRadii.lightCreeperRadius * explosionPower : ModConfig.explosionRadii.lightCreeperRadius;
-
-        if (ModConfig.general.domeExplosion) {
-            domeExplosion(radius, Blocks.GLOWSTONE);
-        } else {
-            wildExplosion(radius, Blocks.GLOWSTONE);
-        }
+        specialExplosion(radius, Blocks.GLOWSTONE.getDefaultState());
     }
 }

@@ -39,15 +39,12 @@ public class EntityDarkCreeper extends EntityBaseCreeper {
                 for (int z = -radius; z <= radius; z++) {
                     pos.setPos(posX + x, posY + y, posZ + z);
                     IBlockState state = world.getBlockState(pos);
+                    Block block = state.getBlock();
 
-                    if (state != null && state.getBlock() != null) {
-                        Block block = state.getBlock();
-
-                        if (block != null && block.getLightValue(state) > 0.5F) {
-                            block.dropBlockAsItem(world, pos, state, 0);
-                            world.setBlockToAir(pos);
-                            block.onBlockDestroyedByExplosion(world, pos, new Explosion(world, this, 0.0D, 0.0D, 0.0D, 0.0F, new ArrayList<>()));
-                        }
+                    if (block.getLightValue(state, world, pos) > 0.5F) {
+                        block.dropBlockAsItem(world, pos, state, 0);
+                        world.setBlockToAir(pos);
+                        block.onBlockDestroyedByExplosion(world, pos, new Explosion(world, this, 0.0D, 0.0D, 0.0D, 0.0F, new ArrayList<>()));
                     }
                 }
             }

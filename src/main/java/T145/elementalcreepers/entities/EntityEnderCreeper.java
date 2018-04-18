@@ -41,11 +41,11 @@ public class EntityEnderCreeper extends EntityBaseCreeper {
         }
     }
 
-    public boolean teleportEntityRandomly(Entity entity, double maxDist) {
+    private void teleportEntityRandomly(Entity entity, double maxDist) {
         World world = entity.getEntityWorld();
 
         if (world.isRemote) {
-            return false;
+            return;
         }
 
         double deltaYaw = 0.0d;
@@ -66,13 +66,11 @@ public class EntityEnderCreeper extends EntityBaseCreeper {
             z += Math.cos(deltaPitch) * Math.sin(deltaYaw) * maxDist;
             y += Math.sin(deltaPitch) * maxDist;
 
-            if (entity.getEntityBoundingBox() != null && world.getCollisionBoxes(entity, entity.getEntityBoundingBox()).isEmpty()) {
+            if (world.getCollisionBoxes(entity, entity.getEntityBoundingBox()).isEmpty()) {
                 teleportEntityTo((WorldServer) world, entity, x, y, z);
-                return true;
+                return;
             }
         }
-
-        return false;
     }
 
     private void teleportEntityTo(WorldServer world, Entity entity, double x, double y, double z) {

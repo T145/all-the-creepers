@@ -10,7 +10,7 @@ import java.util.List;
 
 public class EntityBallisticCreeper extends EntityBaseCreeper {
 
-    protected EntityAIThrowTNT throwingAI = new EntityAIThrowTNT(this, 8D);
+    private EntityAIThrowTNT throwingAI = new EntityAIThrowTNT(this, 8D);
 
     public EntityBallisticCreeper(World world) {
         super(world);

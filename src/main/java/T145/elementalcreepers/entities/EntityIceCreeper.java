@@ -45,22 +45,19 @@ public class EntityIceCreeper extends EntityBaseCreeper {
                 for (int z = -radius; z <= radius; z++) {
                     pos.setPos(posX + x, posY + y, posZ + z);
                     IBlockState state = world.getBlockState(pos);
+                    Block block = state.getBlock();
 
-                    if (state != null && state.getBlock() != null) {
-                        Block block = state.getBlock();
-
-                        if (block == Blocks.WATER || block == Blocks.FLOWING_WATER) {
-                            world.setBlockState(pos, Blocks.ICE.getDefaultState());
-                        } else if (block == Blocks.LAVA || block == Blocks.FLOWING_LAVA) {
-                            world.setBlockState(pos, Blocks.OBSIDIAN.getDefaultState());
-                        }
+                    if (block == Blocks.WATER || block == Blocks.FLOWING_WATER) {
+                        world.setBlockState(pos, Blocks.ICE.getDefaultState());
+                    } else if (block == Blocks.LAVA || block == Blocks.FLOWING_LAVA) {
+                        world.setBlockState(pos, Blocks.OBSIDIAN.getDefaultState());
                     }
                 }
             }
         }
 
         if (ModConfig.general.domeExplosion) {
-            domeExplosion(radius, Blocks.SNOW);
+            domeExplosion(radius, Blocks.SNOW.getDefaultState());
         } else {
             for (int x = -radius; x <= radius; x++) {
                 for (int y = -radius; y <= radius; y++) {

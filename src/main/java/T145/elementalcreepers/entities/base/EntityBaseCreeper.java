@@ -2,6 +2,7 @@ package T145.elementalcreepers.entities.base;
 
 import T145.elementalcreepers.config.ModConfig;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -34,43 +35,44 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
         return true;
     }
 
-    public AxisAlignedBB getAreaOfEffect(double radius) {
+    protected AxisAlignedBB getAreaOfEffect(double radius) {
         return new AxisAlignedBB(posX - radius, posY - radius, posZ - radius, posX + radius, posY + radius, posZ + radius);
     }
 
-    public void domeExplosion(int radius, Block block, int meta) {
+    protected void specialExplosion(int radius, IBlockState state) {
+        if (ModConfig.general.domeExplosion) {
+            domeExplosion(radius, state);
+        } else {
+            wildExplosion(radius, state);
+        }
+    }
+
+    protected void domeExplosion(int radius, IBlockState state) {
         for (int x = -radius; x <= radius; x++) {
             for (int y = -radius; y <= radius; y++) {
                 for (int z = -radius; z <= radius; z++) {
                     pos.setPos(posX + x, posY + y, posZ + z);
 
-                    if (block.canPlaceBlockAt(world, pos) && Math.sqrt(Math.pow(x, 2.0D) + Math.pow(y, 2.0D) + Math.pow(z, 2.0D)) <= radius && rand.nextInt(4) < 3) {
-                        world.setBlockState(pos, block.getStateFromMeta(meta), ModConfig.general.updatePlacedBlocks ? 3 : 2);
+                    if (state.getBlock().canPlaceBlockAt(world, pos) && Math.sqrt(Math.pow(x, 2.0D) + Math.pow(y, 2.0D) + Math.pow(z, 2.0D)) <= radius && rand.nextInt(4) < 3) {
+                        world.setBlockState(pos, state, ModConfig.general.updatePlacedBlocks ? 3 : 2);
                     }
                 }
             }
         }
     }
 
-    public void domeExplosion(int radius, Block block) {
-        domeExplosion(radius, block, 0);
-    }
-
-    public void wildExplosion(int radius, Block block, int meta) {
+    protected void wildExplosion(int radius, IBlockState state) {
         for (int x = -radius; x <= radius; x++) {
             for (int y = -radius; y <= radius; y++) {
                 for (int z = -radius; z <= radius; z++) {
                     pos.setPos(posX + x, posY + y, posZ + z);
+                    Block block = state.getBlock();
 
                     if (block.canPlaceBlockAt(world, pos) && !block.canPlaceBlockAt(world, new BlockPos(posX + x, posY + y - 1, posZ + z)) && rand.nextBoolean()) {
-                        world.setBlockState(pos, block.getStateFromMeta(meta), ModConfig.general.updatePlacedBlocks ? 3 : 2);
+                        world.setBlockState(pos, state, ModConfig.general.updatePlacedBlocks ? 3 : 2);
                     }
                 }
             }
         }
-    }
-
-    public void wildExplosion(int radius, Block block) {
-        wildExplosion(radius, block, 0);
     }
 }
