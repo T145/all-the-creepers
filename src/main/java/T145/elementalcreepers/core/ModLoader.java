@@ -7,7 +7,6 @@ import T145.elementalcreepers.client.render.entity.RenderFriendlyCreeper;
 import T145.elementalcreepers.client.render.entity.RenderSpiderCreeper;
 import T145.elementalcreepers.config.ModConfig;
 import T145.elementalcreepers.entities.*;
-import T145.elementalcreepers.lib.Constants;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -35,14 +34,16 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 import net.minecraftforge.fml.relauncher.Side;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 @ObjectHolder(ElementalCreepers.MODID)
 public class ModLoader {
 
-    private ModLoader() {
-    }
+    public static final ArrayList<Class> CREEPER_REGISTRY = new ArrayList<>();
+
+    private ModLoader() {}
 
     @EventBusSubscriber(modid = ElementalCreepers.MODID)
     public static class ServerLoader {
@@ -50,8 +51,7 @@ public class ModLoader {
         private static int entityID = 0;
         private static BiomeDictionary.Type[] validOverworldBiomeTypes = {BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.SWAMP, BiomeDictionary.Type.JUNGLE, BiomeDictionary.Type.WASTELAND, BiomeDictionary.Type.MAGICAL, BiomeDictionary.Type.BEACH, BiomeDictionary.Type.SANDY, BiomeDictionary.Type.SNOWY, BiomeDictionary.Type.MOUNTAIN};
 
-        private ServerLoader() {
-        }
+        private ServerLoader() {}
 
         @SubscribeEvent
         public static void registerEntities(final RegistryEvent.Register<EntityEntry> event) {
@@ -179,7 +179,7 @@ public class ModLoader {
 
             for (EntityEntry entry : entries) {
                 event.getRegistry().register(entry);
-                Constants.CREEPERS.add(entry.getEntityClass());
+                CREEPER_REGISTRY.add(entry.getEntityClass());
             }
 
             if (ModConfig.general.reasonableSpawnRates) {
@@ -281,7 +281,6 @@ public class ModLoader {
         @SubscribeEvent
         public static void onEntityDeath(LivingDeathEvent event) {
             DamageSource damage = event.getSource();
-            Entity immediateSource = damage.getImmediateSource();
             Entity trueSource = damage.getTrueSource();
             EntityLivingBase entity = event.getEntityLiving();
             boolean killedByPlayer = damage.getDamageType().equals("player") || trueSource instanceof EntityPlayer;
@@ -299,7 +298,7 @@ public class ModLoader {
             }
 
             // TODO: Add HashSet entity blacklist
-            if (entity instanceof EntityLivingBase && entity instanceof IMob) {
+            if (entity instanceof IMob) {
                 int radius = ModConfig.general.zombieCreeperRange;
                 AxisAlignedBB bb = new AxisAlignedBB(entity.posX - radius, entity.posY - radius, entity.posZ - radius, entity.posX + radius, entity.posY + radius, entity.posZ + radius);
                 List<EntityZombieCreeper> zombles = entity.world.getEntitiesWithinAABB(EntityZombieCreeper.class, bb, creature -> entity != creature);
@@ -360,7 +359,7 @@ public class ModLoader {
 
         @SubscribeEvent
         public static void onModelRegistration(ModelRegistryEvent event) {
-            RenderingRegistry.registerEntityRenderingHandler(EntityCreeper.class, manager -> new RenderAngryCreeper(manager));
+            RenderingRegistry.registerEntityRenderingHandler(EntityCreeper.class, RenderAngryCreeper::new);
             registerRenderer(EntityCakeCreeper.class, "cakecreeper");
             registerRenderer(EntityCookieCreeper.class, "cookiecreeper");
             registerRenderer(EntityDarkCreeper.class, "darkcreeper");
@@ -370,7 +369,7 @@ public class ModLoader {
             registerRenderer(EntityFireworkCreeper.class, "fireworkcreeper");
             registerRenderer(EntityFurnaceCreeper.class, "furnacecreeper");
             RenderingRegistry.registerEntityRenderingHandler(EntityGhostCreeper.class, manager -> new RenderBaseCreeper(manager, true));
-            RenderingRegistry.registerEntityRenderingHandler(EntityFriendlyCreeper.class, manager -> new RenderFriendlyCreeper(manager));
+            RenderingRegistry.registerEntityRenderingHandler(EntityFriendlyCreeper.class, RenderFriendlyCreeper::new);
             registerRenderer(EntityBallisticCreeper.class, "hydrogencreeper");
             registerRenderer(EntityIceCreeper.class, "icecreeper");
             registerRenderer(EntityIllusionCreeper.class, "illusioncreeper");
@@ -379,7 +378,7 @@ public class ModLoader {
             registerRenderer(EntityMagmaCreeper.class, "magmacreeper");
             registerRenderer(EntityPsychicCreeper.class, "psychiccreeper");
             registerRenderer(EntityReverseCreeper.class, "reversecreeper");
-            RenderingRegistry.registerEntityRenderingHandler(EntitySpiderCreeper.class, manager -> new RenderSpiderCreeper(manager));
+            RenderingRegistry.registerEntityRenderingHandler(EntitySpiderCreeper.class, RenderSpiderCreeper::new);
             registerRenderer(EntitySpringCreeper.class, "springcreeper");
             registerRenderer(EntityStoneCreeper.class, "stonecreeper");
             registerRenderer(EntityWaterCreeper.class, "watercreeper");

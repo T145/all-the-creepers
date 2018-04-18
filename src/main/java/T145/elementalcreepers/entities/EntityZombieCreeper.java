@@ -1,11 +1,13 @@
 package T145.elementalcreepers.entities;
 
 import T145.elementalcreepers.ElementalCreepers;
+import T145.elementalcreepers.core.ModLoader;
 import T145.elementalcreepers.entities.base.EntityBaseCreeper;
-import T145.elementalcreepers.lib.Constants;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+
+import java.lang.reflect.InvocationTargetException;
 
 public class EntityZombieCreeper extends EntityBaseCreeper {
 
@@ -45,8 +47,8 @@ public class EntityZombieCreeper extends EntityBaseCreeper {
                 for (int k = 0; k < creeperCount; ++k) {
                     float f = ((k % 2) - 0.5F) * 1 / 4.0F;
                     float f1 = ((k / 2) - 0.5F) * 1 / 4.0F;
-                    Class creeperClass = Constants.CREEPERS.get(rand.nextInt(Constants.CREEPERS.size()));
-                    EntityLivingBase creeper = (EntityLivingBase) creeperClass.getConstructor(new Class[]{World.class}).newInstance(new Object[]{world});
+                    Class creeperClass = ModLoader.CREEPER_REGISTRY.get(rand.nextInt(ModLoader.CREEPER_REGISTRY.size()));
+                    EntityLivingBase creeper = (EntityLivingBase) creeperClass.getConstructor(World.class).newInstance(new Object[]{world});
 
                     if (hasCustomName()) {
                         creeper.setCustomNameTag(getCustomNameTag());
@@ -60,7 +62,7 @@ public class EntityZombieCreeper extends EntityBaseCreeper {
                     creeper.setLocationAndAngles(posX + f, posY + 0.5D, posZ + f1, rand.nextFloat() * 360.0F, 0.0F);
                     world.spawnEntity(creeper);
                 }
-            } catch (Exception err) {
+            } catch (IllegalAccessException | InstantiationException | NoSuchMethodException | InvocationTargetException err) {
                 ElementalCreepers.LOG.catching(err);
             }
         }

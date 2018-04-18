@@ -3,6 +3,8 @@ package T145.elementalcreepers.entities;
 import T145.elementalcreepers.ElementalCreepers;
 import T145.elementalcreepers.entities.ai.EntityAIFriendlyCreeperSwell;
 import T145.elementalcreepers.explosion.ExplosionFriendly;
+import T145.elementalcreepers.network.PacketHandler;
+import T145.elementalcreepers.network.client.MessageFriendlyExplosionParticles;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
@@ -41,11 +43,11 @@ import java.util.UUID;
 
 public class EntityFriendlyCreeper extends EntityTameable {
 
-    private static final DataParameter<Integer> STATE = EntityDataManager.<Integer>createKey(EntityFriendlyCreeper.class, DataSerializers.VARINT);
-    private static final DataParameter<Boolean> POWERED = EntityDataManager.<Boolean>createKey(EntityFriendlyCreeper.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> IGNITED = EntityDataManager.<Boolean>createKey(EntityFriendlyCreeper.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Float> DATA_HEALTH_ID = EntityDataManager.<Float>createKey(EntityFriendlyCreeper.class, DataSerializers.FLOAT);
-    private static final DataParameter<Boolean> BEGGING = EntityDataManager.<Boolean>createKey(EntityFriendlyCreeper.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Integer> STATE = EntityDataManager.createKey(EntityFriendlyCreeper.class, DataSerializers.VARINT);
+    private static final DataParameter<Boolean> POWERED = EntityDataManager.createKey(EntityFriendlyCreeper.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> IGNITED = EntityDataManager.createKey(EntityFriendlyCreeper.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Float> DATA_HEALTH_ID = EntityDataManager.createKey(EntityFriendlyCreeper.class, DataSerializers.FLOAT);
+    private static final DataParameter<Boolean> BEGGING = EntityDataManager.createKey(EntityFriendlyCreeper.class, DataSerializers.BOOLEAN);
     public int lastActiveTime;
     public int timeSinceIgnited;
     public int fuseTime = 30;
@@ -75,7 +77,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
         tasks.addTask(10, new EntityAILookIdle(this));
         targetTasks.addTask(1, new EntityAIOwnerHurtByTarget(this));
         targetTasks.addTask(2, new EntityAIOwnerHurtTarget(this));
-        targetTasks.addTask(3, new EntityAIHurtByTarget(this, true, new Class[0]));
+        targetTasks.addTask(3, new EntityAIHurtByTarget(this, true));
     }
 
     protected void applyEntityAttributes() {
@@ -259,7 +261,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
                 if (itemstack.getItem() instanceof ItemFood) {
                     ItemFood itemfood = (ItemFood) itemstack.getItem();
 
-                    if (itemfood.isWolfsFavoriteMeat() && (dataManager.get(DATA_HEALTH_ID)).floatValue() < 20.0F) {
+                    if (itemfood.isWolfsFavoriteMeat() && dataManager.get(DATA_HEALTH_ID) < 20.0F) {
                         if (!player.capabilities.isCreativeMode) {
                             itemstack.shrink(1);
                         }
@@ -269,10 +271,9 @@ public class EntityFriendlyCreeper extends EntityTameable {
                     }
                 } else if (itemstack.getItem() instanceof ItemArmor) {
                     ItemArmor armor = (ItemArmor) itemstack.getItem();
-                    int slot = armor.armorType.getSlotIndex();
                     EntityEquipmentSlot equipmentSlot = EntityEquipmentSlot.fromString(armor.armorType.getName());
 
-                    if ((slot >= 1 || slot <= 4) && getItemStackFromSlot(equipmentSlot).isEmpty()) {
+                    if (getItemStackFromSlot(equipmentSlot).isEmpty()) {
                         setItemStackToSlot(equipmentSlot, itemstack);
                         return true;
                     }
@@ -283,7 +284,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
                 aiSit.setSitting(!isSitting());
                 isJumping = false;
                 navigator.clearPath();
-                setAttackTarget((EntityLivingBase) null);
+                setAttackTarget(null);
             }
         } else if (itemstack.getItem() == Items.GUNPOWDER && !isAngry()) {
             if (!player.capabilities.isCreativeMode) {
@@ -294,7 +295,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
                 if (rand.nextInt(3) == 0 && !ForgeEventFactory.onAnimalTame(this, player)) {
                     setTamedBy(player);
                     navigator.clearPath();
-                    setAttackTarget((EntityLivingBase) null);
+                    setAttackTarget(null);
                     aiSit.setSitting(true);
                     setHealth(20.0F);
                     playTameEffect(true);
@@ -519,7 +520,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
             explosion.doExplosionA();
 
             world.playSound(null, posX, posY, posZ, SoundEvents.ENTITY_FIREWORK_TWINKLE, SoundCategory.BLOCKS, 0.5F, (1.0F + (rand.nextFloat() - rand.nextFloat()) * 0.2F) * 0.7F);
-            ElementalCreepers.proxy.spawnCustomFireworks(world, posX, posY + (getPowered() ? 2.5F : 0.5F), posZ, generateTag());
+            PacketHandler.sendToAllAround(new MessageFriendlyExplosionParticles(posX, posY + (getPowered() ? 2.5F : 0.5F), posZ, generateTag()), world, getPosition());
         } else {
             world.createExplosion(this, posX, posY, posZ, explosionRadius, canGrief);
         }
@@ -529,7 +530,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
         NBTTagCompound fireworkTag = new NBTTagCompound();
         NBTTagCompound fireworkItemTag = new NBTTagCompound();
         NBTTagList nbttaglist = new NBTTagList();
-        List<Integer> list = Lists.<Integer>newArrayList();
+        List<Integer> list = Lists.newArrayList();
 
         list.add(ItemDye.DYE_COLORS[1]);
         list.add(ItemDye.DYE_COLORS[11]);

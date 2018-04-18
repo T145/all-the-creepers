@@ -2,7 +2,6 @@ package T145.elementalcreepers.entities;
 
 import T145.elementalcreepers.config.ModConfig;
 import T145.elementalcreepers.entities.base.EntityBaseCreeper;
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
@@ -31,18 +30,15 @@ public class EntityReverseCreeper extends EntityBaseCreeper {
                         double ey = posY + y;
                         double ez = posZ + z;
                         pos.setPos(ex, ey, ez);
+
                         IBlockState state = world.getBlockState(pos);
 
-                        if (state != null && state.getBlock() != null) {
-                            Block id = state.getBlock();
+                        if (state.getBlock() != Blocks.BEDROCK) {
+                            states[ax][ay][az] = null;
 
-                            if (id != Blocks.BEDROCK) {
-                                states[ax][ay][az] = null;
-
-                                if (id != null && Math.sqrt(Math.pow(x, 2.0D) + Math.pow(y, 2.0D) + Math.pow(z, 2.0D)) <= radius && ey > -1) {
-                                    states[ax][ay][az] = state;
-                                    tiles[ax][ay][az] = world.getTileEntity(pos);
-                                }
+                            if (Math.sqrt(Math.pow(x, 2.0D) + Math.pow(y, 2.0D) + Math.pow(z, 2.0D)) <= radius && ey > -1) {
+                                states[ax][ay][az] = state;
+                                tiles[ax][ay][az] = world.getTileEntity(pos);
                             }
                         }
                     }
@@ -56,7 +52,7 @@ public class EntityReverseCreeper extends EntityBaseCreeper {
                         IBlockState state = states[x + radius + 1][2 * radius - (y + radius)][z + radius + 1];
                         TileEntity te = tiles[x + radius + 1][2 * radius - (y + radius)][z + radius + 1];
 
-                        if (state != null && state.getBlock() != null && posY + y > 0) {
+                        if (state != null && posY + y > 0) {
                             world.setBlockState(pos, state, 3);
 
                             if (te != null) {

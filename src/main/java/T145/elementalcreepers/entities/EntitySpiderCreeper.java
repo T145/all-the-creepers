@@ -19,7 +19,7 @@ import java.util.List;
 
 public class EntitySpiderCreeper extends EntityBaseCreeper {
 
-    private static final DataParameter<Byte> CLIMBING = EntityDataManager.<Byte>createKey(EntitySpiderCreeper.class, DataSerializers.BYTE);
+    private static final DataParameter<Byte> CLIMBING = EntityDataManager.createKey(EntitySpiderCreeper.class, DataSerializers.BYTE);
 
     public EntitySpiderCreeper(World world) {
         super(world);
@@ -82,11 +82,11 @@ public class EntitySpiderCreeper extends EntityBaseCreeper {
         return isBesideClimbableBlock();
     }
 
-    public boolean isBesideClimbableBlock() {
+    private boolean isBesideClimbableBlock() {
         return (dataManager.get(CLIMBING) & 1) != 0;
     }
 
-    public void setBesideClimbableBlock(boolean climbing) {
+    private void setBesideClimbableBlock(boolean climbing) {
         byte b0 = dataManager.get(CLIMBING);
 
         if (climbing) {
@@ -104,8 +104,8 @@ public class EntitySpiderCreeper extends EntityBaseCreeper {
     }
 
     @Override
-    public boolean isPotionApplicable(PotionEffect potioneffectIn) {
-        return potioneffectIn.getPotion() == MobEffects.POISON ? false : super.isPotionApplicable(potioneffectIn);
+    public boolean isPotionApplicable(PotionEffect effect) {
+        return effect.getPotion() != MobEffects.POISON && super.isPotionApplicable(effect);
     }
 
     @Override
