@@ -8,17 +8,17 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 import java.io.IOException;
 
-public abstract class MessageBase implements IMessage {
+public abstract class ECMessage implements IMessage {
 
     @Override
-    public final void toBytes(ByteBuf buffer) {
-        serialize(new PacketBuffer(buffer));
+    public final void toBytes(ByteBuf buf) {
+        serialize(new PacketBuffer(buf));
     }
 
     @Override
-    public final void fromBytes(ByteBuf buffer) {
+    public final void fromBytes(ByteBuf buf) {
         try {
-            deserialize(new PacketBuffer(buffer));
+            deserialize(new PacketBuffer(buf));
         } catch (IOException err) {
             ElementalCreepers.LOG.catching(err);
         }
@@ -28,5 +28,5 @@ public abstract class MessageBase implements IMessage {
 
     public abstract void deserialize(PacketBuffer buffer) throws IOException;
 
-    public abstract IMessage process(MessageContext context);
+    public abstract void process(MessageContext ctx);
 }

@@ -3,9 +3,7 @@ package T145.elementalcreepers.entities;
 import T145.elementalcreepers.ElementalCreepers;
 import T145.elementalcreepers.entities.ai.EntityAIFriendlyCreeperSwell;
 import T145.elementalcreepers.explosion.ExplosionFriendly;
-import T145.elementalcreepers.network.PacketHandler;
-import T145.elementalcreepers.network.client.MessageFriendlyExplosionParticles;
-import com.google.common.collect.Lists;
+import T145.elementalcreepers.network.client.MessageFriendlyParticles;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.entity.*;
@@ -24,7 +22,6 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -33,12 +30,12 @@ import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.event.ForgeEventFactory;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
-import java.util.List;
 import java.util.UUID;
 
 public class EntityFriendlyCreeper extends EntityTameable {
@@ -520,37 +517,9 @@ public class EntityFriendlyCreeper extends EntityTameable {
             explosion.doExplosionA();
 
             world.playSound(null, posX, posY, posZ, SoundEvents.ENTITY_FIREWORK_TWINKLE, SoundCategory.BLOCKS, 0.5F, (1.0F + (rand.nextFloat() - rand.nextFloat()) * 0.2F) * 0.7F);
-            PacketHandler.sendToAllAround(new MessageFriendlyExplosionParticles(posX, posY + (getPowered() ? 2.5F : 0.5F), posZ, generateTag()), world, getPosition());
+            ElementalCreepers.proxy.getNetwork().sendToAllAround(new MessageFriendlyParticles(this), new NetworkRegistry.TargetPoint(world.provider.getDimension(), posX, posY, posZ, 64D));
         } else {
             world.createExplosion(this, posX, posY, posZ, explosionRadius, canGrief);
         }
-    }
-
-    private NBTTagCompound generateTag() {
-        NBTTagCompound fireworkTag = new NBTTagCompound();
-        NBTTagCompound fireworkItemTag = new NBTTagCompound();
-        NBTTagList nbttaglist = new NBTTagList();
-        List<Integer> list = Lists.newArrayList();
-
-        list.add(ItemDye.DYE_COLORS[1]);
-        list.add(ItemDye.DYE_COLORS[11]);
-        list.add(ItemDye.DYE_COLORS[4]);
-
-        for (int i = 0; i < rand.nextInt(3) + 3; i++) {
-            list.add(ItemDye.DYE_COLORS[rand.nextInt(15)]);
-        }
-
-        int[] colours = new int[list.size()];
-
-        for (int i = 0; i < colours.length; i++) {
-            colours[i] = list.get(i);
-        }
-
-        fireworkTag.setIntArray("Colors", colours);
-        fireworkTag.setBoolean("Flicker", true);
-        fireworkTag.setByte("Type", (byte) (getPowered() ? 3 : 4));
-        nbttaglist.appendTag(fireworkTag);
-        fireworkItemTag.setTag("Explosions", nbttaglist);
-        return fireworkItemTag;
     }
 }
