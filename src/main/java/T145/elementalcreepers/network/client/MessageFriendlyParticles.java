@@ -1,15 +1,14 @@
 package T145.elementalcreepers.network.client;
 
-import T145.elementalcreepers.entities.EntityFriendlyCreeper;
 import T145.elementalcreepers.network.ECMessage;
 import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.ParticleFirework;
-import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemDye;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
@@ -22,22 +21,26 @@ public class MessageFriendlyParticles extends ECMessage {
 
     private static final Random RANDOM = new Random();
 
-    private int entityId;
+    private BlockPos pos;
+    private boolean powered;
 
     public MessageFriendlyParticles() {}
 
-    public MessageFriendlyParticles(EntityFriendlyCreeper creeper) {
-        this.entityId = creeper.getEntityId();
+    public MessageFriendlyParticles(BlockPos pos, boolean powered) {
+        this.pos = pos;
+        this.powered = powered;
     }
 
     @Override
     public void serialize(PacketBuffer buffer) {
-        buffer.writeVarInt(entityId);
+        buffer.writeBlockPos(pos);
+        buffer.writeBoolean(powered);
     }
 
     @Override
     public void deserialize(PacketBuffer buffer) {
-        entityId = buffer.readVarInt();
+        pos = buffer.readBlockPos();
+        powered = buffer.readBoolean();
     }
 
     @Override
@@ -46,16 +49,11 @@ public class MessageFriendlyParticles extends ECMessage {
         World world = Minecraft.getMinecraft().world;
 
         if (world != null) {
-            Entity entity = world.getEntityByID(entityId);
-
-            if (entity instanceof EntityFriendlyCreeper) {
-                EntityFriendlyCreeper creeper = (EntityFriendlyCreeper) entity;
-                Minecraft.getMinecraft().effectRenderer.addEffect(new ParticleFirework.Starter(world, creeper.posX, creeper.posY + (creeper.getPowered() ? 2.5F : 0.5F), creeper.posZ, 0, 0, 0, Minecraft.getMinecraft().effectRenderer, generateTag(creeper.getPowered())));
-            }
+            Minecraft.getMinecraft().effectRenderer.addEffect(new ParticleFirework.Starter(world, pos.getX(), pos.getY() + (powered ? 2.5F : 0.5F), pos.getZ(), 0, 0, 0, Minecraft.getMinecraft().effectRenderer, generateTag()));
         }
     }
 
-    private NBTTagCompound generateTag(boolean powered) {
+    private NBTTagCompound generateTag() {
         NBTTagCompound fireworkTag = new NBTTagCompound();
         NBTTagCompound fireworkItemTag = new NBTTagCompound();
         NBTTagList fireworkTags = new NBTTagList();

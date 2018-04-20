@@ -517,7 +517,7 @@ public class EntityFriendlyCreeper extends EntityTameable {
             explosion.doExplosionA();
 
             world.playSound(null, posX, posY, posZ, SoundEvents.ENTITY_FIREWORK_TWINKLE, SoundCategory.BLOCKS, 0.5F, (1.0F + (rand.nextFloat() - rand.nextFloat()) * 0.2F) * 0.7F);
-            ElementalCreepers.proxy.getNetwork().sendToAllAround(new MessageFriendlyParticles(this), new NetworkRegistry.TargetPoint(world.provider.getDimension(), posX, posY, posZ, 64D));
+            ElementalCreepers.network.sendToAllAround(new MessageFriendlyParticles(getPosition(), getPowered()), new NetworkRegistry.TargetPoint(world.provider.getDimension(), posX, posY, posZ, 64D));
         } else {
             world.createExplosion(this, posX, posY, posZ, explosionRadius, canGrief);
         }

@@ -18,13 +18,13 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.oredict.OreDictionary;
+import scala.xml.Elem;
 
 import javax.annotation.Nullable;
 import java.util.HashSet;
 
 public class CommonProxy implements IMessageHandler<ECMessage, IMessage> {
 
-    private static final SimpleNetworkWrapper NETWORK = NetworkRegistry.INSTANCE.newSimpleChannel(ElementalCreepers.MODID);
     private static final HashSet<Block> ROCK_SET = new HashSet<>();
 
     static {
@@ -53,10 +53,6 @@ public class CommonProxy implements IMessageHandler<ECMessage, IMessage> {
         return ROCK_SET;
     }
 
-    public SimpleNetworkWrapper getNetwork() {
-        return NETWORK;
-    }
-
     @Nullable
     @Override
     public IMessage onMessage(ECMessage message, MessageContext ctx) {
@@ -66,10 +62,11 @@ public class CommonProxy implements IMessageHandler<ECMessage, IMessage> {
     }
 
     private void registerMessage(Class<? extends ECMessage> message, Side side) {
-        NETWORK.registerMessage(this, message, messageId++, side);
+        ElementalCreepers.network.registerMessage(this, message, messageId++, side);
     }
 
     public void preInit(FMLPreInitializationEvent event) {
+        ElementalCreepers.network = NetworkRegistry.INSTANCE.newSimpleChannel(ElementalCreepers.MODID);
         registerMessage(MessageFriendlyParticles.class, Side.CLIENT);
     }
 
