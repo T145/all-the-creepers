@@ -1,29 +1,16 @@
 package T145.elementalcreepers.proxies;
 
-import T145.elementalcreepers.ElementalCreepers;
-import T145.elementalcreepers.network.ECMessage;
-import T145.elementalcreepers.network.client.MessageFriendlyParticles;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IThreadListener;
-import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
-import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.oredict.OreDictionary;
-import scala.xml.Elem;
 
-import javax.annotation.Nullable;
 import java.util.HashSet;
 
-public class CommonProxy implements IMessageHandler<ECMessage, IMessage> {
+public class CommonProxy {
 
     private static final HashSet<Block> ROCK_SET = new HashSet<>();
 
@@ -47,28 +34,11 @@ public class CommonProxy implements IMessageHandler<ECMessage, IMessage> {
         ROCK_SET.add(Blocks.DOUBLE_STONE_SLAB);
     }
 
-    private int messageId;
-
     public HashSet<Block> getRockSet() {
         return ROCK_SET;
     }
 
-    @Nullable
-    @Override
-    public IMessage onMessage(ECMessage message, MessageContext ctx) {
-        IThreadListener thread = FMLCommonHandler.instance().getWorldThread(ctx.netHandler);
-        thread.addScheduledTask(() -> message.process(ctx));
-        return null;
-    }
-
-    private void registerMessage(Class<? extends ECMessage> message, Side side) {
-        ElementalCreepers.network.registerMessage(this, message, messageId++, side);
-    }
-
-    public void preInit(FMLPreInitializationEvent event) {
-        ElementalCreepers.network = NetworkRegistry.INSTANCE.newSimpleChannel(ElementalCreepers.MODID);
-        registerMessage(MessageFriendlyParticles.class, Side.CLIENT);
-    }
+    public void preInit(FMLPreInitializationEvent event) { }
 
     public void init(FMLInitializationEvent event) {}
 
