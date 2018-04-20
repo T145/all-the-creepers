@@ -2,11 +2,17 @@ package T145.elementalcreepers.entities.base;
 
 import T145.elementalcreepers.config.ModConfig;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockLiquid;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.init.Blocks;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 public abstract class EntityBaseCreeper extends EntityCreeper {
@@ -70,6 +76,29 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
 
                     if (block.canPlaceBlockAt(world, pos) && !block.canPlaceBlockAt(world, new BlockPos(posX + x, posY + y - 1, posZ + z)) && rand.nextBoolean()) {
                         world.setBlockState(pos, state, ModConfig.general.updatePlacedBlocks ? 3 : 2);
+                    }
+                }
+            }
+        }
+    }
+
+    protected void createPlatform(EntityLivingBase living, World worldIn, BlockPos pos, Block base, Block liquid, Block flowingLiquid) {
+        if (living.onGround) {
+            float f = (float) Math.min(16, 2);
+            BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos(BlockPos.ORIGIN);
+
+            for (BlockPos.MutableBlockPos mutablePos1 : BlockPos.getAllInBoxMutable(pos.add((double) (-f), -1.0D, (double) (-f)), pos.add((double) f, -1.0D, (double) f))) {
+                if (mutablePos1.distanceSqToCenter(living.posX, living.posY, living.posZ) <= (double) (f * f)) {
+                    mutablePos.setPos(mutablePos1.getX(), mutablePos1.getY() + 1, mutablePos1.getZ());
+                    IBlockState iblockstate = worldIn.getBlockState(mutablePos);
+
+                    if (iblockstate.getMaterial() == Material.AIR) {
+                        IBlockState iblockstate1 = worldIn.getBlockState(mutablePos1);
+
+                        if (iblockstate1.getMaterial() == liquid.getDefaultState().getMaterial() && (iblockstate1.getBlock() == liquid || iblockstate1.getBlock() == flowingLiquid) && iblockstate1.getValue(BlockLiquid.LEVEL) == 0 && worldIn.mayPlace(base, mutablePos1, false, EnumFacing.DOWN, null)) {
+                            worldIn.setBlockState(mutablePos1, base.getDefaultState());
+                            worldIn.scheduleUpdate(mutablePos1.toImmutable(), base, MathHelper.getInt(living.getRNG(), 60, 120));
+                        }
                     }
                 }
             }

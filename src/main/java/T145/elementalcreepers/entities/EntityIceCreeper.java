@@ -5,12 +5,13 @@ import T145.elementalcreepers.entities.base.EntityBaseCreeper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.enchantment.EnchantmentFrostWalker;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-public class EntityIceCreeper extends EntityBaseCreeper {
+public class EntityIceCreeper extends EntityWaterCreeper {
 
     public EntityIceCreeper(World world) {
         super(world);
@@ -20,7 +21,9 @@ public class EntityIceCreeper extends EntityBaseCreeper {
     public void onLivingUpdate() {
         super.onLivingUpdate();
 
-        if (world.isRemote || !world.getGameRules().getBoolean("mobGriefing")) {
+        EnchantmentFrostWalker.freezeNearby(this, world, getPosition(), 0);
+
+        if (!world.getGameRules().getBoolean("mobGriefing")) {
             return;
         }
 

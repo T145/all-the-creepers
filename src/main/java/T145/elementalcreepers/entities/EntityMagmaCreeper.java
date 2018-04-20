@@ -23,7 +23,13 @@ public class EntityMagmaCreeper extends EntityBaseCreeper {
             attackEntityFrom(DamageSource.DROWN, 1.0F);
         }
 
-        if (world.isRemote || !world.getGameRules().getBoolean("mobGriefing")) {
+        if (world.isRemote) {
+            return;
+        }
+
+        createPlatform(this, world, getPosition(), Blocks.COBBLESTONE, Blocks.WATER, Blocks.FLOWING_WATER);
+
+        if (!world.getGameRules().getBoolean("mobGriefing")) {
             return;
         }
 
