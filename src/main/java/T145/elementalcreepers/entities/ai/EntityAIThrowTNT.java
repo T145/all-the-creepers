@@ -75,7 +75,7 @@ public class EntityAIThrowTNT extends EntityAIBase {
         if (longThrow) {
             tnt.motionY *= 1.5D;
         } else {
-            tnt.setFuse(30);
+            tnt.setFuse(40);
         }
 
         creeper.world.spawnEntity(tnt);
