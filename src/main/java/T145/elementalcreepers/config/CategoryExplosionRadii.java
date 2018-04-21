@@ -5,56 +5,56 @@ import net.minecraftforge.common.config.Config;
 public class CategoryExplosionRadii {
 
     @Config.Comment("Sets the Water Creeper explosion radius")
-    public int waterCreeperRadius = 4;
+    public int water = 4;
 
     @Config.Comment("Sets the Fire Creeper explosion radius")
-    public int fireCreeperRadius = 6;
+    public int fire = 6;
 
     @Config.Comment("Sets the Ice Creeper explosion radius")
-    public int iceCreeperRadius = 8;
+    public int ice = 8;
 
     @Config.Comment("Sets the lightning Creeper explosion radius")
-    public int lightningCreeperRadius = 5;
+    public int lightning = 5;
 
     @Config.Comment("Sets the Earth Creeper explosion radius")
-    public int earthCreeperRadius = 8;
+    public int earth = 8;
 
     @Config.Comment("Sets the Ender Creeper explosion radius")
-    public int enderCreeperRadius = 8;
+    public int ender = 8;
 
     @Config.Comment("Sets the Psychic Creeper explosion radius")
-    public int psychicCreeperRadius = 5;
+    public int psychic = 5;
 
     @Config.Comment("Sets the Magma Creeper explosion radius")
-    public int magmaCreeperRadius = 3;
+    public int lava = 3;
 
     @Config.Comment("Sets the Ghost Creeper explosion radius")
-    public int ghostCreeperRadius = 5;
+    public int ghost = 5;
 
     @Config.Comment("Sets the Light Creeper explosion radius")
-    public int lightCreeperRadius = 4;
+    public int light = 4;
 
     @Config.Comment("Sets the Dark Creeper explosion radius")
-    public int darkCreeperRadius = 12;
+    public int dark = 12;
 
     @Config.Comment("Sets the Reverse Creeper explosion radius")
-    public int reverseCreeperRadius = 8;
+    public int reverse = 8;
 
     @Config.Comment("Sets the Spider Creeper explosion radius")
-    public int spiderCreeperRadius = 12;
+    public int spider = 12;
 
     @Config.Comment("Sets the Wind Creeper explosion radius")
-    public int windCreeperRadius = 5;
+    public int wind = 5;
 
     @Config.Comment("Sets the ballistic (Bomb) Creeper explosion radius")
-    public int ballisticCreeperRadius = 64;
+    public int ballistic = 64;
 
     @Config.Comment("Sets the Stone Creeper explosion radius")
-    public int stoneCreeperRadius = 8;
+    public int stone = 8;
 
     @Config.Comment("Sets the Firework Creeper explosion radius")
-    public int fireworkCreeperRadius = 5;
+    public int firework = 5;
 
     @Config.Comment("Sets the Furnace Creeper explosion radius")
-    public int furnaceCreeperRadius = 3;
+    public int furnace = 3;
 }

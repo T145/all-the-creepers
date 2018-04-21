@@ -31,7 +31,7 @@ public class EntityEnderCreeper extends EntityBaseCreeper {
 
     @Override
     public void createExplosion(int explosionPower, boolean canGrief) {
-        float radius = getPowered() ? ModConfig.EXPLOSION_RADII.enderCreeperRadius * 1.5F : ModConfig.EXPLOSION_RADII.enderCreeperRadius;
+        float radius = getPowered() ? ModConfig.EXPLOSION_RADII.ender * 1.5F : ModConfig.EXPLOSION_RADII.ender;
         List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, getAreaOfEffect(radius), entity -> entity != this);
 
         if (!entities.isEmpty()) {

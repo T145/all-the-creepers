@@ -16,7 +16,7 @@ public class EntityLightningCreeper extends EntityBaseCreeper {
 
     @Override
     public void createExplosion(int explosionPower, boolean canGrief) {
-        float radius = getPowered() ? ModConfig.EXPLOSION_RADII.lightningCreeperRadius * 1.5F : ModConfig.EXPLOSION_RADII.lightningCreeperRadius;
+        float radius = getPowered() ? ModConfig.EXPLOSION_RADII.lightning * 1.5F : ModConfig.EXPLOSION_RADII.lightning;
         List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, getAreaOfEffect(radius), entity -> entity != this);
 
         if (!entities.isEmpty()) {

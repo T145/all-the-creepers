@@ -47,7 +47,7 @@ public class EntityLavaCreeper extends EntityBaseCreeper {
 
     @Override
     public void createExplosion(int explosionPower, boolean canGrief) {
-        int radius = getPowered() ? ModConfig.EXPLOSION_RADII.magmaCreeperRadius * explosionPower : ModConfig.EXPLOSION_RADII.magmaCreeperRadius;
+        int radius = getPowered() ? ModConfig.EXPLOSION_RADII.lava * explosionPower : ModConfig.EXPLOSION_RADII.lava;
         specialExplosion(radius, Blocks.LAVA.getDefaultState());
     }
 }

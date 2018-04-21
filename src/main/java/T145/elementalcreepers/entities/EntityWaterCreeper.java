@@ -40,7 +40,7 @@ public class EntityWaterCreeper extends EntityBaseCreeper {
 
     @Override
     public void createExplosion(int explosionPower, boolean canGrief) {
-        int radius = getPowered() ? ModConfig.EXPLOSION_RADII.waterCreeperRadius * explosionPower : ModConfig.EXPLOSION_RADII.waterCreeperRadius;
+        int radius = getPowered() ? ModConfig.EXPLOSION_RADII.water * explosionPower : ModConfig.EXPLOSION_RADII.water;
         specialExplosion(radius, Blocks.WATER.getDefaultState());
     }
 }

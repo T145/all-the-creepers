@@ -50,7 +50,7 @@ public class EntitySpringCreeper extends EntityBaseCreeper {
 
     @Override
     public void createExplosion(int explosionPower, boolean canGrief) {
-        power = getPowered() ? ModConfig.EXPLOSION_POWER.springCreeperPower * 1.5F : ModConfig.EXPLOSION_POWER.springCreeperPower;
+        power = getPowered() ? ModConfig.EXPLOSION_POWER.spring * 1.5F : ModConfig.EXPLOSION_POWER.spring;
 
         if (world.isRemote) {
             spawnExplosionParticle();

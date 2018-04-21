@@ -5,71 +5,71 @@ import net.minecraftforge.common.config.Config;
 public class CategorySpawnRate {
 
     @Config.Comment("Sets the Fire Creeper Spawn weight")
-    public int fireCreeperSpawn = 10;
+    public int fire = 10;
 
     @Config.Comment("Sets the Water Creeper Spawn weight")
-    public int waterCreeperSpawn = 10;
+    public int water = 10;
 
     @Config.Comment("Sets the lightning Creeper Spawn weight")
-    public int lightningCreeperSpawn = 10;
+    public int lightning = 10;
 
     @Config.Comment("Sets the Cookie Creeper Spawn weight")
-    public int cookieCreeperSpawn = 10;
+    public int cookie = 10;
 
     @Config.Comment("Sets the Dark Creeper Spawn weight")
-    public int darkCreeperSpawn = 2;
+    public int dark = 2;
 
     @Config.Comment("Sets the Light Creeper Spawn weight")
-    public int lightCreeperSpawn = 4;
+    public int light = 4;
 
     @Config.Comment("Sets the Earth Creeper Spawn weight")
-    public int earthCreeperSpawn = 10;
+    public int earth = 10;
 
     @Config.Comment("Sets the Magma Creeper Spawn weight")
-    public int magmaCreeperSpawn = 6;
+    public int lava = 6;
 
     @Config.Comment("Sets the Reverse Creeper Spawn weight")
-    public int reverseCreeperSpawn = 6;
+    public int reverse = 6;
 
     @Config.Comment("Sets the Ice Creeper Spawn weight")
-    public int iceCreeperSpawn = 10;
+    public int ice = 10;
 
     @Config.Comment("Sets the Psychic Creeper Spawn weight")
-    public int psychicCreeperSpawn = 10;
+    public int psychic = 10;
 
     @Config.Comment("Sets the Illusion Creeper Spawn weight")
-    public int illusionCreeperSpawn = 6;
+    public int illusion = 6;
 
     @Config.Comment("Sets the Spider Creeper Spawn weight")
-    public int spiderCreeperSpawn = 8;
+    public int spider = 8;
 
     @Config.Comment("Sets the Friendly Creeper Spawn weight")
-    public int friendlyCreeperSpawn = 1;
+    public int friendly = 1;
 
     @Config.Comment("Sets the Wind Creeper Spawn weight")
-    public int windCreeperSpawn = 10;
+    public int wind = 10;
 
     @Config.Comment("Sets the ballistic Creeper Spawn weight")
-    public int ballisticCreeperSpawn = 1;
+    public int ballistic = 1;
 
     @Config.Comment("Sets the Ender Creeper Spawn weight")
-    public int enderCreeperSpawn = 4;
+    public int ender = 4;
 
     @Config.Comment("Sets the Stone Creeper Spawn weight")
-    public int stoneCreeperSpawn = 10;
+    public int stone = 10;
 
     @Config.Comment("Sets the cake Creeper Spawn weight")
-    public int cakeCreeperSpawn = 2;
+    public int cake = 2;
 
     @Config.Comment("Sets the Firework Creeper Spawn weight")
-    public int fireworkCreeperSpawn = 8;
+    public int firework = 8;
 
     @Config.Comment("Sets the Spring Creeper Spawn weight")
-    public int springCreeperSpawn = 7;
+    public int spring = 7;
 
     @Config.Comment("Sets the Furnace Creeper Spawn weight")
-    public int furnaceCreeperSpawn = 1;
+    public int furnace = 1;
 
     @Config.Comment("Sets the Ender Creeper Spawn weight")
-    public int zombieCreeperSpawn = 4;
+    public int zombie = 4;
 }

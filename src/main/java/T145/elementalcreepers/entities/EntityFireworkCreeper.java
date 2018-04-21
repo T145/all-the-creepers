@@ -42,7 +42,7 @@ public class EntityFireworkCreeper extends EntityBaseCreeper {
 
     @Override
     public void createExplosion(int explosionPower, boolean canGrief) {
-        int radius = getPowered() ? ModConfig.EXPLOSION_RADII.fireworkCreeperRadius * explosionPower : ModConfig.EXPLOSION_RADII.fireworkCreeperRadius;
+        int radius = getPowered() ? ModConfig.EXPLOSION_RADII.firework * explosionPower : ModConfig.EXPLOSION_RADII.firework;
 
         if (!world.isRemote) {
             world.spawnEntity(new EntityFireworkRocket(world, posX, posY, posZ, getRandomFirework()));

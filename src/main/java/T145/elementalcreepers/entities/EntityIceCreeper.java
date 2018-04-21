@@ -40,7 +40,7 @@ public class EntityIceCreeper extends EntityWaterCreeper {
 
     @Override
     public void createExplosion(int explosionPower, boolean canGrief) {
-        int radius = getPowered() ? ModConfig.EXPLOSION_RADII.iceCreeperRadius * explosionPower : ModConfig.EXPLOSION_RADII.iceCreeperRadius;
+        int radius = getPowered() ? ModConfig.EXPLOSION_RADII.ice * explosionPower : ModConfig.EXPLOSION_RADII.ice;
 
         for (int x = -radius; x <= radius; x++) {
             for (int y = -radius; y <= radius; y++) {
