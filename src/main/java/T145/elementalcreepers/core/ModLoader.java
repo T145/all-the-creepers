@@ -7,6 +7,7 @@ import T145.elementalcreepers.client.render.entity.RenderFriendlyCreeper;
 import T145.elementalcreepers.client.render.entity.RenderSpiderCreeper;
 import T145.elementalcreepers.config.ModConfig;
 import T145.elementalcreepers.entities.*;
+import T145.elementalcreepers.entities.base.EntityBaseCreeper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -46,131 +47,109 @@ public class ModLoader {
     @EventBusSubscriber(modid = ElementalCreepers.MODID)
     public static class ServerLoader {
 
-        private static int entityID = 0;
+        private static int entityId;
         private static BiomeDictionary.Type[] validOverworldBiomeTypes = {BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.SWAMP, BiomeDictionary.Type.JUNGLE, BiomeDictionary.Type.WASTELAND, BiomeDictionary.Type.MAGICAL, BiomeDictionary.Type.BEACH, BiomeDictionary.Type.SANDY, BiomeDictionary.Type.SNOWY, BiomeDictionary.Type.MOUNTAIN};
 
         private ServerLoader() {}
 
         @SubscribeEvent
         public static void registerEntities(final RegistryEvent.Register<EntityEntry> event) {
+
+            // TODO: Add unique egg colors
             final EntityEntry[] entries = {
-                    createBuilder("CakeCreeper")
+                    createCreeperBuilder("CakeCreeper")
                             .entity(EntityCakeCreeper.class)
-                            .tracker(80, 3, true)
                             .egg(0x0DA70B, 0x101010)
                             .build(),
-                    createBuilder("CookieCreeper")
+                    createCreeperBuilder("CookieCreeper")
                             .entity(EntityCookieCreeper.class)
-                            .tracker(80, 3, true)
                             .egg(0x0DA70B, 0x101010)
                             .build(),
-                    createBuilder("DarkCreeper")
+                    createCreeperBuilder("DarkCreeper")
                             .entity(EntityDarkCreeper.class)
-                            .tracker(80, 3, true)
                             .egg(0x0DA70B, 0x101010)
                             .build(),
-                    createBuilder("EarthCreeper")
+                    createCreeperBuilder("EarthCreeper")
                             .entity(EntityEarthCreeper.class)
-                            .tracker(80, 3, true)
                             .egg(0x0DA70B, 0x101010)
                             .build(),
-                    createBuilder("EnderCreeper")
+                    createCreeperBuilder("EnderCreeper")
                             .entity(EntityEnderCreeper.class)
-                            .tracker(80, 3, true)
                             .egg(0x0DA70B, 0x101010)
                             .build(),
-                    createBuilder("FireCreeper")
+                    createCreeperBuilder("FireCreeper")
                             .entity(EntityFireCreeper.class)
-                            .tracker(80, 3, true)
                             .egg(0x0DA70B, 0x101010)
                             .build(),
-                    createBuilder("FireworkCreeper")
+                    createCreeperBuilder("FireworkCreeper")
                             .entity(EntityFireworkCreeper.class)
-                            .tracker(80, 3, true)
                             .egg(0x0DA70B, 0x101010)
                             .build(),
-                    createBuilder("FurnaceCreeper")
+                    createCreeperBuilder("FurnaceCreeper")
                             .entity(EntityFurnaceCreeper.class)
-                            .tracker(80, 3, true)
                             .egg(0x0DA70B, 0x101010)
                             .build(),
-                    createBuilder("FriendlyCreeper")
+                    createCreeperBuilder("FriendlyCreeper")
                             .entity(EntityFriendlyCreeper.class)
-                            .tracker(80, 3, true)
                             .egg(0x0DA70B, 0x101010)
                             .build(),
-                    createBuilder("GhostCreeper")
+                    createCreeperBuilder("GhostCreeper")
                             .entity(EntityGhostCreeper.class)
-                            .tracker(80, 3, true)
                             .build(),
-                    createBuilder("BallisticCreeper")
+                    createCreeperBuilder("BallisticCreeper")
                             .entity(EntityBallisticCreeper.class)
-                            .tracker(80, 3, true)
                             .egg(0x0DA70B, 0x101010)
                             .build(),
-                    createBuilder("IceCreeper")
+                    createCreeperBuilder("IceCreeper")
                             .entity(EntityIceCreeper.class)
-                            .tracker(80, 3, true)
                             .egg(0x0DA70B, 0x101010)
                             .build(),
-                    createBuilder("IllusionCreeper")
+                    createCreeperBuilder("IllusionCreeper")
                             .entity(EntityIllusionCreeper.class)
-                            .tracker(80, 3, true)
                             .egg(0x0DA70B, 0x101010)
                             .build(),
-                    createBuilder("LightCreeper")
+                    createCreeperBuilder("LightCreeper")
                             .entity(EntityLightCreeper.class)
-                            .tracker(80, 3, true)
                             .egg(0x0DA70B, 0x101010)
                             .build(),
-                    createBuilder("LightningCreeper")
+                    createCreeperBuilder("LightningCreeper")
                             .entity(EntityLightningCreeper.class)
-                            .tracker(80, 3, true)
                             .egg(0x0DA70B, 0x101010)
                             .build(),
-                    createBuilder("MagmaCreeper")
+                    createCreeperBuilder("MagmaCreeper")
                             .entity(EntityMagmaCreeper.class)
-                            .tracker(80, 3, true)
                             .egg(0x0DA70B, 0x101010)
                             .build(),
-                    createBuilder("PsychicCreeper")
+                    createCreeperBuilder("PsychicCreeper")
                             .entity(EntityPsychicCreeper.class)
-                            .tracker(80, 3, true)
                             .egg(0x0DA70B, 0x101010)
                             .build(),
-                    createBuilder("ReverseCreeper")
+                    createCreeperBuilder("ReverseCreeper")
                             .entity(EntityReverseCreeper.class)
-                            .tracker(80, 3, true)
                             .egg(0x0DA70B, 0x101010)
                             .build(),
-                    createBuilder("SpiderCreeper")
+                    createCreeperBuilder("SpiderCreeper")
                             .entity(EntitySpiderCreeper.class)
-                            .tracker(80, 3, true)
                             .egg(0x0DA70B, 0x101010)
                             .build(),
-                    createBuilder("SpringCreeper")
+                    createCreeperBuilder("SpringCreeper")
                             .entity(EntitySpringCreeper.class)
-                            .tracker(80, 3, true)
                             .egg(0x0DA70B, 0x101010)
                             .build(),
-                    createBuilder("StoneCreeper")
+                    createCreeperBuilder("StoneCreeper")
                             .entity(EntityStoneCreeper.class)
-                            .tracker(80, 3, true)
                             .egg(0x0DA70B, 0x101010)
                             .build(),
-                    createBuilder("WaterCreeper")
+                    createCreeperBuilder("WaterCreeper")
                             .entity(EntityWaterCreeper.class)
-                            .tracker(80, 3, true)
                             .egg(0x0DA70B, 0x101010)
                             .build(),
-                    createBuilder("WindCreeper")
+                    createCreeperBuilder("WindCreeper")
                             .entity(EntityWindCreeper.class)
-                            .tracker(80, 3, true)
                             .egg(0x0DA70B, 0x101010)
                             .build(),
-                    createBuilder("ZombieCreeper")
+                    createCreeperBuilder("ZombieCreeper")
                             .entity(EntityZombieCreeper.class)
-                            .tracker(80, 3, true)
                             .egg(0x0DA70B, 0x101010)
                             .build()
             };
@@ -181,27 +160,27 @@ public class ModLoader {
             }
 
             if (ModConfig.general.reasonableSpawnRates) {
-                addOverworldSpawn(EntityFireCreeper.class, ModConfig.spawnRate.fireCreeperSpawn, 1, 3);
-                addOverworldSpawn(EntityWaterCreeper.class, ModConfig.spawnRate.waterCreeperSpawn, 1, 3);
-                addOverworldSpawn(EntityLightningCreeper.class, ModConfig.spawnRate.lightningCreeperSpawn, 1, 3);
-                addOverworldSpawn(EntityCookieCreeper.class, ModConfig.spawnRate.cookieCreeperSpawn, 1, 2);
-                addOverworldSpawn(EntityDarkCreeper.class, ModConfig.spawnRate.darkCreeperSpawn, 1, 3);
-                addOverworldSpawn(EntityLightCreeper.class, ModConfig.spawnRate.lightCreeperSpawn, 1, 3);
-                addOverworldSpawn(EntityEarthCreeper.class, ModConfig.spawnRate.earthCreeperSpawn, 1, 3);
-                addOverworldSpawn(EntityReverseCreeper.class, ModConfig.spawnRate.reverseCreeperSpawn, 1, 1);
-                addOverworldSpawn(EntityIceCreeper.class, ModConfig.spawnRate.iceCreeperSpawn, 1, 3);
-                addOverworldSpawn(EntityPsychicCreeper.class, ModConfig.spawnRate.psychicCreeperSpawn, 1, 3);
-                addOverworldSpawn(EntityIllusionCreeper.class, ModConfig.spawnRate.illusionCreeperSpawn, 1, 1);
-                addOverworldSpawn(EntitySpiderCreeper.class, ModConfig.spawnRate.spiderCreeperSpawn, 1, 3);
-                addOverworldSpawn(EntityWindCreeper.class, ModConfig.spawnRate.windCreeperSpawn, 1, 2);
-                addOverworldSpawn(EntityBallisticCreeper.class, ModConfig.spawnRate.ballisticCreeperSpawn, 1, 1);
-                addOverworldSpawn(EntityEnderCreeper.class, ModConfig.spawnRate.enderCreeperSpawn, 1, 2);
-                addOverworldSpawn(EntityStoneCreeper.class, ModConfig.spawnRate.stoneCreeperSpawn, 1, 3);
-                addOverworldSpawn(EntityCakeCreeper.class, ModConfig.spawnRate.cakeCreeperSpawn, 1, 3);
-                addOverworldSpawn(EntityFireworkCreeper.class, ModConfig.spawnRate.fireworkCreeperSpawn, 1, 3);
-                addOverworldSpawn(EntitySpringCreeper.class, ModConfig.spawnRate.springCreeperSpawn, 1, 3);
-                addOverworldSpawn(EntityFurnaceCreeper.class, ModConfig.spawnRate.furnaceCreeperSpawn, 1, 3);
-                addOverworldSpawn(EntityZombieCreeper.class, ModConfig.spawnRate.zombieCreeperSpawn, 1, 1);
+                addOverworldSpawn(EntityFireCreeper.class, ModConfig.spawnRate.fireCreeperSpawn, 3);
+                addOverworldSpawn(EntityWaterCreeper.class, ModConfig.spawnRate.waterCreeperSpawn, 3);
+                addOverworldSpawn(EntityLightningCreeper.class, ModConfig.spawnRate.lightningCreeperSpawn, 3);
+                addOverworldSpawn(EntityCookieCreeper.class, ModConfig.spawnRate.cookieCreeperSpawn, 2);
+                addOverworldSpawn(EntityDarkCreeper.class, ModConfig.spawnRate.darkCreeperSpawn, 3);
+                addOverworldSpawn(EntityLightCreeper.class, ModConfig.spawnRate.lightCreeperSpawn, 3);
+                addOverworldSpawn(EntityEarthCreeper.class, ModConfig.spawnRate.earthCreeperSpawn, 3);
+                addOverworldSpawn(EntityReverseCreeper.class, ModConfig.spawnRate.reverseCreeperSpawn, 1);
+                addOverworldSpawn(EntityIceCreeper.class, ModConfig.spawnRate.iceCreeperSpawn, 3);
+                addOverworldSpawn(EntityPsychicCreeper.class, ModConfig.spawnRate.psychicCreeperSpawn, 3);
+                addOverworldSpawn(EntityIllusionCreeper.class, ModConfig.spawnRate.illusionCreeperSpawn, 1);
+                addOverworldSpawn(EntitySpiderCreeper.class, ModConfig.spawnRate.spiderCreeperSpawn, 3);
+                addOverworldSpawn(EntityWindCreeper.class, ModConfig.spawnRate.windCreeperSpawn, 2);
+                addOverworldSpawn(EntityBallisticCreeper.class, ModConfig.spawnRate.ballisticCreeperSpawn, 1);
+                addOverworldSpawn(EntityEnderCreeper.class, ModConfig.spawnRate.enderCreeperSpawn, 2);
+                addOverworldSpawn(EntityStoneCreeper.class, ModConfig.spawnRate.stoneCreeperSpawn, 3);
+                addOverworldSpawn(EntityCakeCreeper.class, ModConfig.spawnRate.cakeCreeperSpawn, 3);
+                addOverworldSpawn(EntityFireworkCreeper.class, ModConfig.spawnRate.fireworkCreeperSpawn, 3);
+                addOverworldSpawn(EntitySpringCreeper.class, ModConfig.spawnRate.springCreeperSpawn, 3);
+                addOverworldSpawn(EntityFurnaceCreeper.class, ModConfig.spawnRate.furnaceCreeperSpawn, 3);
+                addOverworldSpawn(EntityZombieCreeper.class, ModConfig.spawnRate.zombieCreeperSpawn, 1);
             } else {
                 copyCreeperSpawns(EntityCakeCreeper.class);
                 copyCreeperSpawns(EntityCookieCreeper.class);
@@ -227,53 +206,48 @@ public class ModLoader {
                 copyCreeperSpawns(EntityZombieCreeper.class);
             }
 
-            addOverworldSpawn(EntityFriendlyCreeper.class, ModConfig.spawnRate.friendlyCreeperSpawn, 1, 2, EnumCreatureType.CREATURE);
-            addNetherSpawn(EntityFireCreeper.class, ModConfig.spawnRate.fireCreeperSpawn, 1, 3);
-            addNetherSpawn(EntityMagmaCreeper.class, ModConfig.spawnRate.magmaCreeperSpawn, 1, 2);
-            addEndSpawn(EntityEnderCreeper.class, ModConfig.spawnRate.enderCreeperSpawn * 5, 1, 3);
+            addOverworldSpawn(EntityFriendlyCreeper.class, ModConfig.spawnRate.friendlyCreeperSpawn, 2, EnumCreatureType.CREATURE);
+            addNetherSpawn(EntityFireCreeper.class, ModConfig.spawnRate.fireCreeperSpawn, 3);
+            addNetherSpawn(EntityMagmaCreeper.class, ModConfig.spawnRate.magmaCreeperSpawn, 2);
+            addEndSpawn(EntityEnderCreeper.class, ModConfig.spawnRate.enderCreeperSpawn * 5, 3);
 
             // TODO: Add dimension blacklist/whitelist
         }
 
-        private static <E extends Entity> EntityEntryBuilder<E> createBuilder(final String name) {
-            final EntityEntryBuilder<E> builder = EntityEntryBuilder.create();
+        private static <C extends Entity> EntityEntryBuilder<C> createCreeperBuilder(final String name) {
+            final EntityEntryBuilder<C> builder = EntityEntryBuilder.create();
             final ResourceLocation registryName = new ResourceLocation(ElementalCreepers.MODID, name);
-            return builder.id(registryName, entityID++).name(ElementalCreepers.MODID + ":" + name);
+            return builder
+                    .id(registryName, entityId++)
+                    .name(ElementalCreepers.MODID + ":" + name)
+                    .tracker(80, 3, true);
         }
 
-        public static void addOverworldSpawn(Class<? extends EntityLiving> entityClass, int spawnprob, int min, int max, EnumCreatureType type) {
+        static void addOverworldSpawn(Class<? extends EntityLiving> entityClass, int spawnprob, int max, EnumCreatureType type) {
             for (BiomeDictionary.Type biomeType : validOverworldBiomeTypes) {
                 Set<Biome> biomeSet = BiomeDictionary.getBiomes(biomeType);
-                EntityRegistry.addSpawn(entityClass, spawnprob, min, max, type, biomeSet.toArray(new Biome[biomeSet.size()]));
+                EntityRegistry.addSpawn(entityClass, spawnprob, 1, max, type, biomeSet.toArray(new Biome[0]));
             }
         }
 
-        public static void addOverworldSpawn(Class<? extends EntityLiving> entityClass, int spawnprob, int min, int max) {
-            addOverworldSpawn(entityClass, spawnprob, min, max, EnumCreatureType.MONSTER);
+        static void addOverworldSpawn(Class<? extends EntityLiving> entityClass, int spawnprob, int max) {
+            addOverworldSpawn(entityClass, spawnprob, max, EnumCreatureType.MONSTER);
         }
 
-        public static void addNetherSpawn(Class<? extends EntityLiving> entityClass, int spawnprob, int min, int max) {
+        static void addNetherSpawn(Class<? extends EntityLiving> entityClass, int spawnprob, int max) {
             Set<Biome> biomeSet = BiomeDictionary.getBiomes(BiomeDictionary.Type.NETHER);
-            EntityRegistry.addSpawn(entityClass, spawnprob, min, max, EnumCreatureType.MONSTER, biomeSet.toArray(new Biome[biomeSet.size()]));
+            EntityRegistry.addSpawn(entityClass, spawnprob, 1, max, EnumCreatureType.MONSTER, biomeSet.toArray(new Biome[0]));
         }
 
-        public static void addEndSpawn(Class<? extends EntityLiving> entityClass, int spawnprob, int min, int max) {
+        static void addEndSpawn(Class<? extends EntityLiving> entityClass, int spawnprob, int max) {
             Set<Biome> biomeSet = BiomeDictionary.getBiomes(BiomeDictionary.Type.END);
-            EntityRegistry.addSpawn(entityClass, spawnprob, min, max, EnumCreatureType.MONSTER, biomeSet.toArray(new Biome[biomeSet.size()]));
-        }
-
-        private static Biome[] getBiomes(final BiomeDictionary.Type type) {
-            return BiomeDictionary.getBiomes(type).toArray(new Biome[0]);
-        }
-
-        private static void copySpawns(final Class<? extends EntityLiving> classToAdd, final EnumCreatureType creatureTypeToAdd, final Class<? extends EntityLiving> classToCopy, final EnumCreatureType creatureTypeToCopy) {
-            for (final Biome biome : ForgeRegistries.BIOMES) {
-                biome.getSpawnableList(creatureTypeToCopy).stream().filter(entry -> entry.entityClass == classToCopy).findFirst().ifPresent(spawnListEntry -> biome.getSpawnableList(creatureTypeToAdd).add(new Biome.SpawnListEntry(classToAdd, spawnListEntry.itemWeight, spawnListEntry.minGroupCount, spawnListEntry.maxGroupCount)));
-            }
+            EntityRegistry.addSpawn(entityClass, spawnprob, 1, max, EnumCreatureType.MONSTER, biomeSet.toArray(new Biome[0]));
         }
 
         private static void copyCreeperSpawns(final Class<? extends EntityLiving> classToAdd) {
-            copySpawns(classToAdd, EnumCreatureType.MONSTER, EntityCreeper.class, EnumCreatureType.MONSTER);
+            for (final Biome biome : ForgeRegistries.BIOMES) {
+                biome.getSpawnableList(EnumCreatureType.MONSTER).stream().filter(entry -> entry.entityClass == EntityCreeper.class).findFirst().ifPresent(spawnListEntry -> biome.getSpawnableList(EnumCreatureType.MONSTER).add(new Biome.SpawnListEntry(classToAdd, spawnListEntry.itemWeight, spawnListEntry.minGroupCount, spawnListEntry.maxGroupCount)));
+            }
         }
 
         @SubscribeEvent
@@ -331,10 +305,10 @@ public class ModLoader {
             Entity entity = event.getEntity();
             DamageSource damage = event.getSource();
 
-            if (entity instanceof EntitySpringCreeper && damage == DamageSource.FALL) {
+            if (entity instanceof EntitySpringCreeper && !entity.world.isRemote && damage == DamageSource.FALL) {
                 EntitySpringCreeper creeper = (EntitySpringCreeper) entity;
 
-                if (!creeper.world.isRemote && creeper.isSprung()) {
+                if (creeper.isSprung()) {
                     creeper.world.createExplosion(creeper, creeper.posX, creeper.posY - 2.0D, creeper.posZ, creeper.getExplosionPower() * ((event.getAmount() < 6.0F ? 6.0F : event.getAmount()) / 6.0F), creeper.world.getGameRules().getBoolean("mobGriefing"));
                     creeper.setDead();
                 }
@@ -342,7 +316,7 @@ public class ModLoader {
         }
 
         @SubscribeEvent
-        public static void onPlayerJoinedWorld(PlayerLoggedInEvent event) {
+        public static void onPlayerLogIn(PlayerLoggedInEvent event) {
             if (ModConfig.general.checkForUpdates && UpdateChecker.hasUpdate()) {
                 event.player.sendMessage(UpdateChecker.getUpdateNotification());
             }
@@ -352,8 +326,7 @@ public class ModLoader {
     @EventBusSubscriber(value = Side.CLIENT, modid = ElementalCreepers.MODID)
     public static class ClientLoader {
 
-        private ClientLoader() {
-        }
+        private ClientLoader() {}
 
         @SubscribeEvent
         public static void onModelRegistration(ModelRegistryEvent event) {
@@ -384,7 +357,7 @@ public class ModLoader {
             registerRenderer(EntityZombieCreeper.class, "zombiecreeper");
         }
 
-        private static void registerRenderer(Class creeper, String textureName) {
+        private static void registerRenderer(Class<? extends EntityBaseCreeper> creeper, String textureName) {
             RenderingRegistry.registerEntityRenderingHandler(creeper, manager -> new RenderBaseCreeper(manager, textureName));
         }
     }
