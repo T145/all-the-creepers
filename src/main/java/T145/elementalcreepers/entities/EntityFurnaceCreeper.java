@@ -21,12 +21,12 @@ public class EntityFurnaceCreeper extends EntityBaseCreeper {
         IBlockState gate = Blocks.IRON_BARS.getDefaultState();
         IBlockState lava = Blocks.LAVA.getDefaultState();
 
-        if (!world.isRemote) {
-            for (int x = -1; x < 2; x++) {
-                for (int y = -1; y < 3; y++) {
-                    for (int z = -1; z < 2; z++) {
-                        pos.setPos(player.posX + x, player.getEntityBoundingBox().minY + y, player.posZ + z);
+        for (int x = -1; x < 2; x++) {
+            for (int y = -1; y < 3; y++) {
+                for (int z = -1; z < 2; z++) {
+                    pos.setPos(player.posX + x, player.getEntityBoundingBox().minY + y, player.posZ + z);
 
+                    if (world.getBlockState(pos).getBlock() != Blocks.BEDROCK) {
                         if (x == -1 && z == 0 && y == 1) {
                             world.setBlockState(pos, gate);
                         } else if (x == 0 && z == 0 && y == 0) {
