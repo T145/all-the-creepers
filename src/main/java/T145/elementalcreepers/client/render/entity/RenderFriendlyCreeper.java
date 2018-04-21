@@ -49,7 +49,7 @@ public class RenderFriendlyCreeper extends RenderLiving<EntityFriendlyCreeper> {
 
     @Override
     public ResourceLocation getEntityTexture(EntityFriendlyCreeper creeper) {
-        if (ModConfig.general.creeperTemper && creeper.getCreeperState() == 1) {
+        if (ModConfig.GENERAL.creeperTemper && creeper.getCreeperState() == 1) {
             float red = 1F - (creeper.getCreeperFlashIntensity(0F) / 1.17F + 0.1F);
             GlStateManager.color(1F, red, red);
         }

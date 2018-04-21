@@ -24,7 +24,7 @@ public class EntityBallisticCreeper extends EntityBaseCreeper {
 
     @Override
     public void createExplosion(int explosionPower, boolean canGrief) {
-        float radius = getPowered() ? ModConfig.explosionRadii.ballisticCreeperRadius * 1.5F : ModConfig.explosionRadii.ballisticCreeperRadius;
+        float radius = getPowered() ? ModConfig.EXPLOSION_RADII.ballisticCreeperRadius * 1.5F : ModConfig.EXPLOSION_RADII.ballisticCreeperRadius;
         List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, getAreaOfEffect(radius), entity -> entity != this);
 
         if (!entities.isEmpty()) {

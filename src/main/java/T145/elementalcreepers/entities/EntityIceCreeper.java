@@ -1,7 +1,6 @@
 package T145.elementalcreepers.entities;
 
 import T145.elementalcreepers.config.ModConfig;
-import T145.elementalcreepers.entities.base.EntityBaseCreeper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -41,7 +40,7 @@ public class EntityIceCreeper extends EntityWaterCreeper {
 
     @Override
     public void createExplosion(int explosionPower, boolean canGrief) {
-        int radius = getPowered() ? ModConfig.explosionRadii.iceCreeperRadius * explosionPower : ModConfig.explosionRadii.iceCreeperRadius;
+        int radius = getPowered() ? ModConfig.EXPLOSION_RADII.iceCreeperRadius * explosionPower : ModConfig.EXPLOSION_RADII.iceCreeperRadius;
 
         for (int x = -radius; x <= radius; x++) {
             for (int y = -radius; y <= radius; y++) {
@@ -59,7 +58,7 @@ public class EntityIceCreeper extends EntityWaterCreeper {
             }
         }
 
-        if (ModConfig.general.domeExplosion) {
+        if (ModConfig.GENERAL.domeExplosion) {
             domeExplosion(radius, Blocks.SNOW.getDefaultState());
         } else {
             for (int x = -radius; x <= radius; x++) {

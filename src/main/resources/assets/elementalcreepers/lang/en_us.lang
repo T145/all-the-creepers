@@ -2,14 +2,14 @@
 elementalcreepers.config.general=General
 elementalcreepers.config.general.tooltip=General Mod Settings
 
-elementalcreepers.config.creepers.explosion.radii=Explosion Radii
-elementalcreepers.config.creepers.explosion.radii.tooltip=Adjust Creeper Explosion Radii
+elementalcreepers.config.radii=Explosion Radii
+elementalcreepers.config.radii.tooltip=Adjust Creeper Explosion Radii
 
-elementalcreepers.config.creepers.explosion.power=Explosion Power
-elementalcreepers.config.creepers.explosion.power.tooltip=Adjust Creeper Explosion Power
+elementalcreepers.config.power=Explosion Power
+elementalcreepers.config.power.tooltip=Adjust Creeper Explosion Power
 
-elementalcreepers.config.creepers.spawnrate=Spawn Rates
-elementalcreepers.config.creepers.spawnrate.tooltip=Adjust Creeper Spawn Rates
+elementalcreepers.config.spawnrate=Spawn Rates
+elementalcreepers.config.spawnrate.tooltip=Adjust Creeper Spawn Rates
 
 elementalcreepers.client.update.prefix=Elemental Creepers
 elementalcreepers.client.update= has an update! Download 
@@ -28,10 +28,9 @@ entity.elementalcreepers:GhostCreeper.name=Ghost Creeper
 entity.elementalcreepers:IceCreeper.name=Ice Creeper
 entity.elementalcreepers:FakeIllusionCreeper.name=Illusion Creeper
 entity.elementalcreepers:IllusionCreeper.name=Illusion Creeper
+entity.elementalcreepers:LavaCreeper.name=Magma Creeper
 entity.elementalcreepers:LightCreeper.name=Light Creeper
 entity.elementalcreepers:LightningCreeper.name=Lightning Creeper
-entity.elementalcreepers:MachinistCreeper.name=Machinist Creeper
-entity.elementalcreepers:MagmaCreeper.name=Magma Creeper
 entity.elementalcreepers:PsychicCreeper.name=Psychic Creeper
 entity.elementalcreepers:SpiderCreeper.name=Spider Creeper
 entity.elementalcreepers:SpringCreeper.name=Spring Creeper
@@ -40,4 +39,3 @@ entity.elementalcreepers:WaterCreeper.name=Water Creeper
 entity.elementalcreepers:WindCreeper.name=Wind Creeper
 entity.elementalcreepers:ReverseCreeper.name=Reverse Creeper
 entity.elementalcreepers:ZombieCreeper.name=Zombie Creeper
-

@@ -8,9 +8,9 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-public class EntityMagmaCreeper extends EntityBaseCreeper {
+public class EntityLavaCreeper extends EntityBaseCreeper {
 
-    public EntityMagmaCreeper(World world) {
+    public EntityLavaCreeper(World world) {
         super(world);
         isImmuneToFire = true;
     }
@@ -47,7 +47,7 @@ public class EntityMagmaCreeper extends EntityBaseCreeper {
 
     @Override
     public void createExplosion(int explosionPower, boolean canGrief) {
-        int radius = getPowered() ? ModConfig.explosionRadii.magmaCreeperRadius * explosionPower : ModConfig.explosionRadii.magmaCreeperRadius;
+        int radius = getPowered() ? ModConfig.EXPLOSION_RADII.magmaCreeperRadius * explosionPower : ModConfig.EXPLOSION_RADII.magmaCreeperRadius;
         specialExplosion(radius, Blocks.LAVA.getDefaultState());
     }
 }

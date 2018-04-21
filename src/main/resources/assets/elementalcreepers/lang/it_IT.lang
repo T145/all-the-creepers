@@ -1,14 +1,15 @@
+
 elementalcreepers.config.general=Generale
 elementalcreepers.config.general.tooltip=Impostazioni Generali della Mod
 
-elementalcreepers.config.creepers.explosion.radii=Raggi
-elementalcreepers.config.creepers.explosion.radii.tooltip=Modifica il raggio di esplosione dei creeper
+elementalcreepers.config.radii=Raggi
+elementalcreepers.config.radii.tooltip=Modifica il raggio di esplosione dei creeper
 
-elementalcreepers.config.creepers.explosion.power=Potenza dell'esplosione
-elementalcreepers.config.creepers.explosion.power.tooltip=Modifica la potenza dell'esplosione dei creeper
+elementalcreepers.config.power=Potenza dell'esplosione
+elementalcreepers.config.power.tooltip=Modifica la potenza dell'esplosione dei creeper
 
-elementalcreepers.config.creepers.spawnrate=Ritmo di Spawn
-elementalcreepers.config.creepers.spawnrate.tooltip=Modifica il ritmo di spawn dei creeper
+elementalcreepers.config.spawnrate=Ritmo di Spawn
+elementalcreepers.config.spawnrate.tooltip=Modifica il ritmo di spawn dei creeper
 
 entity.elementalcreepers:BallisticCreeper.name=Creeper Balistico
 entity.elementalcreepers:CakeCreeper.name=Creeper Torta

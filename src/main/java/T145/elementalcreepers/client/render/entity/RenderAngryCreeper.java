@@ -18,7 +18,7 @@ public class RenderAngryCreeper extends RenderCreeper {
 
     @Override
     public ResourceLocation getEntityTexture(EntityCreeper creeper) {
-        if (ModConfig.general.creeperTemper && creeper.getCreeperState() == 1) {
+        if (ModConfig.GENERAL.creeperTemper && creeper.getCreeperState() == 1) {
             float red = 1F - (creeper.getCreeperFlashIntensity(0F) / 1.17F + 0.1F);
             GlStateManager.color(1F, red, red);
         }

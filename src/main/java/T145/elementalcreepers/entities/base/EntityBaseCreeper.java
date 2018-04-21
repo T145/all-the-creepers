@@ -7,7 +7,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityCreeper;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -46,7 +45,7 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
     }
 
     protected void specialExplosion(int radius, IBlockState state) {
-        if (ModConfig.general.domeExplosion) {
+        if (ModConfig.GENERAL.domeExplosion) {
             domeExplosion(radius, state);
         } else {
             wildExplosion(radius, state);
@@ -60,7 +59,7 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
                     pos.setPos(posX + x, posY + y, posZ + z);
 
                     if (state.getBlock().canPlaceBlockAt(world, pos) && Math.sqrt(Math.pow(x, 2.0D) + Math.pow(y, 2.0D) + Math.pow(z, 2.0D)) <= radius && rand.nextInt(4) < 3) {
-                        world.setBlockState(pos, state, ModConfig.general.updatePlacedBlocks ? 3 : 2);
+                        world.setBlockState(pos, state, ModConfig.GENERAL.updatePlacedBlocks ? 3 : 2);
                     }
                 }
             }
@@ -75,7 +74,7 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
                     Block block = state.getBlock();
 
                     if (block.canPlaceBlockAt(world, pos) && !block.canPlaceBlockAt(world, new BlockPos(posX + x, posY + y - 1, posZ + z)) && rand.nextBoolean()) {
-                        world.setBlockState(pos, state, ModConfig.general.updatePlacedBlocks ? 3 : 2);
+                        world.setBlockState(pos, state, ModConfig.GENERAL.updatePlacedBlocks ? 3 : 2);
                     }
                 }
             }

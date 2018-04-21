@@ -25,7 +25,7 @@ public class EntityAIThrowTNT extends EntityAIBase {
 
     @Override
     public boolean shouldExecute() {
-        if (ModConfig.general.ballisticCreeperAI) {
+        if (ModConfig.GENERAL.ballisticCreeperAI) {
             AxisAlignedBB bb = new AxisAlignedBB(creeper.posX - range, creeper.posY - range, creeper.posZ - range, creeper.posX + range, creeper.posY + range, creeper.posZ + range);
             List<Entity> entities = creeper.world.getEntitiesWithinAABBExcludingEntity(creeper, bb);
 

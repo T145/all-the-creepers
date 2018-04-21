@@ -34,10 +34,10 @@ public class EntityWindCreeper extends EntityBaseCreeper {
     @Override
     public void createExplosion(int explosionPower, boolean canGrief) {
         if (!world.isRemote) {
-            int radius = ModConfig.explosionRadii.windCreeperRadius * explosionPower;
+            int radius = ModConfig.EXPLOSION_RADII.windCreeperRadius * explosionPower;
             Biome biome = world.getBiome(pos.setPos(this));
             boolean causesFire = BiomeDictionary.hasType(biome, BiomeDictionary.Type.NETHER) || BiomeDictionary.hasType(biome, BiomeDictionary.Type.WASTELAND);
-            ExplosionSpecial explosion = new ExplosionWind(world, this, posX, posY, posZ, ModConfig.explosionPower.windCreeperPower, radius, causesFire, canGrief);
+            ExplosionSpecial explosion = new ExplosionWind(world, this, posX, posY, posZ, ModConfig.EXPLOSION_POWER.windCreeperPower, radius, causesFire, canGrief);
             explosion.doExplosionA();
         }
     }

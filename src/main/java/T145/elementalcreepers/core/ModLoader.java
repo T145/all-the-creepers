@@ -116,8 +116,8 @@ public class ModLoader {
                             .entity(EntityLightningCreeper.class)
                             .egg(0x0DA70B, 0x101010)
                             .build(),
-                    createCreeperBuilder("MagmaCreeper")
-                            .entity(EntityMagmaCreeper.class)
+                    createCreeperBuilder("LavaCreeper")
+                            .entity(EntityLavaCreeper.class)
                             .egg(0x0DA70B, 0x101010)
                             .build(),
                     createCreeperBuilder("PsychicCreeper")
@@ -159,28 +159,28 @@ public class ModLoader {
                 CREEPER_REGISTRY.add(entry.getEntityClass());
             }
 
-            if (ModConfig.general.reasonableSpawnRates) {
-                addOverworldSpawn(EntityFireCreeper.class, ModConfig.spawnRate.fireCreeperSpawn, 3);
-                addOverworldSpawn(EntityWaterCreeper.class, ModConfig.spawnRate.waterCreeperSpawn, 3);
-                addOverworldSpawn(EntityLightningCreeper.class, ModConfig.spawnRate.lightningCreeperSpawn, 3);
-                addOverworldSpawn(EntityCookieCreeper.class, ModConfig.spawnRate.cookieCreeperSpawn, 2);
-                addOverworldSpawn(EntityDarkCreeper.class, ModConfig.spawnRate.darkCreeperSpawn, 3);
-                addOverworldSpawn(EntityLightCreeper.class, ModConfig.spawnRate.lightCreeperSpawn, 3);
-                addOverworldSpawn(EntityEarthCreeper.class, ModConfig.spawnRate.earthCreeperSpawn, 3);
-                addOverworldSpawn(EntityReverseCreeper.class, ModConfig.spawnRate.reverseCreeperSpawn, 1);
-                addOverworldSpawn(EntityIceCreeper.class, ModConfig.spawnRate.iceCreeperSpawn, 3);
-                addOverworldSpawn(EntityPsychicCreeper.class, ModConfig.spawnRate.psychicCreeperSpawn, 3);
-                addOverworldSpawn(EntityIllusionCreeper.class, ModConfig.spawnRate.illusionCreeperSpawn, 1);
-                addOverworldSpawn(EntitySpiderCreeper.class, ModConfig.spawnRate.spiderCreeperSpawn, 3);
-                addOverworldSpawn(EntityWindCreeper.class, ModConfig.spawnRate.windCreeperSpawn, 2);
-                addOverworldSpawn(EntityBallisticCreeper.class, ModConfig.spawnRate.ballisticCreeperSpawn, 1);
-                addOverworldSpawn(EntityEnderCreeper.class, ModConfig.spawnRate.enderCreeperSpawn, 2);
-                addOverworldSpawn(EntityStoneCreeper.class, ModConfig.spawnRate.stoneCreeperSpawn, 3);
-                addOverworldSpawn(EntityCakeCreeper.class, ModConfig.spawnRate.cakeCreeperSpawn, 3);
-                addOverworldSpawn(EntityFireworkCreeper.class, ModConfig.spawnRate.fireworkCreeperSpawn, 3);
-                addOverworldSpawn(EntitySpringCreeper.class, ModConfig.spawnRate.springCreeperSpawn, 3);
-                addOverworldSpawn(EntityFurnaceCreeper.class, ModConfig.spawnRate.furnaceCreeperSpawn, 3);
-                addOverworldSpawn(EntityZombieCreeper.class, ModConfig.spawnRate.zombieCreeperSpawn, 1);
+            if (ModConfig.GENERAL.reasonableSpawnRates) {
+                addOverworldSpawn(EntityFireCreeper.class, ModConfig.SPAWN_RATE.fireCreeperSpawn, 3);
+                addOverworldSpawn(EntityWaterCreeper.class, ModConfig.SPAWN_RATE.waterCreeperSpawn, 3);
+                addOverworldSpawn(EntityLightningCreeper.class, ModConfig.SPAWN_RATE.lightningCreeperSpawn, 3);
+                addOverworldSpawn(EntityCookieCreeper.class, ModConfig.SPAWN_RATE.cookieCreeperSpawn, 2);
+                addOverworldSpawn(EntityDarkCreeper.class, ModConfig.SPAWN_RATE.darkCreeperSpawn, 3);
+                addOverworldSpawn(EntityLightCreeper.class, ModConfig.SPAWN_RATE.lightCreeperSpawn, 3);
+                addOverworldSpawn(EntityEarthCreeper.class, ModConfig.SPAWN_RATE.earthCreeperSpawn, 3);
+                addOverworldSpawn(EntityReverseCreeper.class, ModConfig.SPAWN_RATE.reverseCreeperSpawn, 1);
+                addOverworldSpawn(EntityIceCreeper.class, ModConfig.SPAWN_RATE.iceCreeperSpawn, 3);
+                addOverworldSpawn(EntityPsychicCreeper.class, ModConfig.SPAWN_RATE.psychicCreeperSpawn, 3);
+                addOverworldSpawn(EntityIllusionCreeper.class, ModConfig.SPAWN_RATE.illusionCreeperSpawn, 1);
+                addOverworldSpawn(EntitySpiderCreeper.class, ModConfig.SPAWN_RATE.spiderCreeperSpawn, 3);
+                addOverworldSpawn(EntityWindCreeper.class, ModConfig.SPAWN_RATE.windCreeperSpawn, 2);
+                addOverworldSpawn(EntityBallisticCreeper.class, ModConfig.SPAWN_RATE.ballisticCreeperSpawn, 1);
+                addOverworldSpawn(EntityEnderCreeper.class, ModConfig.SPAWN_RATE.enderCreeperSpawn, 2);
+                addOverworldSpawn(EntityStoneCreeper.class, ModConfig.SPAWN_RATE.stoneCreeperSpawn, 3);
+                addOverworldSpawn(EntityCakeCreeper.class, ModConfig.SPAWN_RATE.cakeCreeperSpawn, 3);
+                addOverworldSpawn(EntityFireworkCreeper.class, ModConfig.SPAWN_RATE.fireworkCreeperSpawn, 3);
+                addOverworldSpawn(EntitySpringCreeper.class, ModConfig.SPAWN_RATE.springCreeperSpawn, 3);
+                addOverworldSpawn(EntityFurnaceCreeper.class, ModConfig.SPAWN_RATE.furnaceCreeperSpawn, 3);
+                addOverworldSpawn(EntityZombieCreeper.class, ModConfig.SPAWN_RATE.zombieCreeperSpawn, 1);
             } else {
                 copyCreeperSpawns(EntityCakeCreeper.class);
                 copyCreeperSpawns(EntityCookieCreeper.class);
@@ -195,7 +195,7 @@ public class ModLoader {
                 copyCreeperSpawns(EntityIllusionCreeper.class);
                 copyCreeperSpawns(EntityLightCreeper.class);
                 copyCreeperSpawns(EntityLightningCreeper.class);
-                copyCreeperSpawns(EntityMagmaCreeper.class);
+                copyCreeperSpawns(EntityLavaCreeper.class);
                 copyCreeperSpawns(EntityPsychicCreeper.class);
                 copyCreeperSpawns(EntityReverseCreeper.class);
                 copyCreeperSpawns(EntitySpiderCreeper.class);
@@ -206,10 +206,10 @@ public class ModLoader {
                 copyCreeperSpawns(EntityZombieCreeper.class);
             }
 
-            addOverworldSpawn(EntityFriendlyCreeper.class, ModConfig.spawnRate.friendlyCreeperSpawn, 2, EnumCreatureType.CREATURE);
-            addNetherSpawn(EntityFireCreeper.class, ModConfig.spawnRate.fireCreeperSpawn, 3);
-            addNetherSpawn(EntityMagmaCreeper.class, ModConfig.spawnRate.magmaCreeperSpawn, 2);
-            addEndSpawn(EntityEnderCreeper.class, ModConfig.spawnRate.enderCreeperSpawn * 5, 3);
+            addOverworldSpawn(EntityFriendlyCreeper.class, ModConfig.SPAWN_RATE.friendlyCreeperSpawn, 2, EnumCreatureType.CREATURE);
+            addNetherSpawn(EntityFireCreeper.class, ModConfig.SPAWN_RATE.fireCreeperSpawn, 3);
+            addNetherSpawn(EntityLavaCreeper.class, ModConfig.SPAWN_RATE.magmaCreeperSpawn, 2);
+            addEndSpawn(EntityEnderCreeper.class, ModConfig.SPAWN_RATE.enderCreeperSpawn * 5, 3);
 
             // TODO: Add dimension blacklist/whitelist
         }
@@ -262,7 +262,7 @@ public class ModLoader {
                     return;
                 }
 
-                if (entity.world.rand.nextInt(100) < ModConfig.general.ghostCreeperChance) {
+                if (entity.world.rand.nextInt(100) < ModConfig.GENERAL.ghostCreeperChance) {
                     EntityGhostCreeper ghost = new EntityGhostCreeper(entity.world);
                     ghost.setLocationAndAngles(entity.posX, entity.posY, entity.posZ, entity.rotationYaw, entity.rotationPitch);
                     entity.world.spawnEntity(ghost);
@@ -271,7 +271,7 @@ public class ModLoader {
 
             // TODO: Add HashSet entity blacklist
             if (entity instanceof IMob) {
-                int radius = ModConfig.general.zombieCreeperRange;
+                int radius = ModConfig.GENERAL.zombieCreeperRange;
                 AxisAlignedBB bb = new AxisAlignedBB(entity.posX - radius, entity.posY - radius, entity.posZ - radius, entity.posX + radius, entity.posY + radius, entity.posZ + radius);
                 List<EntityZombieCreeper> zombles = entity.world.getEntitiesWithinAABB(EntityZombieCreeper.class, bb, creature -> entity != creature);
 
@@ -317,7 +317,7 @@ public class ModLoader {
 
         @SubscribeEvent
         public static void onPlayerLogIn(PlayerLoggedInEvent event) {
-            if (ModConfig.general.checkForUpdates && UpdateChecker.hasUpdate()) {
+            if (ModConfig.GENERAL.checkForUpdates && UpdateChecker.hasUpdate()) {
                 event.player.sendMessage(UpdateChecker.getUpdateNotification());
             }
         }
@@ -346,7 +346,7 @@ public class ModLoader {
             registerRenderer(EntityIllusionCreeper.class, "illusioncreeper");
             registerRenderer(EntityLightCreeper.class, "lightcreeper");
             registerRenderer(EntityLightningCreeper.class, "lightningcreeper");
-            registerRenderer(EntityMagmaCreeper.class, "magmacreeper");
+            registerRenderer(EntityLavaCreeper.class, "magmacreeper");
             registerRenderer(EntityPsychicCreeper.class, "psychiccreeper");
             registerRenderer(EntityReverseCreeper.class, "reversecreeper");
             RenderingRegistry.registerEntityRenderingHandler(EntitySpiderCreeper.class, RenderSpiderCreeper::new);

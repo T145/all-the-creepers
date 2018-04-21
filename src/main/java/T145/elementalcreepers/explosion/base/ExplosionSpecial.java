@@ -145,7 +145,7 @@ public class ExplosionSpecial extends Explosion {
     }
 
     private boolean canMovePlayer(EntityPlayer player) {
-        if (ModConfig.general.explosionsMoveFlyingPlayers) {
+        if (ModConfig.GENERAL.explosionsMoveFlyingPlayers) {
             return true;
         }
         return !player.isCreative() || !player.capabilities.isFlying;

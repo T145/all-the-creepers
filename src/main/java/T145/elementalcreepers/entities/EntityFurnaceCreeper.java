@@ -42,7 +42,7 @@ public class EntityFurnaceCreeper extends EntityBaseCreeper {
 
     @Override
     public void createExplosion(int explosionPower, boolean canGrief) {
-        int radius = getPowered() ? ModConfig.explosionRadii.furnaceCreeperRadius * explosionPower : ModConfig.explosionRadii.furnaceCreeperRadius;
+        int radius = getPowered() ? ModConfig.EXPLOSION_RADII.furnaceCreeperRadius * explosionPower : ModConfig.EXPLOSION_RADII.furnaceCreeperRadius;
         AxisAlignedBB bb = new AxisAlignedBB(posX - radius, posY - radius, posZ - radius, posX + radius, posY + radius, posZ + radius);
         List<EntityPlayer> players = world.getEntitiesWithinAABB(EntityPlayer.class, bb);
 
