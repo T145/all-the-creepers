@@ -52,11 +52,12 @@ If you don't have Gradle installed, just run the script that works with your OS 
 this will install the Gradle wrapper once.
 Depending on your internet connection and the processing power of your machine, it may take a while to build.
 For most people it takes about 10 minutes.
-Once it completes, just open up the generated `eclipse` directory in your IDE of choice.
-If you're using IntelliJ's IDEA,
-there should be an Eclipse plugin that's automatically installed with it from version 13 and on for compatibility.
-After the project loads, be sure to rename the project in the IDE to `elementalcreepers`.
-This will likely force any installed Git plugins to reload, as is the case with Eclipse.
+Once it completes, run the script that corresponds to your IDE of choice in a similar manner to how the project was built.
+```bash
+./scripts/{eclipse* / idea*}
+```
+If you're using Eclipse, be sure to rename the project in the IDE to `elementalcreepers`.
+This will force any installed Git plugins to reload.
 
 ---
 
