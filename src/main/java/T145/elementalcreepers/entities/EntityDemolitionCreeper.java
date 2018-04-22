@@ -9,6 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.util.Collections;
 
 public class EntityDemolitionCreeper extends EntityBaseCreeper {
@@ -18,7 +19,7 @@ public class EntityDemolitionCreeper extends EntityBaseCreeper {
     }
 
     @Override
-    public float getExplosionResistance(Explosion explosion, World world, BlockPos pos, IBlockState state) {
+    public float getExplosionResistance(@Nonnull Explosion explosion, @Nonnull World world, @Nonnull BlockPos pos, IBlockState state) {
         return state.getBlock().getExplosionResistance(world, pos, this, explosion);
     }
 
@@ -29,7 +30,7 @@ public class EntityDemolitionCreeper extends EntityBaseCreeper {
 
     @Override
     public void createExplosion(int explosionPower, boolean canGrief) {
-        int radius = getPowered() ? ModConfig.EXPLOSION_RADII.stone * explosionPower : ModConfig.EXPLOSION_RADII.stone;
+        int radius = getPowered() ? ModConfig.EXPLOSION_RADII.demolition * explosionPower : ModConfig.EXPLOSION_RADII.demolition;
 
         for (int x = -radius; x <= radius; ++x) {
             for (int y = -radius; y <= radius; ++y) {

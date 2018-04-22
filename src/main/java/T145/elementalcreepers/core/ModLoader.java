@@ -175,7 +175,7 @@ public class ModLoader {
                 addOverworldSpawn(EntityWindCreeper.class, ModConfig.SPAWN_RATE.wind, 2);
                 addOverworldSpawn(EntityBallisticCreeper.class, ModConfig.SPAWN_RATE.ballistic, 1);
                 addOverworldSpawn(EntityEnderCreeper.class, ModConfig.SPAWN_RATE.ender, 2);
-                addOverworldSpawn(EntityDemolitionCreeper.class, ModConfig.SPAWN_RATE.stone, 3);
+                addOverworldSpawn(EntityDemolitionCreeper.class, ModConfig.SPAWN_RATE.demolition, 3);
                 addOverworldSpawn(EntityCakeCreeper.class, ModConfig.SPAWN_RATE.cake, 3);
                 addOverworldSpawn(EntityFireworkCreeper.class, ModConfig.SPAWN_RATE.firework, 3);
                 addOverworldSpawn(EntitySpringCreeper.class, ModConfig.SPAWN_RATE.spring, 3);

@@ -1,12 +1,10 @@
 package T145.elementalcreepers;
 
-import T145.elementalcreepers.proxies.CommonProxy;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.Mod.Metadata;
 import net.minecraftforge.fml.common.ModMetadata;
-import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -21,14 +19,9 @@ public class ElementalCreepers {
     public static final Logger LOG = LogManager.getLogger(MODID);
     static final String VERSION = "@VERSION@";
     static final String UPDATE_JSON = "https://raw.githubusercontent.com/T145/elemental-creepers/master/update.json";
-    private static final String COMMON_PROXY = "T145.elementalcreepers.proxies.CommonProxy";
-    private static final String CLIENT_PROXY = "T145.elementalcreepers.proxies.ClientProxy";
 
     @Instance(MODID)
     public static ElementalCreepers instance;
-
-    @SidedProxy(serverSide = COMMON_PROXY, clientSide = CLIENT_PROXY)
-    public static CommonProxy proxy;
 
     @Metadata
     private ModMetadata meta;

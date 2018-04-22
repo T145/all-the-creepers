@@ -49,8 +49,8 @@ public class CategoryExplosionRadii {
     @Config.Comment("Sets the ballistic (Bomb) Creeper explosion radius")
     public int ballistic = 64;
 
-    @Config.Comment("Sets the Stone Creeper explosion radius")
-    public int stone = 8;
+    @Config.Comment("Sets the Demolition Creeper explosion radius")
+    public int demolition = 8;
 
     @Config.Comment("Sets the Firework Creeper explosion radius")
     public int firework = 5;

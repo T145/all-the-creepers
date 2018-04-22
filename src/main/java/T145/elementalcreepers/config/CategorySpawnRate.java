@@ -55,8 +55,8 @@ public class CategorySpawnRate {
     @Config.Comment("Sets the Ender Creeper Spawn weight")
     public int ender = 4;
 
-    @Config.Comment("Sets the Stone Creeper Spawn weight")
-    public int stone = 10;
+    @Config.Comment("Sets the Demolition Creeper Spawn weight")
+    public int demolition = 10;
 
     @Config.Comment("Sets the cake Creeper Spawn weight")
     public int cake = 2;
