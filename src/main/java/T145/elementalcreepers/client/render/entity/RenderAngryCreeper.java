@@ -1,5 +1,6 @@
 package T145.elementalcreepers.client.render.entity;
 
+import T145.elementalcreepers.client.render.entity.layers.LayerFestiveCreeper;
 import T145.elementalcreepers.config.ModConfig;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderCreeper;
@@ -14,6 +15,7 @@ public class RenderAngryCreeper extends RenderCreeper {
 
     public RenderAngryCreeper(RenderManager manager) {
         super(manager);
+        addLayer(new LayerFestiveCreeper(this));
     }
 
     @Override

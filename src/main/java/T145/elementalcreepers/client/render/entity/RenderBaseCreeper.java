@@ -21,7 +21,7 @@ public class RenderBaseCreeper extends RenderAngryCreeper {
     private final ResourceLocation texture;
     private final boolean translucent;
 
-    public RenderBaseCreeper(RenderManager manager, ModelBase model, String textureName, boolean translucent) {
+    private RenderBaseCreeper(RenderManager manager, ModelBase model, String textureName, boolean translucent) {
         super(manager);
         this.mainModel = model;
         this.translucent = translucent;
@@ -45,16 +45,12 @@ public class RenderBaseCreeper extends RenderAngryCreeper {
         this(manager, new ModelCreeper(), null, translucent);
     }
 
-    public RenderBaseCreeper(RenderManager manager, ModelBase model, String textureName) {
+    RenderBaseCreeper(RenderManager manager, ModelBase model, String textureName) {
         this(manager, model, textureName, false);
     }
 
     public RenderBaseCreeper(RenderManager manager, String textureName) {
         this(manager, new ModelCreeper(), textureName);
-    }
-
-    public RenderBaseCreeper(RenderManager manager) {
-        this(manager, null);
     }
 
     protected LayerRenderer getChargeLayer(RenderBaseCreeper renderer) {
