@@ -1,6 +1,7 @@
 package T145.elementalcreepers.core;
 
 import T145.elementalcreepers.ElementalCreepers;
+import T145.elementalcreepers.api.Registries;
 import T145.elementalcreepers.client.render.entity.RenderAngryCreeper;
 import T145.elementalcreepers.client.render.entity.RenderBaseCreeper;
 import T145.elementalcreepers.client.render.entity.RenderFriendlyCreeper;
@@ -28,29 +29,20 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
-import net.minecraftforge.fml.common.registry.EntityEntry;
-import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
-import net.minecraftforge.fml.common.registry.EntityRegistry;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.fml.common.registry.*;
 import net.minecraftforge.fml.relauncher.Side;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
+@GameRegistry.ObjectHolder(ElementalCreepers.MODID)
 public class ModLoader {
 
-    public static final ArrayList<Class> CREEPER_REGISTRY = new ArrayList<>();
-
-    private ModLoader() {}
-
     @EventBusSubscriber(modid = ElementalCreepers.MODID)
-    public static class ServerLoader {
+    static class ServerLoader {
+
+        private static final BiomeDictionary.Type[] VALID_BIOME_TYPES = {BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.SWAMP, BiomeDictionary.Type.JUNGLE, BiomeDictionary.Type.WASTELAND, BiomeDictionary.Type.MAGICAL, BiomeDictionary.Type.BEACH, BiomeDictionary.Type.SANDY, BiomeDictionary.Type.SNOWY, BiomeDictionary.Type.MOUNTAIN};
 
         private static int entityId;
-        private static BiomeDictionary.Type[] validOverworldBiomeTypes = {BiomeDictionary.Type.FOREST, BiomeDictionary.Type.HILLS, BiomeDictionary.Type.SWAMP, BiomeDictionary.Type.JUNGLE, BiomeDictionary.Type.WASTELAND, BiomeDictionary.Type.MAGICAL, BiomeDictionary.Type.BEACH, BiomeDictionary.Type.SANDY, BiomeDictionary.Type.SNOWY, BiomeDictionary.Type.MOUNTAIN};
-
-        private ServerLoader() {}
 
         @SubscribeEvent
         public static void registerEntities(final RegistryEvent.Register<EntityEntry> event) {
@@ -156,7 +148,7 @@ public class ModLoader {
 
             for (EntityEntry entry : entries) {
                 event.getRegistry().register(entry);
-                CREEPER_REGISTRY.add(entry.getEntityClass());
+                Registries.CREEPER_REGISTRY.add(entry);
             }
 
             if (ModConfig.GENERAL.reasonableSpawnRates) {
@@ -223,25 +215,22 @@ public class ModLoader {
                     .tracker(80, 3, true);
         }
 
-        static void addOverworldSpawn(Class<? extends EntityLiving> entityClass, int spawnprob, int max, EnumCreatureType type) {
-            for (BiomeDictionary.Type biomeType : validOverworldBiomeTypes) {
-                Set<Biome> biomeSet = BiomeDictionary.getBiomes(biomeType);
-                EntityRegistry.addSpawn(entityClass, spawnprob, 1, max, type, biomeSet.toArray(new Biome[0]));
+        static void addOverworldSpawn(Class<? extends EntityLiving> entityClass, int probability, int max, EnumCreatureType type) {
+            for (BiomeDictionary.Type biomeType : VALID_BIOME_TYPES) {
+                EntityRegistry.addSpawn(entityClass, probability, 1, max, type, BiomeDictionary.getBiomes(biomeType).toArray(new Biome[0]));
             }
         }
 
-        static void addOverworldSpawn(Class<? extends EntityLiving> entityClass, int spawnprob, int max) {
-            addOverworldSpawn(entityClass, spawnprob, max, EnumCreatureType.MONSTER);
+        static void addOverworldSpawn(Class<? extends EntityLiving> entityClass, int probability, int max) {
+            addOverworldSpawn(entityClass, probability, max, EnumCreatureType.MONSTER);
         }
 
-        static void addNetherSpawn(Class<? extends EntityLiving> entityClass, int spawnprob, int max) {
-            Set<Biome> biomeSet = BiomeDictionary.getBiomes(BiomeDictionary.Type.NETHER);
-            EntityRegistry.addSpawn(entityClass, spawnprob, 1, max, EnumCreatureType.MONSTER, biomeSet.toArray(new Biome[0]));
+        static void addNetherSpawn(Class<? extends EntityLiving> entityClass, int probability, int max) {
+            EntityRegistry.addSpawn(entityClass, probability, 1, max, EnumCreatureType.MONSTER, BiomeDictionary.getBiomes(BiomeDictionary.Type.NETHER).toArray(new Biome[0]));
         }
 
-        static void addEndSpawn(Class<? extends EntityLiving> entityClass, int spawnprob, int max) {
-            Set<Biome> biomeSet = BiomeDictionary.getBiomes(BiomeDictionary.Type.END);
-            EntityRegistry.addSpawn(entityClass, spawnprob, 1, max, EnumCreatureType.MONSTER, biomeSet.toArray(new Biome[0]));
+        static void addEndSpawn(Class<? extends EntityLiving> entityClass, int probability, int max) {
+            EntityRegistry.addSpawn(entityClass, probability, 1, max, EnumCreatureType.MONSTER, BiomeDictionary.getBiomes(BiomeDictionary.Type.END).toArray(new Biome[0]));
         }
 
         private static void copyCreeperSpawns(final Class<? extends EntityLiving> classToAdd) {
@@ -324,9 +313,7 @@ public class ModLoader {
     }
 
     @EventBusSubscriber(value = Side.CLIENT, modid = ElementalCreepers.MODID)
-    public static class ClientLoader {
-
-        private ClientLoader() {}
+    static class ClientLoader {
 
         @SubscribeEvent
         public static void onModelRegistration(ModelRegistryEvent event) {

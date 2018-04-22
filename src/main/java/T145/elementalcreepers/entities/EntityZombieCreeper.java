@@ -1,13 +1,10 @@
 package T145.elementalcreepers.entities;
 
-import T145.elementalcreepers.ElementalCreepers;
-import T145.elementalcreepers.core.ModLoader;
+import T145.elementalcreepers.api.Registries;
 import T145.elementalcreepers.entities.base.EntityBaseCreeper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-
-import java.lang.reflect.InvocationTargetException;
 
 public class EntityZombieCreeper extends EntityBaseCreeper {
 
@@ -43,27 +40,23 @@ public class EntityZombieCreeper extends EntityBaseCreeper {
                 creeperCount *= 2;
             }
 
-            try {
-                for (int k = 0; k < creeperCount; ++k) {
-                    float f = ((k % 2) - 0.5F) * 1 / 4.0F;
-                    float f1 = ((k / 2) - 0.5F) * 1 / 4.0F;
-                    Class creeperClass = ModLoader.CREEPER_REGISTRY.get(rand.nextInt(ModLoader.CREEPER_REGISTRY.size()));
-                    EntityLivingBase creeper = (EntityLivingBase) creeperClass.getConstructor(World.class).newInstance(new Object[]{world});
+            for (int k = 0; k < creeperCount; ++k) {
+                float f = ((k % 2) - 0.5F) * 1 / 4.0F;
+                float f1 = ((k / 2) - 0.5F) * 1 / 4.0F;
 
-                    if (hasCustomName()) {
-                        creeper.setCustomNameTag(getCustomNameTag());
-                    }
+                EntityLivingBase creeper = (EntityLivingBase) Registries.CREEPER_REGISTRY.get(rand.nextInt(Registries.CREEPER_REGISTRY.size())).newInstance(world);
 
-                    creeper.setRevengeTarget(getAttackTarget());
-                    creeper.motionX = (0.8F * (rand.nextBoolean() ? 1 : -1));
-                    creeper.motionY = 0.5D;
-                    creeper.motionZ = (0.8F * (rand.nextBoolean() ? 1 : -1));
-
-                    creeper.setLocationAndAngles(posX + f, posY + 0.5D, posZ + f1, rand.nextFloat() * 360.0F, 0.0F);
-                    world.spawnEntity(creeper);
+                if (hasCustomName()) {
+                    creeper.setCustomNameTag(getCustomNameTag());
                 }
-            } catch (IllegalAccessException | InstantiationException | NoSuchMethodException | InvocationTargetException err) {
-                ElementalCreepers.LOG.catching(err);
+
+                creeper.setRevengeTarget(getAttackTarget());
+                creeper.motionX = (0.8F * (rand.nextBoolean() ? 1 : -1));
+                creeper.motionY = 0.5D;
+                creeper.motionZ = (0.8F * (rand.nextBoolean() ? 1 : -1));
+
+                creeper.setLocationAndAngles(posX + f, posY + 0.5D, posZ + f1, rand.nextFloat() * 360.0F, 0.0F);
+                world.spawnEntity(creeper);
             }
         }
     }
