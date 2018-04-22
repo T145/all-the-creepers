@@ -136,8 +136,8 @@ public class ModLoader {
                             .entity(EntitySpringCreeper.class)
                             .egg(0x0DA70B, 0x101010)
                             .build(),
-                    createCreeperBuilder("StoneCreeper")
-                            .entity(EntityStoneCreeper.class)
+                    createCreeperBuilder("DemolitionCreeper")
+                            .entity(EntityDemolitionCreeper.class)
                             .egg(0x0DA70B, 0x101010)
                             .build(),
                     createCreeperBuilder("WaterCreeper")
@@ -175,7 +175,7 @@ public class ModLoader {
                 addOverworldSpawn(EntityWindCreeper.class, ModConfig.SPAWN_RATE.wind, 2);
                 addOverworldSpawn(EntityBallisticCreeper.class, ModConfig.SPAWN_RATE.ballistic, 1);
                 addOverworldSpawn(EntityEnderCreeper.class, ModConfig.SPAWN_RATE.ender, 2);
-                addOverworldSpawn(EntityStoneCreeper.class, ModConfig.SPAWN_RATE.stone, 3);
+                addOverworldSpawn(EntityDemolitionCreeper.class, ModConfig.SPAWN_RATE.stone, 3);
                 addOverworldSpawn(EntityCakeCreeper.class, ModConfig.SPAWN_RATE.cake, 3);
                 addOverworldSpawn(EntityFireworkCreeper.class, ModConfig.SPAWN_RATE.firework, 3);
                 addOverworldSpawn(EntitySpringCreeper.class, ModConfig.SPAWN_RATE.spring, 3);
@@ -200,7 +200,7 @@ public class ModLoader {
                 copyCreeperSpawns(EntityReverseCreeper.class);
                 copyCreeperSpawns(EntitySpiderCreeper.class);
                 copyCreeperSpawns(EntitySpringCreeper.class);
-                copyCreeperSpawns(EntityStoneCreeper.class);
+                copyCreeperSpawns(EntityDemolitionCreeper.class);
                 copyCreeperSpawns(EntityWaterCreeper.class);
                 copyCreeperSpawns(EntityWindCreeper.class);
                 copyCreeperSpawns(EntityZombieCreeper.class);
@@ -351,7 +351,7 @@ public class ModLoader {
             registerRenderer(EntityReverseCreeper.class, "reversecreeper");
             RenderingRegistry.registerEntityRenderingHandler(EntitySpiderCreeper.class, RenderSpiderCreeper::new);
             registerRenderer(EntitySpringCreeper.class, "springcreeper");
-            registerRenderer(EntityStoneCreeper.class, "stonecreeper");
+            registerRenderer(EntityDemolitionCreeper.class, "eucreeper");
             registerRenderer(EntityWaterCreeper.class, "watercreeper");
             registerRenderer(EntityWindCreeper.class, "windcreeper");
             registerRenderer(EntityZombieCreeper.class, "zombiecreeper");
