@@ -1,6 +1,6 @@
 package T145.elementalcreepers.entities;
 
-import T145.elementalcreepers.api.Registries;
+import T145.elementalcreepers.ElementalCreepers;
 import T145.elementalcreepers.entities.base.EntityBaseCreeper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
@@ -44,7 +44,7 @@ public class EntityZombieCreeper extends EntityBaseCreeper {
                 float f = ((k % 2) - 0.5F) * 1 / 4.0F;
                 float f1 = ((k / 2) - 0.5F) * 1 / 4.0F;
 
-                EntityLivingBase creeper = (EntityLivingBase) Registries.CREEPER_REGISTRY.get(rand.nextInt(Registries.CREEPER_REGISTRY.size())).newInstance(world);
+                EntityLivingBase creeper = (EntityLivingBase) ElementalCreepers.CREEPER_REGISTRY.get(rand.nextInt(ElementalCreepers.CREEPER_REGISTRY.size())).newInstance(world);
 
                 if (hasCustomName()) {
                     creeper.setCustomNameTag(getCustomNameTag());

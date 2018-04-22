@@ -1,7 +1,6 @@
 package T145.elementalcreepers.core;
 
 import T145.elementalcreepers.ElementalCreepers;
-import T145.elementalcreepers.api.Registries;
 import T145.elementalcreepers.client.render.entity.RenderAngryCreeper;
 import T145.elementalcreepers.client.render.entity.RenderBaseCreeper;
 import T145.elementalcreepers.client.render.entity.RenderFriendlyCreeper;
@@ -29,13 +28,15 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
-import net.minecraftforge.fml.common.registry.*;
+import net.minecraftforge.fml.common.registry.EntityEntry;
+import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.List;
 
-@GameRegistry.ObjectHolder(ElementalCreepers.MODID)
-public class ModLoader {
+class ModLoader {
 
     @EventBusSubscriber(modid = ElementalCreepers.MODID)
     static class ServerLoader {
@@ -148,7 +149,7 @@ public class ModLoader {
 
             for (EntityEntry entry : entries) {
                 event.getRegistry().register(entry);
-                Registries.CREEPER_REGISTRY.add(entry);
+                ElementalCreepers.CREEPER_REGISTRY.add(entry);
             }
 
             if (ModConfig.GENERAL.reasonableSpawnRates) {

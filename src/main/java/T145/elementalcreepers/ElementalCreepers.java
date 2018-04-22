@@ -5,11 +5,13 @@ import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.Mod.Metadata;
 import net.minecraftforge.fml.common.ModMetadata;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.EntityEntry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Mod(modid = ElementalCreepers.MODID, name = ElementalCreepers.NAME, version = ElementalCreepers.VERSION, updateJSON = ElementalCreepers.UPDATE_JSON)
 public class ElementalCreepers {
@@ -19,6 +21,7 @@ public class ElementalCreepers {
     public static final Logger LOG = LogManager.getLogger(MODID);
     static final String VERSION = "@VERSION@";
     static final String UPDATE_JSON = "https://raw.githubusercontent.com/T145/elemental-creepers/master/update.json";
+    public static final List<EntityEntry> CREEPER_REGISTRY = new ArrayList<>();
 
     @Instance(MODID)
     public static ElementalCreepers instance;
@@ -39,10 +42,4 @@ public class ElementalCreepers {
         meta.useDependencyInformation = false;
         meta.version = VERSION;
     }
-
-    @EventHandler
-    public void init(FMLInitializationEvent event) {}
-
-    @EventHandler
-    public void postInit(FMLPostInitializationEvent event) {}
 }
