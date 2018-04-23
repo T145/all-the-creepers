@@ -6,6 +6,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.event.ForgeEventFactory;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class EntityFireCreeper extends EntityBaseCreeper {
     }
 
     @Override
-    public void explode(boolean canGrief) {
+    public void detonate() {
         int radius = getPowered() ? ModConfig.EXPLOSION_RADII.fireCharged : ModConfig.EXPLOSION_RADII.fire;
 
         for (int x = -radius; x <= radius; ++x) {
@@ -26,7 +27,7 @@ public class EntityFireCreeper extends EntityBaseCreeper {
                     MUTABLE_POS.setPos(posX + x, posY + y, posZ + z);
 
                     if (Blocks.DIRT.canPlaceBlockAt(world, MUTABLE_POS) && !Blocks.DIRT.canPlaceBlockAt(world, new BlockPos(posX + x, posY + y - 1, posZ + z)) && rand.nextBoolean()) {
-                        if (canGrief) {
+                        if (ForgeEventFactory.getMobGriefingEvent(world, this)) {
                             world.setBlockState(MUTABLE_POS, Blocks.FIRE.getDefaultState());
                         } else {
                             List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, getAreaOfEffect(radius), entity -> entity != this);

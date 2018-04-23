@@ -21,7 +21,7 @@ public class EntityDemolitionCreeper extends EntityBaseCreeper {
     }
 
     @Override
-    public void explode(boolean canGrief) {
+    public void detonate() {
         int radius = getPowered() ? ModConfig.EXPLOSION_RADII.demolitionCharged : ModConfig.EXPLOSION_RADII.demolition;
 
         for (int x = -radius; x <= radius; ++x) {

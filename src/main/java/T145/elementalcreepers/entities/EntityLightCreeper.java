@@ -12,7 +12,7 @@ public class EntityLightCreeper extends EntityBaseCreeper {
     }
 
     @Override
-    public void explode(boolean canGrief) {
+    public void detonate() {
         specialExplosion(getPowered() ? ModConfig.EXPLOSION_RADII.lightCharged : ModConfig.EXPLOSION_RADII.light, Blocks.GLOWSTONE.getDefaultState());
     }
 }

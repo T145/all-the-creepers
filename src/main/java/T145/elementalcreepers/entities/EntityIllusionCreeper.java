@@ -4,6 +4,7 @@ import T145.elementalcreepers.entities.base.EntityBaseCreeper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import net.minecraftforge.event.ForgeEventFactory;
 
 public class EntityIllusionCreeper extends EntityBaseCreeper {
 
@@ -76,10 +77,10 @@ public class EntityIllusionCreeper extends EntityBaseCreeper {
     }
 
     @Override
-    public void explode(boolean canGrief) {
+    public void detonate() {
         if (!illusion) {
             int explosionPower = explosionRadius * (getPowered() ? 2 : 1);
-            world.createExplosion(this, posX, posY, posZ, explosionPower * 2, canGrief);
+            world.createExplosion(this, posX, posY, posZ, explosionPower * 2, ForgeEventFactory.getMobGriefingEvent(world, this));
         } else {
             spawnExplosionParticle();
         }

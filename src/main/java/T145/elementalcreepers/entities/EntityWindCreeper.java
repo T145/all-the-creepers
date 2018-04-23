@@ -8,6 +8,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.event.ForgeEventFactory;
 
 public class EntityWindCreeper extends EntityBaseCreeper {
 
@@ -32,11 +33,11 @@ public class EntityWindCreeper extends EntityBaseCreeper {
     }
 
     @Override
-    public void explode(boolean canGrief) {
+    public void detonate() {
         int radius = getPowered() ? ModConfig.EXPLOSION_RADII.windCharged : ModConfig.EXPLOSION_RADII.wind;
         Biome biome = world.getBiome(MUTABLE_POS.setPos(this));
         boolean causesFire = BiomeDictionary.hasType(biome, BiomeDictionary.Type.NETHER) || BiomeDictionary.hasType(biome, BiomeDictionary.Type.WASTELAND);
-        ExplosionSpecial explosion = new ExplosionWind(world, this, posX, posY, posZ, ModConfig.EXPLOSION_POWER.wind, radius, causesFire, canGrief);
+        ExplosionSpecial explosion = new ExplosionWind(world, this, posX, posY, posZ, ModConfig.EXPLOSION_POWER.wind, radius, causesFire, ForgeEventFactory.getMobGriefingEvent(world, this));
         explosion.doExplosionA();
     }
 }

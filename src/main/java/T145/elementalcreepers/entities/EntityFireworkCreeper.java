@@ -41,7 +41,7 @@ public class EntityFireworkCreeper extends EntityBaseCreeper {
     }
 
     @Override
-    public void explode(boolean canGrief) {
+    public void detonate() {
         world.spawnEntity(new EntityFireworkRocket(world, posX, posY, posZ, getRandomFirework()));
 
         List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, getAreaOfEffect(getPowered() ? ModConfig.EXPLOSION_RADII.fireworkCharged : ModConfig.EXPLOSION_RADII.firework), entity -> entity != this);

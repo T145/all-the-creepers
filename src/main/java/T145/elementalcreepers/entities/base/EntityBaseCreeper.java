@@ -14,7 +14,6 @@ import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
-import net.minecraftforge.event.ForgeEventFactory;
 
 import java.util.ArrayList;
 
@@ -31,13 +30,13 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
     public void explode() {
         if (!world.isRemote) {
             dead = diesAfterExplosion();
-            explode(ForgeEventFactory.getMobGriefingEvent(world, this));
+            detonate();
             isDead = diesAfterExplosion();
             spawnLingeringCloud();
         }
     }
 
-    public abstract void explode(boolean canGrief);
+    public abstract void detonate();
 
     public boolean diesAfterExplosion() {
         return true;

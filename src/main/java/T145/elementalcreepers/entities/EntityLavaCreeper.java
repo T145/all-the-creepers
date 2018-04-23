@@ -7,6 +7,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.event.ForgeEventFactory;
 
 public class EntityLavaCreeper extends EntityBaseCreeper {
 
@@ -29,7 +30,7 @@ public class EntityLavaCreeper extends EntityBaseCreeper {
 
         createPlatformOverLiquid(this, Blocks.COBBLESTONE, Blocks.WATER, Blocks.FLOWING_WATER);
 
-        if (!world.getGameRules().getBoolean("mobGriefing")) {
+        if (!ForgeEventFactory.getMobGriefingEvent(world, this)) {
             return;
         }
 
@@ -46,7 +47,7 @@ public class EntityLavaCreeper extends EntityBaseCreeper {
     }
 
     @Override
-    public void explode(boolean canGrief) {
+    public void detonate() {
         specialExplosion(getPowered() ? ModConfig.EXPLOSION_RADII.lavaCharged : ModConfig.EXPLOSION_RADII.lava, Blocks.LAVA.getDefaultState());
     }
 }

@@ -26,7 +26,7 @@ public class EntitySpiderCreeper extends EntityBaseCreeper {
     }
 
     @Override
-    public void explode(boolean canGrief) {
+    public void detonate(boolean canGrief) {
         int radius = getPowered() ? ModConfig.EXPLOSION_RADII.spiderCharged : ModConfig.EXPLOSION_RADII.spider;
         List<Entity> entities = world.getEntitiesWithinAABBExcludingEntity(this, getAreaOfEffect(radius));
 

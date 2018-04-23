@@ -43,7 +43,7 @@ public class EntitySpringCreeper extends EntityBaseCreeper {
     }
 
     @Override
-    public void explode(boolean canGrief) { // launches the creeper
+    public void detonate() { // launches the creeper
         spawnExplosionParticle();
 
         if (!airborne) {

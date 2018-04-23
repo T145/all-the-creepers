@@ -28,7 +28,7 @@ public class EntityDarkCreeper extends EntityBaseCreeper {
     }
 
     @Override
-    public void explode(boolean canGrief) {
+    public void detonate() {
         int radius = getPowered() ? ModConfig.EXPLOSION_RADII.darkCharged : ModConfig.EXPLOSION_RADII.dark;
 
         for (int x = -radius; x <= radius; ++x) {

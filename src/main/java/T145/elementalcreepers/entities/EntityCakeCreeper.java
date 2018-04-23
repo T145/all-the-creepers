@@ -15,7 +15,7 @@ public class EntityCakeCreeper extends EntityBaseCreeper {
     }
 
     @Override
-    public void explode(boolean canGrief) {
+    public void detonate() {
         MUTABLE_POS.setPos(this);
 
         if (!HolidayUtils.isAprilFools() || rand.nextInt(5) <= 2) {

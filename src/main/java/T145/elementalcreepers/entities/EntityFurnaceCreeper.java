@@ -47,7 +47,7 @@ public class EntityFurnaceCreeper extends EntityBaseCreeper {
     }
 
     @Override
-    public void explode(boolean canGrief) {
+    public void detonate() {
         List<EntityPlayer> players = world.getEntitiesWithinAABB(EntityPlayer.class, getAreaOfEffect(getPowered() ? ModConfig.EXPLOSION_RADII.furnaceCharged : ModConfig.EXPLOSION_RADII.furnace));
 
         for (EntityPlayer player : players) {

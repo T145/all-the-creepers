@@ -14,7 +14,7 @@ public class EntityCookieCreeper extends EntityBaseCreeper {
     }
 
     @Override
-    public void explode(boolean canGrief) {
+    public void detonate() {
         int cookieAmount = ModConfig.GENERAL.cookieCreeperAmount * (getPowered() ? 2 : 1);
 
         for (int i = 0; i < cookieAmount; ++i) {
