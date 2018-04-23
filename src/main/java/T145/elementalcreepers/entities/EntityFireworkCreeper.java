@@ -41,23 +41,15 @@ public class EntityFireworkCreeper extends EntityBaseCreeper {
     }
 
     @Override
-    public void createExplosion(int explosionPower, boolean canGrief) {
-        int radius = getPowered() ? ModConfig.EXPLOSION_RADII.firework * explosionPower : ModConfig.EXPLOSION_RADII.firework;
+    public void explode(boolean canGrief) {
+        world.spawnEntity(new EntityFireworkRocket(world, posX, posY, posZ, getRandomFirework()));
 
-        if (!world.isRemote) {
-            world.spawnEntity(new EntityFireworkRocket(world, posX, posY, posZ, getRandomFirework()));
-        }
+        List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, getAreaOfEffect(getPowered() ? ModConfig.EXPLOSION_RADII.fireworkCharged : ModConfig.EXPLOSION_RADII.firework), entity -> entity != this);
 
-        List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, getAreaOfEffect(radius), entity -> entity != this);
-
-        if (!entities.isEmpty()) {
-            for (EntityLivingBase entity : entities) {
-                if (rand.nextInt(2) == 0 && !world.isRemote) {
-                    EntityFireworkRocket rocket = new EntityFireworkRocket(world, entity.posX, entity.posY, entity.posZ, getRandomFirework());
-                    world.spawnEntity(rocket);
-                    entity.startRiding(rocket);
-                }
-            }
+        for (EntityLivingBase entity : entities) {
+            EntityFireworkRocket rocket = new EntityFireworkRocket(world, entity.posX, entity.posY, entity.posZ, getRandomFirework());
+            world.spawnEntity(rocket);
+            entity.startRiding(rocket);
         }
     }
 }

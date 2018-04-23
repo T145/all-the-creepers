@@ -34,13 +34,12 @@ public class EntityWaterCreeper extends EntityBaseCreeper {
             return;
         }
 
-        createPlatform(this, world, getPosition(), Blocks.COBBLESTONE, Blocks.FLOWING_LAVA, Blocks.FLOWING_LAVA);
-        createPlatform(this, world, getPosition(), Blocks.OBSIDIAN, Blocks.LAVA, Blocks.LAVA);
+        createPlatformOverLiquid(this, Blocks.COBBLESTONE, Blocks.FLOWING_LAVA, Blocks.FLOWING_LAVA);
+        createPlatformOverLiquid(this, Blocks.OBSIDIAN, Blocks.LAVA, Blocks.LAVA);
     }
 
     @Override
-    public void createExplosion(int explosionPower, boolean canGrief) {
-        int radius = getPowered() ? ModConfig.EXPLOSION_RADII.water * explosionPower : ModConfig.EXPLOSION_RADII.water;
-        specialExplosion(radius, Blocks.WATER.getDefaultState());
+    public void explode(boolean canGrief) {
+        specialExplosion(getPowered() ? ModConfig.EXPLOSION_RADII.waterCharged : ModConfig.EXPLOSION_RADII.water, Blocks.WATER.getDefaultState());
     }
 }

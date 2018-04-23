@@ -17,17 +17,17 @@ public class EntityFireCreeper extends EntityBaseCreeper {
     }
 
     @Override
-    public void createExplosion(int explosionPower, boolean canGrief) {
-        int radius = getPowered() ? ModConfig.EXPLOSION_RADII.fire * explosionPower : ModConfig.EXPLOSION_RADII.fire;
+    public void explode(boolean canGrief) {
+        int radius = getPowered() ? ModConfig.EXPLOSION_RADII.fireCharged : ModConfig.EXPLOSION_RADII.fire;
 
-        for (int x = -radius; x <= radius; x++) {
-            for (int y = -radius; y <= radius; y++) {
-                for (int z = -radius; z <= radius; z++) {
-                    pos.setPos(posX + x, posY + y, posZ + z);
+        for (int x = -radius; x <= radius; ++x) {
+            for (int y = -radius; y <= radius; ++y) {
+                for (int z = -radius; z <= radius; ++z) {
+                    MUTABLE_POS.setPos(posX + x, posY + y, posZ + z);
 
-                    if (Blocks.DIRT.canPlaceBlockAt(world, pos) && !Blocks.DIRT.canPlaceBlockAt(world, new BlockPos(posX + x, posY + y - 1, posZ + z)) && rand.nextBoolean()) {
+                    if (Blocks.DIRT.canPlaceBlockAt(world, MUTABLE_POS) && !Blocks.DIRT.canPlaceBlockAt(world, new BlockPos(posX + x, posY + y - 1, posZ + z)) && rand.nextBoolean()) {
                         if (canGrief) {
-                            world.setBlockState(pos, Blocks.FIRE.getDefaultState());
+                            world.setBlockState(MUTABLE_POS, Blocks.FIRE.getDefaultState());
                         } else {
                             List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, getAreaOfEffect(radius), entity -> entity != this);
 

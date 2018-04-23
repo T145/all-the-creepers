@@ -12,11 +12,16 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
+import net.minecraftforge.event.ForgeEventFactory;
+
+import java.util.ArrayList;
 
 public abstract class EntityBaseCreeper extends EntityCreeper {
 
-    protected final MutableBlockPos pos = new MutableBlockPos();
+    protected final MutableBlockPos MUTABLE_POS = new MutableBlockPos(BlockPos.ORIGIN);
+    protected final Explosion SIMPLE_EXPLOSION = new Explosion(world, this, 0.0D, 0.0D, 0.0D, 0.0F, new ArrayList<>());
 
     public EntityBaseCreeper(World world) {
         super(world);
@@ -25,16 +30,14 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
     @Override
     public void explode() {
         if (!world.isRemote) {
-            boolean canGrief = world.getGameRules().getBoolean("mobGriefing");
-            int explosionPower = explosionRadius * (getPowered() ? 2 : 1);
             dead = diesAfterExplosion();
-            createExplosion(explosionPower, canGrief);
+            explode(ForgeEventFactory.getMobGriefingEvent(world, this));
             isDead = diesAfterExplosion();
             spawnLingeringCloud();
         }
     }
 
-    public abstract void createExplosion(int explosionPower, boolean canGrief);
+    public abstract void explode(boolean canGrief);
 
     public boolean diesAfterExplosion() {
         return true;
@@ -56,10 +59,10 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
         for (int x = -radius; x <= radius; x++) {
             for (int y = -radius; y <= radius; y++) {
                 for (int z = -radius; z <= radius; z++) {
-                    pos.setPos(posX + x, posY + y, posZ + z);
+                    MUTABLE_POS.setPos(posX + x, posY + y, posZ + z);
 
-                    if (state.getBlock().canPlaceBlockAt(world, pos) && Math.sqrt(Math.pow(x, 2.0D) + Math.pow(y, 2.0D) + Math.pow(z, 2.0D)) <= radius && rand.nextInt(4) < 3) {
-                        world.setBlockState(pos, state, ModConfig.GENERAL.updatePlacedBlocks ? 3 : 2);
+                    if (state.getBlock().canPlaceBlockAt(world, MUTABLE_POS) && Math.sqrt(Math.pow(x, 2.0D) + Math.pow(y, 2.0D) + Math.pow(z, 2.0D)) <= radius && rand.nextInt(4) < 3) {
+                        world.setBlockState(MUTABLE_POS, state, ModConfig.GENERAL.updatePlacedBlocks ? 3 : 2);
                     }
                 }
             }
@@ -70,33 +73,35 @@ public abstract class EntityBaseCreeper extends EntityCreeper {
         for (int x = -radius; x <= radius; x++) {
             for (int y = -radius; y <= radius; y++) {
                 for (int z = -radius; z <= radius; z++) {
-                    pos.setPos(posX + x, posY + y, posZ + z);
+                    MUTABLE_POS.setPos(posX + x, posY + y, posZ + z);
                     Block block = state.getBlock();
 
-                    if (block.canPlaceBlockAt(world, pos) && !block.canPlaceBlockAt(world, new BlockPos(posX + x, posY + y - 1, posZ + z)) && rand.nextBoolean()) {
-                        world.setBlockState(pos, state, ModConfig.GENERAL.updatePlacedBlocks ? 3 : 2);
+                    if (block.canPlaceBlockAt(world, MUTABLE_POS) && !block.canPlaceBlockAt(world, new BlockPos(posX + x, posY + y - 1, posZ + z)) && rand.nextBoolean()) {
+                        world.setBlockState(MUTABLE_POS, state, ModConfig.GENERAL.updatePlacedBlocks ? 3 : 2);
                     }
                 }
             }
         }
     }
 
-    protected void createPlatform(EntityLivingBase living, World worldIn, BlockPos pos, Block base, Block liquid, Block flowingLiquid) {
-        if (living.onGround) {
+    protected void createPlatformOverLiquid(EntityLivingBase entity, Block platform, Block liquid, Block flowingLiquid) {
+        if (entity.onGround) {
+            World world = entity.world;
+            BlockPos pos = entity.getPosition();
             float f = (float) Math.min(16, 2);
             BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos(BlockPos.ORIGIN);
 
-            for (BlockPos.MutableBlockPos mutablePos1 : BlockPos.getAllInBoxMutable(pos.add((double) (-f), -1.0D, (double) (-f)), pos.add((double) f, -1.0D, (double) f))) {
-                if (mutablePos1.distanceSqToCenter(living.posX, living.posY, living.posZ) <= (double) (f * f)) {
+            for (BlockPos.MutableBlockPos mutablePos1 : BlockPos.getAllInBoxMutable(pos.add(-f, -1.0D, -f), pos.add(f, -1.0D, f))) {
+                if (mutablePos1.distanceSqToCenter(entity.posX, entity.posY, entity.posZ) <= (f * f)) {
                     mutablePos.setPos(mutablePos1.getX(), mutablePos1.getY() + 1, mutablePos1.getZ());
-                    IBlockState iblockstate = worldIn.getBlockState(mutablePos);
+                    IBlockState iblockstate = world.getBlockState(mutablePos);
 
                     if (iblockstate.getMaterial() == Material.AIR) {
-                        IBlockState iblockstate1 = worldIn.getBlockState(mutablePos1);
+                        IBlockState iblockstate1 = world.getBlockState(mutablePos1);
 
-                        if (iblockstate1.getMaterial() == liquid.getDefaultState().getMaterial() && (iblockstate1.getBlock() == liquid || iblockstate1.getBlock() == flowingLiquid) && iblockstate1.getValue(BlockLiquid.LEVEL) == 0 && worldIn.mayPlace(base, mutablePos1, false, EnumFacing.DOWN, null)) {
-                            worldIn.setBlockState(mutablePos1, base.getDefaultState());
-                            worldIn.scheduleUpdate(mutablePos1.toImmutable(), base, MathHelper.getInt(living.getRNG(), 60, 120));
+                        if (iblockstate1.getMaterial() == liquid.getDefaultState().getMaterial() && (iblockstate1.getBlock() == liquid || iblockstate1.getBlock() == flowingLiquid) && iblockstate1.getValue(BlockLiquid.LEVEL) == 0 && world.mayPlace(platform, mutablePos1, false, EnumFacing.DOWN, null)) {
+                            world.setBlockState(mutablePos1, platform.getDefaultState());
+                            world.scheduleUpdate(mutablePos1.toImmutable(), platform, MathHelper.getInt(entity.getRNG(), 60, 120));
                         }
                     }
                 }

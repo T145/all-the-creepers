@@ -6,10 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
-
-import java.util.ArrayList;
 
 public class EntityDarkCreeper extends EntityBaseCreeper {
 
@@ -31,20 +28,20 @@ public class EntityDarkCreeper extends EntityBaseCreeper {
     }
 
     @Override
-    public void createExplosion(int explosionPower, boolean canGrief) {
-        int radius = getPowered() ? ModConfig.EXPLOSION_RADII.dark * explosionPower : ModConfig.EXPLOSION_RADII.dark;
+    public void explode(boolean canGrief) {
+        int radius = getPowered() ? ModConfig.EXPLOSION_RADII.darkCharged : ModConfig.EXPLOSION_RADII.dark;
 
-        for (int x = -radius; x <= radius; x++) {
-            for (int y = -radius; y <= radius; y++) {
-                for (int z = -radius; z <= radius; z++) {
-                    pos.setPos(posX + x, posY + y, posZ + z);
-                    IBlockState state = world.getBlockState(pos);
+        for (int x = -radius; x <= radius; ++x) {
+            for (int y = -radius; y <= radius; ++y) {
+                for (int z = -radius; z <= radius; ++z) {
+                    MUTABLE_POS.setPos(posX + x, posY + y, posZ + z);
+                    IBlockState state = world.getBlockState(MUTABLE_POS);
                     Block block = state.getBlock();
 
-                    if (block.getLightValue(state, world, pos) > 0.5F) {
-                        block.dropBlockAsItem(world, pos, state, 0);
-                        world.setBlockToAir(pos);
-                        block.onBlockDestroyedByExplosion(world, pos, new Explosion(world, this, 0.0D, 0.0D, 0.0D, 0.0F, new ArrayList<>()));
+                    if (block.getLightValue(state, world, MUTABLE_POS) > 0.5F) {
+                        block.dropBlockAsItem(world, MUTABLE_POS, state, 0);
+                        world.setBlockToAir(MUTABLE_POS);
+                        block.onBlockDestroyedByExplosion(world, MUTABLE_POS, SIMPLE_EXPLOSION);
                     }
                 }
             }

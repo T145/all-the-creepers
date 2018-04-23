@@ -60,15 +60,15 @@ public class EntityIllusionCreeper extends EntityBaseCreeper {
     @Override
     public void writeEntityToNBT(NBTTagCompound tag) {
         super.writeEntityToNBT(tag);
-        tag.setBoolean("split", split);
-        tag.setBoolean("isIllusion", illusion);
+        tag.setBoolean("Split", split);
+        tag.setBoolean("Illusion", illusion);
     }
 
     @Override
     public void readEntityFromNBT(NBTTagCompound tag) {
         super.readEntityFromNBT(tag);
-        split = tag.getBoolean("split");
-        illusion = tag.getBoolean("isIllusion");
+        split = tag.getBoolean("Split");
+        illusion = tag.getBoolean("Illusion");
     }
 
     public boolean isIllusion() {
@@ -76,10 +76,10 @@ public class EntityIllusionCreeper extends EntityBaseCreeper {
     }
 
     @Override
-    public void createExplosion(int explosionPower, boolean canGrief) {
+    public void explode(boolean canGrief) {
         if (!illusion) {
-            int exPower = 2 * explosionPower; // original was 3x
-            world.createExplosion(this, posX, posY, posZ, exPower, canGrief);
+            int explosionPower = explosionRadius * (getPowered() ? 2 : 1);
+            world.createExplosion(this, posX, posY, posZ, explosionPower * 2, canGrief);
         } else {
             spawnExplosionParticle();
         }

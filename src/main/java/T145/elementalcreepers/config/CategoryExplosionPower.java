@@ -8,8 +8,8 @@ public class CategoryExplosionPower {
     public int psychic = 8;
 
     @Config.Comment("Sets the Wind Creeper explosion power")
-    public int wind = 3;
+    public int wind = 8;
 
-    @Config.Comment("Sets the Spring Creeper explosion radius")
-    public int spring = 3;
+    @Config.Comment("Sets the Spring Creeper explosion power")
+    public int spring = 6;
 }

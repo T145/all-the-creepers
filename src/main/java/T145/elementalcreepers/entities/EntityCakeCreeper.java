@@ -15,18 +15,18 @@ public class EntityCakeCreeper extends EntityBaseCreeper {
     }
 
     @Override
-    public void createExplosion(int explosionPower, boolean canGrief) {
-        pos.setPos(this);
+    public void explode(boolean canGrief) {
+        MUTABLE_POS.setPos(this);
 
         if (!HolidayUtils.isAprilFools() || rand.nextInt(5) <= 2) {
-            if (Blocks.CAKE.canPlaceBlockAt(world, pos)) {
-                world.setBlockState(pos, Blocks.CAKE.getDefaultState(), 3);
+            if (Blocks.CAKE.canPlaceBlockAt(world, MUTABLE_POS)) {
+                world.setBlockState(MUTABLE_POS, Blocks.CAKE.getDefaultState(), 3);
             }
 
             for (EnumFacing dir : EnumFacing.HORIZONTALS) {
-                BlockPos torchPos = pos.offset(dir);
+                BlockPos torchPos = MUTABLE_POS.offset(dir);
 
-                if (world.getBlockState(torchPos).getMaterial() != Material.AIR && Blocks.TORCH.canPlaceBlockAt(world, torchPos)) {
+                if (world.getBlockState(torchPos).getMaterial() == Material.AIR && Blocks.TORCH.canPlaceBlockAt(world, torchPos)) {
                     world.setBlockState(torchPos, Blocks.TORCH.getStateForPlacement(world, torchPos, dir, 0, 0, 0, 0, null, null), 3);
                 }
             }

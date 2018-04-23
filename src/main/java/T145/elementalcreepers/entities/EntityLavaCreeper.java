@@ -27,7 +27,7 @@ public class EntityLavaCreeper extends EntityBaseCreeper {
             return;
         }
 
-        createPlatform(this, world, getPosition(), Blocks.COBBLESTONE, Blocks.WATER, Blocks.FLOWING_WATER);
+        createPlatformOverLiquid(this, Blocks.COBBLESTONE, Blocks.WATER, Blocks.FLOWING_WATER);
 
         if (!world.getGameRules().getBoolean("mobGriefing")) {
             return;
@@ -37,17 +37,16 @@ public class EntityLavaCreeper extends EntityBaseCreeper {
             i = MathHelper.floor(posX + ((l % 2 * 2 - 1) * 0.25F));
             j = MathHelper.floor(posY);
             k = MathHelper.floor(posZ + ((l / 2 % 2 * 2 - 1) * 0.25F));
-            pos.setPos(i, j, k);
+            MUTABLE_POS.setPos(i, j, k);
 
-            if (world.getBlockState(pos).getMaterial() == Material.AIR && Blocks.FIRE.canPlaceBlockAt(world, pos)) {
-                world.setBlockState(pos, Blocks.FIRE.getDefaultState());
+            if (world.getBlockState(MUTABLE_POS).getMaterial() == Material.AIR && Blocks.FIRE.canPlaceBlockAt(world, MUTABLE_POS)) {
+                world.setBlockState(MUTABLE_POS, Blocks.FIRE.getDefaultState());
             }
         }
     }
 
     @Override
-    public void createExplosion(int explosionPower, boolean canGrief) {
-        int radius = getPowered() ? ModConfig.EXPLOSION_RADII.lava * explosionPower : ModConfig.EXPLOSION_RADII.lava;
-        specialExplosion(radius, Blocks.LAVA.getDefaultState());
+    public void explode(boolean canGrief) {
+        specialExplosion(getPowered() ? ModConfig.EXPLOSION_RADII.lavaCharged : ModConfig.EXPLOSION_RADII.lava, Blocks.LAVA.getDefaultState());
     }
 }

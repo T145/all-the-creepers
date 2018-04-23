@@ -31,7 +31,7 @@ public class EntityZombieCreeper extends EntityBaseCreeper {
     }
 
     @Override
-    public void createExplosion(int explosionPower, boolean canGrief) {
+    public void explode(boolean canGrief) {
         if (creeperCount == 0) { // blow up like a normal creeper
             float f = getPowered() ? 2.0F : 1.0F;
             world.createExplosion(this, posX, posY, posZ, 3 * f, canGrief);

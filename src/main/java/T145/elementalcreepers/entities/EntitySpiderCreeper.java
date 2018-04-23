@@ -11,10 +11,10 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class EntitySpiderCreeper extends EntityBaseCreeper {
@@ -26,18 +26,17 @@ public class EntitySpiderCreeper extends EntityBaseCreeper {
     }
 
     @Override
-    public void createExplosion(int explosionPower, boolean canGrief) {
-        int radius = getPowered() ? ModConfig.EXPLOSION_RADII.spider * explosionPower : ModConfig.EXPLOSION_RADII.spider;
-        AxisAlignedBB bb = new AxisAlignedBB(posX - radius, posY - radius, posZ - radius, posX + radius, posY + radius, posZ + radius);
-        List<Entity> entities = world.getEntitiesWithinAABBExcludingEntity(this, bb);
+    public void explode(boolean canGrief) {
+        int radius = getPowered() ? ModConfig.EXPLOSION_RADII.spiderCharged : ModConfig.EXPLOSION_RADII.spider;
+        List<Entity> entities = world.getEntitiesWithinAABBExcludingEntity(this, getAreaOfEffect(radius));
 
         for (int x = -radius; x <= radius; ++x) {
             for (int y = -radius; y <= radius; ++y) {
                 for (int z = -radius; z <= radius; ++z) {
-                    pos.setPos(posX + x, posY + y, posZ + z);
+                    MUTABLE_POS.setPos(posX + x, posY + y, posZ + z);
 
-                    if (rand.nextInt(100) < 2 && world.isAirBlock(pos)) {
-                        world.setBlockState(pos, Blocks.WEB.getDefaultState());
+                    if (rand.nextInt(100) < 2 && world.isAirBlock(MUTABLE_POS)) {
+                        world.setBlockState(MUTABLE_POS, Blocks.WEB.getDefaultState());
                     }
                 }
             }
@@ -104,11 +103,10 @@ public class EntitySpiderCreeper extends EntityBaseCreeper {
     }
 
     @Override
-    public boolean isPotionApplicable(PotionEffect effect) {
+    public boolean isPotionApplicable(@Nonnull PotionEffect effect) {
         return effect.getPotion() != MobEffects.POISON && super.isPotionApplicable(effect);
     }
 
     @Override
-    public void setInWeb() {
-    }
+    public void setInWeb() {}
 }

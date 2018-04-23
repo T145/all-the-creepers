@@ -21,6 +21,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -298,8 +299,8 @@ class ModLoader {
             if (entity instanceof EntitySpringCreeper && !entity.world.isRemote && damage == DamageSource.FALL) {
                 EntitySpringCreeper creeper = (EntitySpringCreeper) entity;
 
-                if (creeper.isSprung()) {
-                    creeper.world.createExplosion(creeper, creeper.posX, creeper.posY - 2.0D, creeper.posZ, creeper.getExplosionPower() * ((event.getAmount() < 6.0F ? 6.0F : event.getAmount()) / 6.0F), creeper.world.getGameRules().getBoolean("mobGriefing"));
+                if (creeper.isAirborne()) {
+                    creeper.world.createExplosion(creeper, creeper.posX, creeper.posY - 2.0D, creeper.posZ, ((creeper.getPowered() ? 1.5F : 1) * ModConfig.EXPLOSION_POWER.spring) * ((event.getAmount() < 6.0F ? 6.0F : event.getAmount()) / 6.0F), ForgeEventFactory.getMobGriefingEvent(creeper.world, creeper));
                     creeper.setDead();
                 }
             }
