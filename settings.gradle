@@ -1,0 +1,2 @@
+include ":ForgeWorkspace"
+project(":ForgeWorkspace").projectDir = file("../ForgeWorkspace")

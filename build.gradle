@@ -1,0 +1,11 @@
+
+plugins {
+	id 'org.ajoberstar.grgit' version '2.1.1'
+}
+
+project(":ForgeWorkspace").version = (grgit.describe(longDescr: true) - '-0').replaceAll('-', '.')
+project(":ForgeWorkspace").archivesBaseName = 'ElementalCreepers'
+
+task setupWorkspace() {
+	project(":ForgeWorkspace").setupWorkspace()
+}
