@@ -58,7 +58,6 @@ else try out IntelliJ IDEA:
 ```bash
 gradle setupIdeaWorkspace
 ```
-or a similar command compatible with your OS.
 
 > If you don't have Gradle installed, use the executable located at `ForgeWorkspace/gradlew{.bat}`.
 > This will install the Gradle wrapper once, and any proceeding commands should be executed using it.
@@ -70,8 +69,7 @@ For most people it takes about 10 minutes.
 
 ## License
 
-Please consult the [official license](http://www.apache.org/licenses/LICENSE-2.0) if you wish to use the mod source code.
-To use any of the assets, you may contatct [myself](https://github.com/T145) or the original artist for permission.
+Please consult the [official license](http://www.apache.org/licenses/LICENSE-2.0) if you wish to use mod source code. To use any mod assets, you may contatct [myself](https://github.com/T145) or the original creator for permission.
 
 ---
 
