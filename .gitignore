@@ -9,8 +9,12 @@
 _MACOSX
 *.db
 
-# Don't ignore GitHub documentation
+# Don't ignore GitHub files
 !.github
+!.gitignore
+!.gitattributes
+!.gitmodules
+!.gitkeep
 
 # Ignore Gradle output
 /bin/
@@ -19,7 +23,6 @@ _MACOSX
 /release/
 /run/
 /classes/
-*.launch
 
 # Ignore Forge documents
 *fml.txt
@@ -29,12 +32,12 @@ MinecraftForge*.txt
 # Ignore JVM crash logs
 hs_err_pid*
 
-# IDEA files
+# Ignore Eclipse files
+*.launch
+/eclipse/
+
+# Ignore IDEA files
 *.iml
 *.ipr
 *.iws
 /out/
-
-# Project-specific dependencies
-/eclipse/
-/lib/

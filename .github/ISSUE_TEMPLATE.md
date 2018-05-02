@@ -1,12 +1,11 @@
-<!-- Thank you for your contribution to Elemental Creepers! Please replace {Please write here} with your description -->
+<!-- Thank you for your contribution! Please replace {bracketed text} with your description -->
+<!-- If you're making a feature suggestion or something similar, just delete all of this -->
 
-### Expected Behavior
-
-{Please write here}
-
-### Actual Behavior
+### Error Behavior
 
 {Please write here}
+{Please provide a full log of the error}
+{You can use a service like [Pastebin](https://pastebin.com/)}
 
 ### Steps to Reproduce (including precondition)
 
@@ -19,6 +18,5 @@
 ### Your Environment
 
 - OS: {Please write here}
-- Minecraft version: {Please write here}
-- Elemental Creepers version: {Please write here}
-- Forge version: {Please write here}
+- Forge version: {Please write here; include the Minecraft version}
+- Mod version: {Please write here}

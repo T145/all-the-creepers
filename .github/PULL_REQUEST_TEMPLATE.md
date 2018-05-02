@@ -1,18 +1,19 @@
-<!-- Thank you for your contribution to Magistics! Please replace {Please write here} with your description -->
+<!-- Thank you for your contribution! Please replace {bracketed text} with your description -->
 
-### What was a problem?
-
-{Please write here}
-
-### How this PR fixes the problem?
+### What was the problem(s)?
 
 {Please write here}
 
-### Check lists (check `x` in `[ ]` of list items)
+### How do your changes fix the problem(s)?
 
+{Please write here}
+
+### Check lists
+
+<!-- (check `x` in `[ ]` of list items) -->
 - [ ] Building successful
-- [ ] Proper formatting (indentation, etc)
+- [ ] Proper formatting (indentation, etc.)
 
-### Additional Comments (if any)
+### Additional Comments
 
-{Please write here}
+{Please write here if you have any other comments; else delete this block}
