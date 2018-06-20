@@ -10,11 +10,7 @@ _MACOSX
 *.db
 
 # Don't ignore GitHub files
-!.github
-!.gitignore
-!.gitattributes
-!.gitmodules
-!.gitkeep
+!.git*
 
 # Ignore Gradle output
 /bin/
