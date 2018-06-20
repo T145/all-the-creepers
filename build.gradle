@@ -73,5 +73,3 @@ task setupEclipseWorkspace(type: Download, dependsOn: setupDecompWorkspace) {
         project.file('forge').deleteDir()
     }
 }
-
-setupEclipseWorkspace.finalizedBy eclipse
