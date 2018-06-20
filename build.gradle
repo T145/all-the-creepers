@@ -1,0 +1,77 @@
+
+import de.undercouch.gradle.tasks.download.Download
+
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            name = 'MiencraftForge Repo'
+            url = 'http://files.minecraftforge.net/maven'
+        }
+    }
+
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+    }
+}
+
+plugins {
+    id 'de.undercouch.download' version '3.4.3'
+    id 'org.ajoberstar.grgit' version '2.2.1'
+}
+
+apply plugin: 'net.minecraftforge.gradle.forge'
+
+version = (grgit.open(dir: project.projectDir.getAbsolutePath()).describe(longDescr: true) - '-0').replaceAll('-', '.')
+group = mod_group + '.' + mod_id
+archivesBaseName = mod_name
+
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+compileJava {
+    sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+minecraft {
+    runDir = 'run'
+    version = forge_version
+    mappings = forge_mapping
+    makeObfSourceJar = false
+
+    replaceIn "${mod_name}.java"
+    //replace "@MOD_ID@", mod_id
+    //replace "@MOD_NAME@", mod_name
+    replace "@VERSION@", project.version
+}
+
+processResources {
+    exclude '**/*.db'
+    exclude '**/*.DS_Store'
+}
+
+build {
+    doLast {
+        project.file('release').deleteDir()
+        project.file('build/libs').renameTo(project.file('release'))
+        project.file('build/tmp/recompileMc/sources').renameTo(project.file('minecraftSrc'))
+    }
+}
+
+task setupEclipseWorkspace(type: Download, dependsOn: setupDecompWorkspace) {
+    File forgeArchive = project.file('forge.zip')
+
+    src 'http://files.minecraftforge.net/maven/net/minecraftforge/forge/' + forge_version + '/forge-' + forge_version + '-mdk.zip'
+    dest forgeArchive
+
+    doLast {
+        project.copy {
+            from zipTree(forgeArchive)
+            into 'forge'
+        }
+
+        project.file('forge/eclipse').renameTo(project.file('eclipse'))
+        project.file('forge.zip').delete()
+        project.file('forge').deleteDir()
+    }
+}
+
+setupEclipseWorkspace.finalizedBy eclipse

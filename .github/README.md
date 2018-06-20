@@ -5,7 +5,7 @@
 Redux of the original Elemental Creepers mod!
 
 [![DownloadCount](http://cf.way2muchnoise.eu/elemental-creepers-redux.svg)](https://minecraft.curseforge.com/projects/elemental-creepers-redux)
-[![SupportedVersions](http://cf.way2muchnoise.eu/versions/For%20MC%20_elemental-creepers-redux_all.svg)](https://minecraft.curseforge.com/projects/elemental-creepers-redux)
+[![SupportedVersions](http://cf.way2muchnoise.eu/versions/For%20MC%20_287777_all.svg)](https://minecraft.curseforge.com/projects/elemental-creepers-redux)
 
 ---
 **_Table of Contents_**
@@ -26,50 +26,51 @@ In order to get started with Minecraft mod development in this workspace, a few 
 2. [Java Development Kit 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) (JDK 8)
 3. *(Optional)* [Gradle](http://gradle.org/gradle-download/)
 
-Each of the listed requirements contains a hyperlink that should take you directly to the correspondant download page.
-Just download and install what is compatible with your OS.
-Gradle is optional is because this workspace includes a Gradle wrapper,
-so when executing commands that begin with `gradle`,
-execute them using `gradlew` located in `ForgeWorkspace` instead and everything will function normally.
+> If you don't manually install Gradle, just append a `w` to `gradle` command prefixes.
+> This will install the Gradle wrapper once, and any proceeding commands should be executed using it.
 
-If you're using OSX, I highly recommend using [Homebrew](https://brew.sh/),
+### Windows
+I highly recommend using [Chocolatey](https://chocolatey.org/install),
+and installing everything by executing the following commands:
+```bash
+choco install jdk8
+choco install gradle --version 4.4.1
+```
+I'd recommend running the Powershell variant.
+
+### OSX
+I highly recommend using [Homebrew](https://brew.sh/),
 and installing everything by executing the following commands:
 ```bash
 brew cask install java
-brew install gradle
+brew install gradle --version 4.4.1
 ```
-If you don't have Apple's Command Line Utilities installed before installing Homebrew, Hombrew will install them automatically.
+If you don't have Apple's Command Line Utilities installed before installing Homebrew, they will be installed automatically.
+Be sure you're using an Administrator account if this is the case.
 
 ---
 
 ## Workspace Setup
 
-First, prepare the workspace by executing the following commands:
-```bash
-git submodule init
-git submodule update
-```
-
 If you plan to use the Eclipse IDE, then execute:
 ```bash
 gradle setupEclipseWorkspace
 ```
-else try out IntelliJ IDEA:
+else just run the typical:
 ```bash
-gradle setupIdeaWorkspace
+gradle setupDecompWorkspace
 ```
-
-> If you don't have Gradle installed, use the executable located at `ForgeWorkspace/gradlew{.bat}`.
-> This will install the Gradle wrapper once, and any proceeding commands should be executed using it.
 
 Depending on your internet connection and the processing power of your machine, it may take a while to build.
 For most people it takes about 10 minutes.
+
+After that just run either `gradle eclipse` or `gradle idea`, depending on your IDE.
 
 ---
 
 ## License
 
-Please consult the [official license](http://www.apache.org/licenses/LICENSE-2.0) if you wish to use mod source code. To use any mod assets, you may contatct [myself](https://github.com/T145) or the original creator for permission.
+Mod source code is licensed under the [Apache License v2.0](http://www.apache.org/licenses/LICENSE-2.0). The actual workspace license is located in this project. To use any mod assets, you may contatct [myself](https://github.com/T145) or the original creator for permission.
 
 ---
 
