@@ -49,7 +49,7 @@ public class CategorySpawnRate {
     @Config.Comment("Sets the Wind Creeper Spawn weight")
     public int wind = 10;
 
-    @Config.Comment("Sets the ballistic Creeper Spawn weight")
+    @Config.Comment("Sets the Ballistic Creeper Spawn weight")
     public int ballistic = 1;
 
     @Config.Comment("Sets the Ender Creeper Spawn weight")
@@ -58,7 +58,7 @@ public class CategorySpawnRate {
     @Config.Comment("Sets the Demolition Creeper Spawn weight")
     public int demolition = 10;
 
-    @Config.Comment("Sets the cake Creeper Spawn weight")
+    @Config.Comment("Sets the Cake Creeper Spawn weight")
     public int cake = 2;
 
     @Config.Comment("Sets the Firework Creeper Spawn weight")
@@ -70,6 +70,6 @@ public class CategorySpawnRate {
     @Config.Comment("Sets the Furnace Creeper Spawn weight")
     public int furnace = 1;
 
-    @Config.Comment("Sets the Ender Creeper Spawn weight")
+    @Config.Comment("Sets the Zombie Creeper Spawn weight")
     public int zombie = 4;
 }
