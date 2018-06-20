@@ -10,12 +10,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class RenderSpiderCreeper extends RenderBaseCreeper {
 
-    public RenderSpiderCreeper(RenderManager manager) {
-        super(manager, new ModelSpiderCreeper(), "spidercreeper");
-    }
+	public RenderSpiderCreeper(RenderManager manager) {
+		super(manager, new ModelSpiderCreeper(), "spidercreeper");
+	}
 
-    @Override
-    protected LayerRenderer getChargeLayer(RenderBaseCreeper renderer) {
-        return new LayerBaseCharge(renderer, new ModelSpiderCreeper(2F));
-    }
+	@Override
+	protected LayerRenderer getChargeLayer(RenderBaseCreeper renderer) {
+		return new LayerBaseCharge(renderer, new ModelSpiderCreeper(2F));
+	}
 }

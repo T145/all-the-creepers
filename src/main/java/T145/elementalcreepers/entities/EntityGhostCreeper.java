@@ -7,12 +7,12 @@ import net.minecraftforge.event.ForgeEventFactory;
 
 public class EntityGhostCreeper extends EntityBaseCreeper {
 
-    public EntityGhostCreeper(World world) {
-        super(world);
-    }
+	public EntityGhostCreeper(World world) {
+		super(world);
+	}
 
-    @Override
-    public void detonate() {
-        world.createExplosion(this, posX, posY, posZ, ModConfig.EXPLOSION_RADII.ghost, ForgeEventFactory.getMobGriefingEvent(world, this));
-    }
+	@Override
+	public void detonate() {
+		world.createExplosion(this, posX, posY, posZ, ModConfig.EXPLOSION_RADII.ghost, ForgeEventFactory.getMobGriefingEvent(world, this));
+	}
 }

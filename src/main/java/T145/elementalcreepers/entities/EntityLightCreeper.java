@@ -7,12 +7,12 @@ import net.minecraft.world.World;
 
 public class EntityLightCreeper extends EntityBaseCreeper {
 
-    public EntityLightCreeper(World world) {
-        super(world);
-    }
+	public EntityLightCreeper(World world) {
+		super(world);
+	}
 
-    @Override
-    public void detonate() {
-        specialExplosion(getPowered() ? ModConfig.EXPLOSION_RADII.lightCharged : ModConfig.EXPLOSION_RADII.light, Blocks.GLOWSTONE.getDefaultState());
-    }
+	@Override
+	public void detonate() {
+		specialExplosion(getPowered() ? ModConfig.EXPLOSION_RADII.lightCharged : ModConfig.EXPLOSION_RADII.light, Blocks.GLOWSTONE.getDefaultState());
+	}
 }

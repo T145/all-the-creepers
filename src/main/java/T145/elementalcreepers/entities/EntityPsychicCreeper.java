@@ -9,14 +9,14 @@ import net.minecraftforge.event.ForgeEventFactory;
 
 public class EntityPsychicCreeper extends EntityBaseCreeper {
 
-    public EntityPsychicCreeper(World world) {
-        super(world);
-    }
+	public EntityPsychicCreeper(World world) {
+		super(world);
+	}
 
-    @Override
-    public void detonate() {
-        int radius = getPowered() ? ModConfig.EXPLOSION_RADII.psychicCharged : ModConfig.EXPLOSION_RADII.psychic;
-        ExplosionSpecial explosion = new ExplosionPsychic(world, this, posX, posY, posZ, ModConfig.EXPLOSION_POWER.psychic, radius, false, ForgeEventFactory.getMobGriefingEvent(world, this));
-        explosion.doExplosionA();
-    }
+	@Override
+	public void detonate() {
+		int radius = getPowered() ? ModConfig.EXPLOSION_RADII.psychicCharged : ModConfig.EXPLOSION_RADII.psychic;
+		ExplosionSpecial explosion = new ExplosionPsychic(world, this, posX, posY, posZ, ModConfig.EXPLOSION_POWER.psychic, radius, false, ForgeEventFactory.getMobGriefingEvent(world, this));
+		explosion.doExplosionA();
+	}
 }

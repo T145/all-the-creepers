@@ -7,12 +7,12 @@ import net.minecraft.world.World;
 
 public class EntityEarthCreeper extends EntityBaseCreeper {
 
-    public EntityEarthCreeper(World world) {
-        super(world);
-    }
+	public EntityEarthCreeper(World world) {
+		super(world);
+	}
 
-    @Override
-    public void detonate() {
-        specialExplosion(getPowered() ? ModConfig.EXPLOSION_RADII.earthCharged : ModConfig.EXPLOSION_RADII.earth, Blocks.DIRT.getDefaultState());
-    }
+	@Override
+	public void detonate() {
+		specialExplosion(getPowered() ? ModConfig.EXPLOSION_RADII.earthCharged : ModConfig.EXPLOSION_RADII.earth, Blocks.DIRT.getDefaultState());
+	}
 }
