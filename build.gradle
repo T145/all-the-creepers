@@ -20,6 +20,15 @@ plugins {
     id 'org.ajoberstar.grgit' version '2.2.1'
 }
 
+repositories {
+    mavenLocal()
+    mavenCentral()
+
+    maven {
+        url "https://minecraft.curseforge.com/api/maven/"
+    }
+}
+
 apply plugin: 'net.minecraftforge.gradle.forge'
 
 version = (grgit.open(dir: project.projectDir.getAbsolutePath()).describe(longDescr: true) - '-0').replaceAll('-', '.')
@@ -38,9 +47,11 @@ minecraft {
     makeObfSourceJar = false
 
     replaceIn "${mod_name}.java"
-    //replace "@MOD_ID@", mod_id
-    //replace "@MOD_NAME@", mod_name
     replace "@VERSION@", project.version
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: '*.jar')
 }
 
 processResources {

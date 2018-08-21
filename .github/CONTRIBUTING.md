@@ -1,4 +1,4 @@
-### Thank you for wanting to contribute!
+### Thank you for wanting to contribute to ElementalCreepers!
 ***
 
 This project is made specifically for the community and mainstream use!

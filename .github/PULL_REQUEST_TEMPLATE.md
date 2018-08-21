@@ -1,19 +1,20 @@
-<!-- Thank you for your contribution! Please replace {bracketed text} with your description -->
+<!-- Thank you for your contribution to ElementalCreepers! Please replace {Please write here} with your description -->
 
-### What was the problem(s)?
-
-{Please write here}
-
-### How do your changes fix the problem(s)?
+### What was a problem?
 
 {Please write here}
 
-### Check lists
+### How this PR fixes the problem?
 
-<!-- (check `x` in `[ ]` of list items) -->
+{Please write here}
+
+### Check lists (check `x` in `[ ]` of list items)
+
 - [ ] Building successful
-- [ ] Proper formatting (indentation, etc.)
+- [ ] Proper formatting (indentation, etc)
 
-### Additional Comments
+{Please write here; any other solutions / future goals}
 
-{Please write here if you have any other comments; else delete this block}
+### Additional Comments (if any)
+
+{Please write here; delete this whole block if no comments}

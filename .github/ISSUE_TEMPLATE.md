@@ -1,11 +1,12 @@
-<!-- Thank you for your contribution! Please replace {bracketed text} with your description -->
-<!-- If you're making a feature suggestion or something similar, just delete all of this -->
+<!-- Thank you for your contribution to ElementalCreepers! Please replace {Please write here} with your description -->
 
-### Error Behavior
+### Expected Behavior
 
 {Please write here}
-{Please provide a full log of the error}
-{You can use a service like [Pastebin](https://pastebin.com/)}
+
+### Actual Behavior
+
+{Please write here}
 
 ### Steps to Reproduce (including precondition)
 
@@ -18,5 +19,5 @@
 ### Your Environment
 
 - OS: {Please write here}
-- Forge version: {Please write here; include the Minecraft version}
+- Full Forge version: {Please write here; include Minecraft version}
 - Mod version: {Please write here}

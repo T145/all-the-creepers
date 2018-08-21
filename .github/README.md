@@ -4,17 +4,17 @@
 
 Redux of the original Elemental Creepers mod!
 
-[![DownloadCount](http://cf.way2muchnoise.eu/elemental-creepers-redux.svg)](https://minecraft.curseforge.com/projects/elemental-creepers-redux)
-[![SupportedVersions](http://cf.way2muchnoise.eu/versions/For%20MC%20_287777_all.svg)](https://minecraft.curseforge.com/projects/elemental-creepers-redux)
+[![DownloadCount](http://cf.way2muchnoise.eu/full_287777_downloads.svg)](https://minecraft.curseforge.com/projects/elemental-creepers-redux)
+[![SupportedVersions](http://cf.way2muchnoise.eu/versions/287777_latest.svg)](https://minecraft.curseforge.com/projects/elemental-creepers-redux)
 
 ---
 **_Table of Contents_**
 
-1. [Dependencies](https://github.com/T145/elemental-creepers#dependencies)
-2. [Workspace Setup](https://github.com/T145/elemental-creepers#workspace-setup)
-3. [Project License](https://github.com/T145/elemental-creepers#license)
-4. [Dev Support](https://github.com/T145/elemental-creepers#support)
-5. [Contributing](https://github.com/T145/elemental-creepers/blob/master/.github/CONTRIBUTING.md)
+1. [Dependencies](https://github.com/T145/ElementalCreepers#dependencies)
+2. [Workspace Setup](https://github.com/T145/ElementalCreepers#workspace-setup)
+3. [Project License](https://github.com/T145/ElementalCreepers#license)
+4. [Dev Support](https://github.com/T145/ElementalCreepers#support)
+5. [Contributing](https://github.com/T145/ElementalCreepers/blob/master/.github/CONTRIBUTING.md)
 
 ---
 
@@ -22,7 +22,7 @@ Redux of the original Elemental Creepers mod!
 
 In order to get started with Minecraft mod development in this workspace, a few prerequisites are required:
 
-1. [Git](https://git-scm.com/downloads)
+1. [Git](https://git-scm.com/downloads) *([First-Time Git Setup](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup))*
 2. [Java Development Kit 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) (JDK 8)
 3. *(Optional)* [Gradle](http://gradle.org/gradle-download/)
 
@@ -30,23 +30,30 @@ In order to get started with Minecraft mod development in this workspace, a few 
 > This will install the Gradle wrapper once, and any proceeding commands should be executed using it.
 
 ### Windows
-I highly recommend using [Chocolatey](https://chocolatey.org/install),
-and installing everything by executing the following commands:
+
+#### Using [Scoop](https://scoop.sh/) *(Highly recommended)*
 ```bash
-choco install jdk8
-choco install gradle --version 4.4.1
+scoop install git
+scoop bucket add java
+scoop install oraclejdk8
+scoop install gradle
 ```
-I'd recommend running the Powershell variant.
+
+#### Using [Chocolatey](https://chocolatey.org/install)
+```bash
+choco install git
+choco install jdk8
+choco install gradle
+```
 
 ### OSX
-I highly recommend using [Homebrew](https://brew.sh/),
-and installing everything by executing the following commands:
+
+#### Using [Homebrew](https://brew.sh/)
 ```bash
+# Installs Apple's Command Line Utilities automatically, which includes Git
 brew cask install java
-brew install gradle --version 4.4.1
+brew install gradle
 ```
-If you don't have Apple's Command Line Utilities installed before installing Homebrew, they will be installed automatically.
-Be sure you're using an Administrator account if this is the case.
 
 ---
 
@@ -66,6 +73,9 @@ For most people it takes about 10 minutes.
 
 After that just run either `gradle eclipse` or `gradle idea`, depending on your IDE.
 
+> If you're using IntelliJ's IDEA, be sure it recognizes the included `api` folder in the `src` directory,
+> because it does not do so automatically.
+
 ---
 
 ## License
@@ -78,12 +88,12 @@ Mod source code is licensed under the [Apache License v2.0](http://www.apache.or
 
 <div align="center">
 
-**Patreon**: [https://www.patreon.com/user?u=152139](https://www.patreon.com/user?u=152139)
+**Patreon**: [patreon.com/user=152139](https://www.patreon.com/user?u=152139)
 </div>
 
 <div align="center">
 
-**Paypal**: [paypal.me/T145](paypal.me/T145)
+**Paypal**: [paypal.me/T145](https://www.paypal.me/T145)
 </div>
 
 <div align="center">
@@ -99,9 +109,4 @@ Mod source code is licensed under the [Apache License v2.0](http://www.apache.or
 <div align="center">
 
 **Litecoin**: `LiV9SfDjFYLFRCzf9wTf7ap8BuRF39J7PB`
-</div>
-
-<div align="center">
-
-**Vertcoin**: `Vc6ss1NaitEtdrZZsDhQuv9pytKR5caiFy`
 </div>
