@@ -10,33 +10,22 @@ Redux of the original Elemental Creepers mod!
 ---
 **_Table of Contents_**
 
-1. [Dependencies](https://github.com/T145/ElementalCreepers#dependencies)
-2. [Workspace Setup](https://github.com/T145/ElementalCreepers#workspace-setup)
-3. [Project License](https://github.com/T145/ElementalCreepers#license)
-4. [Dev Support](https://github.com/T145/ElementalCreepers#support)
-5. [Contributing](https://github.com/T145/ElementalCreepers/blob/master/.github/CONTRIBUTING.md)
+1. [Dependencies](https://github.com/T145/elementalcreepers#dependencies)
+2. [Workspace Setup](https://github.com/T145/elementalcreepers#workspace-setup)
+3. [Project License](https://github.com/T145/elementalcreepers#license)
+4. [Dev Support](https://github.com/T145/elementalcreepers#support)
+5. [Contributing](https://github.com/T145/elementalcreepers/blob/master/.github/CONTRIBUTING.md)
 
 ---
 
 ## Dependencies
 
-In order to get started with Minecraft mod development in this workspace, a few prerequisites are required:
-
-1. [Git](https://git-scm.com/downloads) *([First-Time Git Setup](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup))*
-2. [Java Development Kit 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) (JDK 8)
-3. *(Optional)* [Gradle](http://gradle.org/gradle-download/)
-
-> If you don't manually install Gradle, just append a `w` to `gradle` command prefixes.
-> This will install the Gradle wrapper once, and any proceeding commands should be executed using it.
-
 ### Windows
 
-#### Using [Scoop](https://github.com/lukesampson/scoop/blob/master/README.md)
+#### Using [Scoop](https://github.com/lukesampson/scoop/blob/master/README.md) *(Recommended)*
 ```bash
-scoop install git
 scoop bucket add java
-scoop install oraclejdk8
-scoop install gradle
+scoop install git oraclejdk8u gradle@4.10.3
 ```
 
 #### Using [Chocolatey](https://chocolatey.org/install)
@@ -50,7 +39,8 @@ choco install gradle
 
 #### Using [Homebrew](https://brew.sh/)
 ```bash
-# Installs Apple's Command Line Utilities automatically, which includes Git
+# Git should be automatically installed alongside
+# Homebrew through Apple's Command Line utilities
 brew cask install java
 brew install gradle
 ```
@@ -67,7 +57,7 @@ gradle eclipse
 
 Next, you'll need to install the [EditorConfig plugin](https://github.com/ncjones/editorconfig-eclipse#readme).
 Navigate to `Help > Eclipse Marketplace`, and search for `editorconfig`.
-There should only be one result; install it and you're all set.
+There should only be one result: install it and you're all set.
 
 ### IntelliJ IDEA
 
@@ -76,9 +66,6 @@ gradle setupDecompWorkspace
 gradle idea
 ```
 > Be sure IDEA recognizes the `src/api/java` directory!
-
-Depending on your internet connection and the processing power of your machine, it may take a while to build.
-For most people it takes about 10 minutes.
 
 ---
 
