@@ -8,8 +8,7 @@ public class HolidayUtils {
 	private static Calendar holidayEnd = Calendar.getInstance();
 	private static Calendar currTime = Calendar.getInstance();
 
-	private HolidayUtils() {
-	}
+	private HolidayUtils() {}
 
 	public static boolean isValentinesDay() {
 		setDate(holidayStart, Calendar.FEBRUARY, 13, false);
