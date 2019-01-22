@@ -8,17 +8,23 @@ import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.MutableBlockPos;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
-public abstract class EntityElementalCreeper extends EntityCreeper {
+public abstract class EntityCreeperElemental extends EntityCreeper {
 
 	protected static final Random rand = new Random();
 	protected final MutableBlockPos pos = new MutableBlockPos(BlockPos.ORIGIN);
+	protected final Explosion expl = new Explosion(world, this, 0.0D, 0.0D, 0.0D, 0.0F, false, false);
 	protected final boolean isWild;
 
-	public EntityElementalCreeper(World world) {
+	public EntityCreeperElemental(World world) {
 		super(world);
 		isWild = rand.nextBoolean();
+	}
+
+	public float getExplosionRadius() {
+		return explosionRadius * (getPowered() ? 2F : 1F);
 	}
 
 	@Override
@@ -38,19 +44,21 @@ public abstract class EntityElementalCreeper extends EntityCreeper {
 	public abstract void detonate();
 
 	protected AxisAlignedBB getAOE() {
-		return new AxisAlignedBB(posX - explosionRadius, posY - explosionRadius, posZ - explosionRadius, posX + explosionRadius, posY + explosionRadius, posZ + explosionRadius);
+		float radius = getExplosionRadius();
+		return new AxisAlignedBB(posX - radius, posY - radius, posZ - radius, posX + radius, posY + radius, posZ + radius);
 	}
 
 	protected void createExplosion(IBlockState state) {
+		float radius = getExplosionRadius();
 		Block block = state.getBlock();
 
-		for (int x = -explosionRadius; x <= explosionRadius; ++x) {
-			for (int y = -explosionRadius; y <= explosionRadius; ++y) {
-				for (int z = -explosionRadius; z <= explosionRadius; ++z) {
+		for (float x = -radius; x <= radius; ++x) {
+			for (float y = -radius; y <= radius; ++y) {
+				for (float z = -radius; z <= radius; ++z) {
 					pos.setPos(posX + x, posY + y, posZ + z);
 
 					boolean wild = isWild && block.canPlaceBlockAt(world, pos) && !block.canPlaceBlockAt(world, pos.down()) && rand.nextBoolean();
-					boolean dome = block.canPlaceBlockAt(world, pos) && Math.sqrt(Math.pow(x, 2.0D) + Math.pow(y, 2.0D) + Math.pow(z, 2.0D)) <= explosionRadius && rand.nextInt(4) < 3;
+					boolean dome = block.canPlaceBlockAt(world, pos) && Math.sqrt(Math.pow(x, 2.0D) + Math.pow(y, 2.0D) + Math.pow(z, 2.0D)) <= radius && rand.nextInt(4) < 3;
 
 					if (wild || dome) {
 						world.setBlockState(pos, state, 3);
