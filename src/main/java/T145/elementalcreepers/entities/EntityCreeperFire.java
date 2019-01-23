@@ -23,7 +23,7 @@ public class EntityCreeperFire extends EntityCreeperElemental {
 				for (float z = -radius; z <= radius; ++z) {
 					pos.setPos(posX + x, posY + y, posZ + z);
 
-					if (Blocks.FIRE.canPlaceBlockAt(world, pos) && rand.nextBoolean()) {
+					if (Blocks.DIRT.canPlaceBlockAt(world, pos) && !Blocks.DIRT.canPlaceBlockAt(world, pos.down()) && rand.nextBoolean()) {
 						if (ForgeEventFactory.getMobGriefingEvent(world, this)) {
 							world.setBlockState(pos, Blocks.FIRE.getDefaultState());
 						} else {

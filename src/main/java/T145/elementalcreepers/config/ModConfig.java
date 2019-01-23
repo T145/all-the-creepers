@@ -13,9 +13,6 @@ public class ModConfig {
 	@Config.LangKey(ElementalCreepers.MODID + ".config.radii")
 	public static final CategoryExplosionRadii EXPLOSION_RADII = new CategoryExplosionRadii();
 
-	@Config.LangKey(ElementalCreepers.MODID + ".config.power")
-	public static final CategoryExplosionPower EXPLOSION_POWER = new CategoryExplosionPower();
-
 	@Config.LangKey(ElementalCreepers.MODID + ".config.spawnrate")
 	public static final CategorySpawnRate SPAWN_RATE = new CategorySpawnRate();
 }

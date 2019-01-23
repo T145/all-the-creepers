@@ -17,7 +17,7 @@ public class EntityCreeperEntropy extends EntityCreeperElemental {
 
 	@Override
 	public boolean canExplosionDestroyBlock(Explosion explosion, World world, BlockPos pos, IBlockState state, float p_174816_5_) {
-		return getExplosionResistance(explosion, world, pos, state) < getExplosionResistance(explosion, world, pos, Blocks.OBSIDIAN.getDefaultState());
+		return getExplosionResistance(explosion, world, pos, state) < getExplosionResistance(explosion, world, pos, Blocks.BEDROCK.getDefaultState());
 	}
 
 	@Override
