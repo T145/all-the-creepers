@@ -13,6 +13,6 @@ public class EntityCreeperEarth extends EntityCreeperElemental {
 
 	@Override
 	public void detonate() {
-		this.createExplosion(Blocks.DIRT.getDefaultState());
+		this.createExplosion(Blocks.DIRT.getDefaultState(), false);
 	}
 }

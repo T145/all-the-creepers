@@ -2,6 +2,7 @@ package T145.elementalcreepers.entities;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -43,42 +44,51 @@ public abstract class EntityCreeperElemental extends EntityCreeper {
 		return new AxisAlignedBB(posX - radius, posY - radius, posZ - radius, posX + radius, posY + radius, posZ + radius);
 	}
 
-	protected void createExplosion(IBlockState state) {
+	protected void createExplosion(IBlockState state, boolean suffocateEntities) {
 		float radius = getExplosionRadius();
 
 		if (rand.nextBoolean()) {
-			wildExplosion(radius, state);
+			wildExplosion(radius, state, suffocateEntities);
 		} else {
-			domeExplosion(radius, state);
+			domeExplosion(radius, state, suffocateEntities);
 		}
 	}
 
-	private void domeExplosion(float radius, IBlockState state) {
+	private void domeExplosion(float radius, IBlockState state, boolean suffocateEntities) {
 		for (float x = -radius; x <= radius; ++x) {
 			for (float y = -radius; y <= radius; ++y) {
 				for (float z = -radius; z <= radius; ++z) {
 					pos.setPos(posX + x, posY + y, posZ + z);
+					preExplode(radius, state, suffocateEntities);
 
 					if (state.getBlock().canPlaceBlockAt(world, pos) && Math.sqrt(Math.pow(x, 2.0D) + Math.pow(y, 2.0D) + Math.pow(z, 2.0D)) <= radius && rand.nextInt(4) < 3) {
-						world.setBlockState(pos, state, 3);
+						if (suffocateEntities || !world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos)).isEmpty()) {
+							world.setBlockState(pos, state, 3);
+						}
 					}
 				}
 			}
 		}
 	}
 
-	private void wildExplosion(float radius, IBlockState state) {
+	private void wildExplosion(float radius, IBlockState state, boolean suffocateEntities) {
 		for (float x = -radius; x <= radius; ++x) {
 			for (float y = -radius; y <= radius; ++y) {
 				for (float z = -radius; z <= radius; ++z) {
 					pos.setPos(posX + x, posY + y, posZ + z);
+					preExplode(radius, state, suffocateEntities);
+
 					Block block = state.getBlock();
 
 					if (block.canPlaceBlockAt(world, pos) && !block.canPlaceBlockAt(world, pos.down()) && rand.nextBoolean()) {
-						world.setBlockState(pos, state, 3);
+						if (suffocateEntities || !world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos)).isEmpty()) {
+							world.setBlockState(pos, state, 3);
+						}
 					}
 				}
 			}
 		}
 	}
+
+	protected void preExplode(float radius, IBlockState state, boolean suffocateEntities) {}
 }
