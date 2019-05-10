@@ -1,0 +1,13 @@
+{
+	"required": true,
+	"package": "T145.allthecreepers.mixins",
+	"compatibilityLevel": "JAVA_8",
+	"mixins": [
+		"MixinCreeperEntity"
+	],
+	"client": [
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

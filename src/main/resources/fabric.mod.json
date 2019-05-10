@@ -1,0 +1,35 @@
+{
+	"schemaVersion": 1,
+	"id": "allthecreepers",
+	"version": "${version}",
+	"name": "All The Creepers",
+	"description": "Here comes the BOOM!",
+	"authors": [
+		"T145"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/allthegolems/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"T145.allthecreepers.core.AllTheCreepers"
+		],
+		"client": [
+			"T145.allthecreepers.core.AllTheCreepers"
+		]
+	},
+	"mixins": [
+		"allthecreepers.mixins.json"
+	],
+	"requires": {
+		"fabricloader": ">=0.4.0",
+		"fabric": "*"
+	},
+	"suggests": {
+		"flamingo": "*"
+	}
+}
