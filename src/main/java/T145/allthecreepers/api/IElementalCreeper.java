@@ -4,6 +4,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BoundingBox;
+import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 
 public interface IElementalCreeper extends IEntityRendererProvider {
@@ -13,6 +14,8 @@ public interface IElementalCreeper extends IEntityRendererProvider {
 	public boolean canDetonate();
 
 	public void detonate(Explosion.DestructionType destructionType, byte radius, Explosion simpleExplosion);
+
+	default void generateParticles(World world, double x, double y, double z) {}
 
 	default BoundingBox getAOE(byte radius, double posX, double posY, double posZ) {
 		return new BoundingBox(posX - radius, posY - radius, posZ - radius, posX + radius, posY + radius, posZ + radius);

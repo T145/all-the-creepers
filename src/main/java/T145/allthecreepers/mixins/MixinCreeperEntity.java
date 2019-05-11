@@ -25,12 +25,17 @@ public abstract class MixinCreeperEntity implements IElementalCreeper {
 	private void explode(CallbackInfo info) {
 		CreeperEntity creeper = (CreeperEntity) (Object) this;
 
-		if (this.canDetonate() && !creeper.world.isClient) {
-			Explosion.DestructionType destructionType = creeper.world.getGameRules().getBoolean("mobGriefing") ? Explosion.DestructionType.DESTROY : Explosion.DestructionType.NONE;
-			byte radius = (byte) (6 * (creeper.isCharged() ? 2 : 1));
-			this.detonate(destructionType, radius, new Explosion(creeper.world, creeper, creeper.x, creeper.y, creeper.z, 1F, false, Explosion.DestructionType.DESTROY));
-			creeper.remove();
-			spawnEffectsCloud();
+		if (this.canDetonate()) {
+			if (creeper.world.isClient) {
+				generateParticles(creeper.world, creeper.x, creeper.y, creeper.z);
+			} else {
+				Explosion.DestructionType destructionType = creeper.world.getGameRules().getBoolean("mobGriefing") ? Explosion.DestructionType.DESTROY : Explosion.DestructionType.NONE;
+				Explosion simpleExplosion = new Explosion(creeper.world, creeper, creeper.x, creeper.y, creeper.z, 1F, false, destructionType);
+				byte radius = (byte) (6 * (creeper.isCharged() ? 2 : 1));
+				this.detonate(destructionType, radius, simpleExplosion);
+				creeper.remove();
+				spawnEffectsCloud();
+			}
 			info.cancel();
 		}
 	}
