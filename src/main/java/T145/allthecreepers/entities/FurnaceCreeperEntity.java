@@ -79,7 +79,6 @@ public class FurnaceCreeperEntity extends CreeperEntity implements IElementalCre
 
 	private void generateTrap(PlayerEntity player) {
 		Direction front = player.getHorizontalFacing();
-		BlockState gate = Blocks.IRON_BARS.getDefaultState();
 		BlockState mouth = Blocks.IRON_TRAPDOOR.getDefaultState().with(TrapdoorBlock.HALF, BlockHalf.TOP);
 		BlockState heart = Blocks.LAVA.getDefaultState();
 		BlockState wall = Blocks.STONE_BRICKS.getDefaultState();
@@ -104,7 +103,7 @@ public class FurnaceCreeperEntity extends CreeperEntity implements IElementalCre
 		POS.set(POS.offset(front));
 		POS.set(POS.offset(Direction.UP));
 		Direction left = getLeftDir(front);
-		setState(gate.with(this.getHorizontalProperty(left), true).with(this.getHorizontalProperty(left.getOpposite()), true));
+		setState(Blocks.IRON_BARS.getDefaultState().with(this.getHorizontalProperty(left), true).with(this.getHorizontalProperty(left.getOpposite()), true));
 	}
 
 	@Override
