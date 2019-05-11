@@ -2,6 +2,7 @@ package T145.allthecreepers.core;
 
 import T145.allthecreepers.api.immutable.CreeperType;
 import T145.allthecreepers.client.render.entities.ElementalCreeperRenderer;
+import T145.allthecreepers.entities.BallisticCreeperEntity;
 import T145.allthecreepers.entities.CakeCreeperEntity;
 import T145.allthecreepers.entities.CookieCreeperEntity;
 import T145.allthecreepers.entities.DemolitionCreeperEntity;
@@ -36,9 +37,7 @@ public class AllTheCreepers implements ModInitializer, ClientModInitializer {
 	public final static EntityType<WaterCreeperEntity> WATER_CREEPER = Registry.register(Registry.ENTITY_TYPE, CreeperType.WATER.getIdentifier(), FabricEntityTypeBuilder.create(EntityCategory.MONSTER, WaterCreeperEntity::new).size(CREEPER_SIZE).build());
 
 	public final static EntityType<FireCreeperEntity> FIRE_CREEPER = Registry.register(Registry.ENTITY_TYPE, CreeperType.FIRE.getIdentifier(), FabricEntityTypeBuilder.create(EntityCategory.MONSTER, FireCreeperEntity::new).size(CREEPER_SIZE).build());
-	//public final static EntityType<LavaCreeperEntity> LAVA_CREEPER = Registry.register(Registry.ENTITY_TYPE, CreeperType.LAVA.getIdentifier(), FabricEntityTypeBuilder.create(EntityCategory.MONSTER, LavaCreeperEntity::new).size(CREEPER_SIZE).build());
-	//public final static EntityType<LightningCreeperEntity> LIGHTNING_CREEPER = Registry.register(Registry.ENTITY_TYPE, CreeperType.LIGHTNING.getIdentifier(), FabricEntityTypeBuilder.create(EntityCategory.MONSTER, LightningCreeperEntity::new).size(CREEPER_SIZE).build());
-	//public final static EntityType<WaterCreeperEntity> WATER_CREEPER = Registry.register(Registry.ENTITY_TYPE, CreeperType.WATER.getIdentifier(), FabricEntityTypeBuilder.create(EntityCategory.MONSTER, WaterCreeperEntity::new).size(CREEPER_SIZE).build());
+	public final static EntityType<BallisticCreeperEntity> BALLISTIC_CREEPER = Registry.register(Registry.ENTITY_TYPE, CreeperType.BALLISTIC.getIdentifier(), FabricEntityTypeBuilder.create(EntityCategory.MONSTER, BallisticCreeperEntity::new).size(CREEPER_SIZE).build());
 
 	@Override
 	public void onInitialize() {}
@@ -57,8 +56,6 @@ public class AllTheCreepers implements ModInitializer, ClientModInitializer {
 		EntityRendererRegistry.INSTANCE.register(WaterCreeperEntity.class, ((dispatcher, context) -> new ElementalCreeperRenderer(dispatcher)));
 
 		EntityRendererRegistry.INSTANCE.register(FireCreeperEntity.class, ((dispatcher, context) -> new ElementalCreeperRenderer(dispatcher)));
-		//EntityRendererRegistry.INSTANCE.register(LavaCreeperEntity.class, ((dispatcher, context) -> new ElementalCreeperRenderer(dispatcher)));
-		//EntityRendererRegistry.INSTANCE.register(LightningCreeperEntity.class, ((dispatcher, context) -> new ElementalCreeperRenderer(dispatcher)));
-		//EntityRendererRegistry.INSTANCE.register(WaterCreeperEntity.class, ((dispatcher, context) -> new ElementalCreeperRenderer(dispatcher)));
+		EntityRendererRegistry.INSTANCE.register(BallisticCreeperEntity.class, ((dispatcher, context) -> new ElementalCreeperRenderer(dispatcher)));
 	}
 }
