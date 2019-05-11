@@ -36,7 +36,7 @@ public interface IElementalCreeper extends IEntityRendererProvider {
 
 					if (Math.sqrt(Math.pow(x, 2.0D) + Math.pow(y, 2.0D) + Math.pow(z, 2.0D)) <= radius && creeper.getRand().nextInt(4) < 3 && currState.isAir() && state.getBlock().canPlaceAt(currState, creeper.world, POS)) {
 						//if (suffocateEntities || !creeper.world.getEntities(LivingEntity.class, new BoundingBox(POS)).isEmpty())
-						creeper.world.setBlockState(POS, state);
+						creeper.world.setBlockState(POS, state, 3);
 					}
 				}
 			}
@@ -57,7 +57,7 @@ public interface IElementalCreeper extends IEntityRendererProvider {
 
 					if (creeper.getRand().nextBoolean() && param1 && param2) {
 						//if (suffocateEntities || !creeper.world.getEntities(LivingEntity.class, new BoundingBox(POS)).isEmpty())
-						creeper.world.setBlockState(POS, state);
+						creeper.world.setBlockState(POS, state, 3);
 					}
 				}
 			}
