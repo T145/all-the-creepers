@@ -11,10 +11,7 @@ import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.world.explosion.Explosion;
 
 @Mixin(CreeperEntity.class)
-// prepend modid to the injected methods so if anything goes wrong we have a reliable stacktrace
-abstract class CreeperEntityMixin implements IElementalCreeper {
-
-	final CreeperEntity creeper = (CreeperEntity) (Object) this;
+public abstract class MixinCreeperEntity implements IElementalCreeper {
 
 	@Override
 	public boolean canDetonate() {
@@ -25,7 +22,9 @@ abstract class CreeperEntityMixin implements IElementalCreeper {
 	private void spawnEffectsCloud() {}
 
 	@Inject(method = "explode", at = @At("HEAD"), cancellable = true)
-	private void allthecreepers$explode(CallbackInfo info) {
+	private void explode(CallbackInfo info) {
+		CreeperEntity creeper = (CreeperEntity) (Object) this;
+
 		if (this.canDetonate()) {
 			if (creeper.world.isClient) {
 				generateParticles(creeper.world, creeper.x, creeper.y, creeper.z);

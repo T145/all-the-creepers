@@ -39,7 +39,5 @@ public class BallisticCreeperEntity extends CreeperEntity implements IElementalC
 	public void detonate(DestructionType destructionType, byte radius, Explosion simpleExplosion) {
 		// spawn a big piece of TNT with a slightly longer fuse instead of a bunch of normal TNT
 		// (helps save servers from a ton of lag, i.e. Fetching addPacket for removed entity)
-		BigPrimedTntEntity tnt = new BigPrimedTntEntity(world, x, y, z, this);
-		world.spawnEntity(tnt);
 	}
 }
