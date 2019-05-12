@@ -11,11 +11,17 @@ public interface IElementalCreeper extends IEntityRendererProvider {
 
 	final BlockPos.Mutable POS = new BlockPos.Mutable(BlockPos.ORIGIN);
 
-	public boolean canDetonate();
+	boolean canDetonate();
 
-	public void detonate(Explosion.DestructionType destructionType, byte radius, Explosion simpleExplosion);
+	void detonate(Explosion.DestructionType destructionType, byte radius, Explosion simpleExplosion);
 
-	default void generateParticles(World world, double x, double y, double z) {}
+	default boolean createClientSideEffects(World world, double x, double y, double z) {
+		return false;
+	}
+
+	default boolean createServerSideEffects(World world, double x, double y, double z) {
+		return false;
+	}
 
 	default BoundingBox getAOE(byte radius, double posX, double posY, double posZ) {
 		return new BoundingBox(posX - radius, posY - radius, posZ - radius, posX + radius, posY + radius, posZ + radius);

@@ -11,7 +11,7 @@ import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.world.explosion.Explosion;
 
 @Mixin(CreeperEntity.class)
-public abstract class MixinCreeperEntity implements IElementalCreeper {
+abstract class MixinCreeperEntity implements IElementalCreeper {
 
 	@Override
 	public boolean canDetonate() {
@@ -21,13 +21,18 @@ public abstract class MixinCreeperEntity implements IElementalCreeper {
 	@Shadow
 	private void spawnEffectsCloud() {}
 
+	@Inject(method = "isImmuneToExplosion", at = @At("RETURN"))
+	public boolean allthecreepers$isImmuneToExplosion() {
+		return true;
+	}
+
 	@Inject(method = "explode", at = @At("HEAD"), cancellable = true)
-	private void explode(CallbackInfo info) {
+	private void allthecreepers$explode(CallbackInfo info) {
 		CreeperEntity creeper = (CreeperEntity) (Object) this;
 
 		if (this.canDetonate()) {
 			if (creeper.world.isClient) {
-				generateParticles(creeper.world, creeper.x, creeper.y, creeper.z);
+				createClientSideEffects(creeper.world, creeper.x, creeper.y, creeper.z);
 			} else {
 				Explosion.DestructionType destructionType = creeper.world.getGameRules().getBoolean("mobGriefing") ? Explosion.DestructionType.DESTROY : Explosion.DestructionType.NONE;
 				Explosion simpleExplosion = new Explosion(creeper.world, creeper, creeper.x, creeper.y, creeper.z, 1F, false, destructionType);
@@ -35,6 +40,7 @@ public abstract class MixinCreeperEntity implements IElementalCreeper {
 				this.detonate(destructionType, radius, simpleExplosion);
 				creeper.remove();
 				spawnEffectsCloud();
+				createServerSideEffects(creeper.world, creeper.x, creeper.y, creeper.z);
 			}
 			info.cancel();
 		}
