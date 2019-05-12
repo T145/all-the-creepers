@@ -3,7 +3,8 @@
 	"package": "T145.allthecreepers.mixins",
 	"compatibilityLevel": "JAVA_8",
 	"mixins": [
-		"MixinCreeperEntity"
+		"CreeperEntityMixin",
+		"PrimedTntEntityMixin"
 	],
 	"client": [
 	],

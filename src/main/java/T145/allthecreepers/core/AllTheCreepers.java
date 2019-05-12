@@ -3,6 +3,7 @@ package T145.allthecreepers.core;
 import T145.allthecreepers.api.immutable.CreeperType;
 import T145.allthecreepers.client.render.entities.ElementalCreeperRenderer;
 import T145.allthecreepers.entities.BallisticCreeperEntity;
+import T145.allthecreepers.entities.BigPrimedTntEntity;
 import T145.allthecreepers.entities.CakeCreeperEntity;
 import T145.allthecreepers.entities.CookieCreeperEntity;
 import T145.allthecreepers.entities.DemolitionCreeperEntity;
@@ -18,6 +19,7 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.render.EntityRendererRegistry;
 import net.fabricmc.fabric.api.entity.FabricEntityTypeBuilder;
+import net.minecraft.client.render.entity.TNTPrimedEntityRenderer;
 import net.minecraft.entity.EntityCategory;
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
@@ -57,5 +59,7 @@ public class AllTheCreepers implements ModInitializer, ClientModInitializer {
 
 		EntityRendererRegistry.INSTANCE.register(FireCreeperEntity.class, ((dispatcher, context) -> new ElementalCreeperRenderer(dispatcher)));
 		EntityRendererRegistry.INSTANCE.register(BallisticCreeperEntity.class, ((dispatcher, context) -> new ElementalCreeperRenderer(dispatcher)));
+		
+		EntityRendererRegistry.INSTANCE.register(BigPrimedTntEntity.class, ((dispatcher, context) -> new TNTPrimedEntityRenderer(dispatcher)));
 	}
 }
