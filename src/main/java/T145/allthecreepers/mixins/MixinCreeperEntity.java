@@ -21,11 +21,6 @@ abstract class MixinCreeperEntity implements IElementalCreeper {
 	@Shadow
 	private void spawnEffectsCloud() {}
 
-	@Inject(method = "isImmuneToExplosion", at = @At("RETURN"))
-	public boolean allthecreepers$isImmuneToExplosion() {
-		return true;
-	}
-
 	@Inject(method = "explode", at = @At("HEAD"), cancellable = true)
 	private void allthecreepers$explode(CallbackInfo info) {
 		CreeperEntity creeper = (CreeperEntity) (Object) this;
