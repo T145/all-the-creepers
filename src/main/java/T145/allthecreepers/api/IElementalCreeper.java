@@ -15,13 +15,9 @@ public interface IElementalCreeper extends IEntityRendererProvider {
 
 	void detonate(Explosion.DestructionType destructionType, byte radius, Explosion simpleExplosion);
 
-	default boolean createClientSideEffects(World world, double x, double y, double z) {
-		return false;
-	}
+	default void createClientSideEffects(World world, double x, double y, double z) {}
 
-	default boolean createServerSideEffects(World world, double x, double y, double z) {
-		return false;
-	}
+	default void createServerSideEffects(World world, double x, double y, double z) {}
 
 	default BoundingBox getAOE(byte radius, double posX, double posY, double posZ) {
 		return new BoundingBox(posX - radius, posY - radius, posZ - radius, posX + radius, posY + radius, posZ + radius);
