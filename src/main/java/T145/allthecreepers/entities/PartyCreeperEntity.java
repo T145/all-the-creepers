@@ -25,7 +25,7 @@ public class PartyCreeperEntity extends CreeperEntity implements IElementalCreep
 	}
 
 	private void spawnCreepers(EntityType<? extends CreeperEntity> type) {
-		for(int offset = 0; offset < random.nextInt(3); ++offset) {
+		for (int offset = 0; offset < random.nextInt(2) + 1; ++offset) {
 			float xOffset = ((offset % 2) - 0.5F) * 1 / 4.0F;
 			float zOffset = ((offset / 2) - 0.5F) * 1 / 4.0F;
 			CreeperEntity creeper = type.create(world);
