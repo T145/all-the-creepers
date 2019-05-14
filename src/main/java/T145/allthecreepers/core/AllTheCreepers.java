@@ -17,6 +17,7 @@ import T145.allthecreepers.entities.FurnaceCreeperEntity;
 import T145.allthecreepers.entities.LavaCreeperEntity;
 import T145.allthecreepers.entities.LightningCreeperEntity;
 import T145.allthecreepers.entities.LuminousCreeperEntity;
+import T145.allthecreepers.entities.PartyCreeperEntity;
 import T145.allthecreepers.entities.WaterCreeperEntity;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
@@ -36,6 +37,7 @@ public class AllTheCreepers implements ModInitializer, ClientModInitializer {
 	public static final PureLightBlock PURE_LIGHT = new PureLightBlock();
 
 	private static final EntitySize CREEPER_SIZE = EntitySize.constant(0.6F, 1.7F);
+	public static final EntityType<BallisticCreeperEntity> BALLISTIC_CREEPER = Registry.register(Registry.ENTITY_TYPE, CreeperType.BALLISTIC.getIdentifier(), FabricEntityTypeBuilder.create(EntityCategory.MONSTER, BallisticCreeperEntity::new).size(CREEPER_SIZE).build());
 	public static final EntityType<CakeCreeperEntity> CAKE_CREEPER = Registry.register(Registry.ENTITY_TYPE, CreeperType.CAKE.getIdentifier(), FabricEntityTypeBuilder.create(EntityCategory.MONSTER, CakeCreeperEntity::new).size(CREEPER_SIZE).build());
 	public static final EntityType<CookieCreeperEntity> COOKIE_CREEPER = Registry.register(Registry.ENTITY_TYPE, CreeperType.COOKIE.getIdentifier(), FabricEntityTypeBuilder.create(EntityCategory.MONSTER, CookieCreeperEntity::new).size(CREEPER_SIZE).build());
 	public static final EntityType<DarkCreeperEntity> DARK_CREEPER = Registry.register(Registry.ENTITY_TYPE, CreeperType.DARK.getIdentifier(), FabricEntityTypeBuilder.create(EntityCategory.MONSTER, DarkCreeperEntity::new).size(CREEPER_SIZE).build());
@@ -46,9 +48,9 @@ public class AllTheCreepers implements ModInitializer, ClientModInitializer {
 	public static final EntityType<FurnaceCreeperEntity> FURNACE_CREEPER = Registry.register(Registry.ENTITY_TYPE, CreeperType.FURNACE.getIdentifier(), FabricEntityTypeBuilder.create(EntityCategory.MONSTER, FurnaceCreeperEntity::new).size(CREEPER_SIZE).build());
 	public static final EntityType<LavaCreeperEntity> LAVA_CREEPER = Registry.register(Registry.ENTITY_TYPE, CreeperType.LAVA.getIdentifier(), FabricEntityTypeBuilder.create(EntityCategory.MONSTER, LavaCreeperEntity::new).size(CREEPER_SIZE).build());
 	public static final EntityType<LightningCreeperEntity> LIGHTNING_CREEPER = Registry.register(Registry.ENTITY_TYPE, CreeperType.LIGHTNING.getIdentifier(), FabricEntityTypeBuilder.create(EntityCategory.MONSTER, LightningCreeperEntity::new).size(CREEPER_SIZE).build());
-	public static final EntityType<WaterCreeperEntity> WATER_CREEPER = Registry.register(Registry.ENTITY_TYPE, CreeperType.WATER.getIdentifier(), FabricEntityTypeBuilder.create(EntityCategory.MONSTER, WaterCreeperEntity::new).size(CREEPER_SIZE).build());
 	public static final EntityType<LuminousCreeperEntity> LUMINOUS_CREEPER = Registry.register(Registry.ENTITY_TYPE, CreeperType.LUMINOUS.getIdentifier(), FabricEntityTypeBuilder.create(EntityCategory.MONSTER, LuminousCreeperEntity::new).size(CREEPER_SIZE).build());
-	public static final EntityType<BallisticCreeperEntity> BALLISTIC_CREEPER = Registry.register(Registry.ENTITY_TYPE, CreeperType.BALLISTIC.getIdentifier(), FabricEntityTypeBuilder.create(EntityCategory.MONSTER, BallisticCreeperEntity::new).size(CREEPER_SIZE).build());
+	public static final EntityType<PartyCreeperEntity> PARTY_CREEPER = Registry.register(Registry.ENTITY_TYPE, new Identifier(RegistryATC.ID, "party_creeper"), FabricEntityTypeBuilder.create(EntityCategory.MONSTER, PartyCreeperEntity::new).size(CREEPER_SIZE).build());
+	public static final EntityType<WaterCreeperEntity> WATER_CREEPER = Registry.register(Registry.ENTITY_TYPE, CreeperType.WATER.getIdentifier(), FabricEntityTypeBuilder.create(EntityCategory.MONSTER, WaterCreeperEntity::new).size(CREEPER_SIZE).build());
 
 	@Override
 	public void onInitialize() {
@@ -74,5 +76,6 @@ public class AllTheCreepers implements ModInitializer, ClientModInitializer {
 		EntityRendererRegistry.INSTANCE.register(LuminousCreeperEntity.class, ((dispatcher, context) -> new ElementalCreeperRenderer(dispatcher)));
 		EntityRendererRegistry.INSTANCE.register(DarkCreeperEntity.class, ((dispatcher, context) -> new ElementalCreeperRenderer(dispatcher)));
 		EntityRendererRegistry.INSTANCE.register(FireworkCreeperEntity.class, ((dispatcher, context) -> new ElementalCreeperRenderer(dispatcher)));
+		EntityRendererRegistry.INSTANCE.register(PartyCreeperEntity.class, ((dispatcher, context) -> new ElementalCreeperRenderer(dispatcher)));
 	}
 }
