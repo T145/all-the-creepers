@@ -1,8 +1,5 @@
 package T145.allthecreepers.entities;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import T145.allthecreepers.api.IElementalCreeper;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.FireworkEntity;
@@ -36,14 +33,12 @@ public class FireworkCreeperEntity extends CreeperEntity implements IElementalCr
 	}
 
 	private ItemStack createFirework(int type) {
-		ItemStack firework = new ItemStack(Items.FIREWORK_ROCKET, 1);
+		ItemStack firework = new ItemStack(Items.FIREWORK_ROCKET);
 		ItemStack starFirework = new ItemStack(Items.FIREWORK_STAR);
 		CompoundTag starExplosionTag = starFirework.getOrCreateSubCompoundTag("Explosion");
-		List<Integer> colorTags = new ArrayList<>();
 		DyeColor color = DyeColor.byId(random.nextInt(DyeColor.values().length));
 
-		colorTags.add(color.getFireworkColor());
-		starExplosionTag.putIntArray("Colors", colorTags);
+		starExplosionTag.putIntArray("Colors", new int[] { color.getFireworkColor() });
 		starExplosionTag.putByte("Type", (byte) type);
 
 		CompoundTag fireworkTag = firework.getOrCreateSubCompoundTag("Fireworks");
