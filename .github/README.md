@@ -1,11 +1,8 @@
-<p align="center"><img src="https://i.imgur.com/WAIfOrN.png"/></p>
+<p align="center"><img src="https://i.imgur.com/c9ijABi.png"/></p>
 
 ***
 
-Redux of the original Elemental Creepers mod!
-
 [![DownloadCount](http://cf.way2muchnoise.eu/full_287777_downloads.svg)](https://minecraft.curseforge.com/projects/elemental-creepers-redux)
-[![SupportedVersions](http://cf.way2muchnoise.eu/versions/287777_latest.svg)](https://minecraft.curseforge.com/projects/elemental-creepers-redux)
 
 ---
 **_Table of Contents_**
@@ -27,7 +24,8 @@ Redux of the original Elemental Creepers mod!
 #### Using [Scoop](https://github.com/lukesampson/scoop/blob/master/README.md) *(Recommended)*
 ```bash
 scoop bucket add java
-scoop install git oraclejdk8u gradle@4.10.3
+scoop bucket add versions
+scoop install git ojdkbuild8 gradle4
 ```
 
 #### Using [Chocolatey](https://chocolatey.org/install)
