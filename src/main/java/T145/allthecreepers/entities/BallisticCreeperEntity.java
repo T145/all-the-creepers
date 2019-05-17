@@ -1,6 +1,6 @@
 package T145.allthecreepers.entities;
 
-import T145.allthecreepers.api.IElementalCreeper;
+import T145.allthecreepers.api.creepers.IElementalCreeper;
 import T145.allthecreepers.entities.goals.ThrowTntGoal;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -35,6 +35,11 @@ public class BallisticCreeperEntity extends CreeperEntity implements IElementalC
 	protected void initAttributes() {
 		super.initAttributes(); // make it move a little faster
 		this.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED).setBaseValue(0.35D);
+	}
+
+	@Override
+	public boolean isImmuneToExplosion() {
+		return true;
 	}
 
 	@Override

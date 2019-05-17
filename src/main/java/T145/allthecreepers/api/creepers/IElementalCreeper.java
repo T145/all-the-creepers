@@ -1,4 +1,4 @@
-package T145.allthecreepers.api;
+package T145.allthecreepers.api.creepers;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.mob.CreeperEntity;

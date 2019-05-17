@@ -1,7 +1,7 @@
 package T145.allthecreepers.entities;
 
-import T145.allthecreepers.api.IElementalCreeper;
-import T145.allthecreepers.core.AllTheCreepers;
+import T145.allthecreepers.api.EntitiesATC;
+import T145.allthecreepers.api.creepers.IElementalCreeper;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.world.World;
@@ -24,11 +24,11 @@ public class PartyCreeperEntity extends CreeperEntity implements IElementalCreep
 		return true;
 	}
 
-	private void spawnCreepers(EntityType<? extends CreeperEntity> type) {
+	private void spawnCreepers(EntityType<?> entityType) {
 		for (int offset = 0; offset < random.nextInt(2) + 1; ++offset) {
 			float xOffset = ((offset % 2) - 0.5F) * 1 / 4.0F;
 			float zOffset = ((offset / 2) - 0.5F) * 1 / 4.0F;
-			CreeperEntity creeper = type.create(world);
+			CreeperEntity creeper = (CreeperEntity) entityType.create(world);
 
 			if (hasCustomName()) {
 				creeper.setCustomName(getCustomName());
@@ -47,8 +47,8 @@ public class PartyCreeperEntity extends CreeperEntity implements IElementalCreep
 	@Override
 	public void detonate(DestructionType destructionType, byte radius, Explosion simpleExplosion) {
 		this.addVelocity(0D, 0.5D, 0D);
-		spawnCreepers(AllTheCreepers.CAKE_CREEPER);
-		spawnCreepers(AllTheCreepers.COOKIE_CREEPER);
-		spawnCreepers(AllTheCreepers.FIREWORK_CREEPER);
+		spawnCreepers(EntitiesATC.cakeCreeper);
+		spawnCreepers(EntitiesATC.cookieCreeper);
+		spawnCreepers(EntitiesATC.fireworkCreeper);
 	}
 }

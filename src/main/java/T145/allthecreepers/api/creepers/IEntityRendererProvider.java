@@ -1,4 +1,4 @@
-package T145.allthecreepers.api;
+package T145.allthecreepers.api.creepers;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

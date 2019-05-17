@@ -1,7 +1,7 @@
 package T145.allthecreepers.entities;
 
-import T145.allthecreepers.api.IElementalCreeper;
-import T145.allthecreepers.core.AllTheCreepers;
+import T145.allthecreepers.api.BlocksATC;
+import T145.allthecreepers.api.creepers.IElementalCreeper;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
@@ -27,23 +27,6 @@ public class LuminousCreeperEntity extends CreeperEntity implements IElementalCr
 		return true;
 	}
 
-	//	boolean tryLightPlace(byte radius) {
-	//		int X = world.random.nextInt(radius) - world.random.nextInt(radius);
-	//		int Y = world.random.nextInt(radius) - world.random.nextInt(radius);
-	//		int Z = world.random.nextInt(radius) - world.random.nextInt(radius);
-	//
-	//		POS.set(X + x, Y + y, Z + z);
-	//
-	//		BlockState currState = world.getBlockState(POS);
-	//
-	//		if (currState.isAir() && currState != AllTheCreepers.PURE_LIGHT.getDefaultState()) {
-	//			world.setBlockState(POS, AllTheCreepers.PURE_LIGHT.getDefaultState(), 3);
-	//			return true;
-	//		}
-	//
-	//		return false;
-	//	}
-
 	@Override
 	public void detonate(DestructionType destructionType, byte radius, Explosion simpleExplosion) {
 		world.setBlockState(getBlockPos(), Blocks.GLOWSTONE.getDefaultState(), 3);
@@ -62,7 +45,7 @@ public class LuminousCreeperEntity extends CreeperEntity implements IElementalCr
 					BlockState currState = world.getBlockState(POS);
 
 					if (currState.isAir() && random.nextInt(5) == 0 && Math.sqrt(Math.pow(X, 2.0D) + Math.pow(Y, 2.0D) + Math.pow(Z, 2.0D)) <= radius) {
-						world.setBlockState(POS, AllTheCreepers.PURE_LIGHT.getDefaultState(), 3);
+						world.setBlockState(POS, BlocksATC.pureLight.getDefaultState(), 3);
 					}
 				}
 			}

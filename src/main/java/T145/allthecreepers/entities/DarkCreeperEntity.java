@@ -1,7 +1,7 @@
 package T145.allthecreepers.entities;
 
-import T145.allthecreepers.api.IElementalCreeper;
-import T145.allthecreepers.core.AllTheCreepers;
+import T145.allthecreepers.api.BlocksATC;
+import T145.allthecreepers.api.creepers.IElementalCreeper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
@@ -43,8 +43,8 @@ public class DarkCreeperEntity extends CreeperEntity implements IElementalCreepe
 						block.onDestroyedByExplosion(world, POS, simpleExplosion);
 					}
 
-					if (state.isAir() && (state == AllTheCreepers.PURE_LIGHT.getDefaultState() || state != AllTheCreepers.PURE_DARK.getDefaultState())) {
-						world.setBlockState(POS, AllTheCreepers.PURE_DARK.getDefaultState(), 3);
+					if (state.isAir() && (state == BlocksATC.pureLight.getDefaultState() || state != BlocksATC.pureDark.getDefaultState())) {
+						world.setBlockState(POS, BlocksATC.pureDark.getDefaultState(), 3);
 					}
 				}
 			}
