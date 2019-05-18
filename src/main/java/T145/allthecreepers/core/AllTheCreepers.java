@@ -40,10 +40,12 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.Biome.SpawnEntry;
 
 public class AllTheCreepers implements ModInitializer, ClientModInitializer {
 
-	private static String classToRegistryName(Class<? extends Entity> entityClass) {
+	private static String classToRegistryName(Class<?> entityClass) {
 		return CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, entityClass.getSimpleName()).replace("_entity", StringUtils.EMPTY);
 	}
 
@@ -54,6 +56,18 @@ public class AllTheCreepers implements ModInitializer, ClientModInitializer {
 		Item spawnEgg = new SpawnEggItem(entityType, eggPrimary, eggSecondary, new Item.Settings().itemGroup(ItemGroup.MISC));
 		Registry.register(Registry.ITEM, new Identifier(RegistryATC.ID, String.format("%s_spawn_egg", name)), spawnEgg);
 		return entityType;
+	}
+
+	private void copySpawns(final EntityType<?> entityType) {
+		for (final Biome biome : Registry.BIOME) {
+			biome.getEntitySpawnList(EntityCategory.MONSTER).stream()
+			.filter(spawn -> spawn.type == EntityType.CREEPER).findFirst()
+			.ifPresent(spawn -> biome.getEntitySpawnList(EntityCategory.MONSTER).add(0, new SpawnEntry(entityType, 100, spawn.minGroupSize, spawn.maxGroupSize)));
+			
+			// for debug purposes
+			System.out.println(String.format("Registered to biome: %s", classToRegistryName(biome.getClass())));
+			biome.getEntitySpawnList(EntityCategory.MONSTER).stream().forEach(System.out::println);
+		}
 	}
 
 	@Override
@@ -78,6 +92,22 @@ public class AllTheCreepers implements ModInitializer, ClientModInitializer {
 		EntitiesATC.natureCreeper = createEntity(NatureCreeperEntity.class, 0x39b231, 0x628152, FabricEntityTypeBuilder.create(EntityCategory.MONSTER, NatureCreeperEntity::new).size(size));
 		EntitiesATC.partyCreeper = createEntity(PartyCreeperEntity.class, 0xff50b4, 0xf64808, FabricEntityTypeBuilder.create(EntityCategory.MONSTER, PartyCreeperEntity::new).size(size));
 		EntitiesATC.waterCreeper = createEntity(WaterCreeperEntity.class, 0x294c9c, 0x5a7dc5, FabricEntityTypeBuilder.create(EntityCategory.MONSTER, WaterCreeperEntity::new).size(size));
+		
+		copySpawns(EntitiesATC.ballisticCreeper);
+		copySpawns(EntitiesATC.cakeCreeper);
+		copySpawns(EntitiesATC.cookieCreeper);
+		copySpawns(EntitiesATC.darkCreeper);
+		copySpawns(EntitiesATC.demolitionCreeper);
+		copySpawns(EntitiesATC.earthCreeper);
+		copySpawns(EntitiesATC.fireCreeper);
+		copySpawns(EntitiesATC.fireworkCreeper);
+		copySpawns(EntitiesATC.furnaceCreeper);
+		copySpawns(EntitiesATC.lavaCreeper);
+		copySpawns(EntitiesATC.lightningCreeper);
+		copySpawns(EntitiesATC.luminousCreeper);
+		copySpawns(EntitiesATC.natureCreeper);
+		copySpawns(EntitiesATC.partyCreeper);
+		copySpawns(EntitiesATC.waterCreeper);
 	}
 
 	@Override
