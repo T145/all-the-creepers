@@ -1,7 +1,6 @@
 package T145.allthecreepers.entities;
 
-import T145.allthecreepers.api.BlocksATC;
-import T145.allthecreepers.api.creepers.IElementalCreeper;
+import T145.allthecreepers.api.IElementalCreeper;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
@@ -44,9 +43,9 @@ public class LuminousCreeperEntity extends CreeperEntity implements IElementalCr
 
 					BlockState currState = world.getBlockState(POS);
 
-					if (currState.isAir() && random.nextInt(5) == 0 && Math.sqrt(Math.pow(X, 2.0D) + Math.pow(Y, 2.0D) + Math.pow(Z, 2.0D)) <= radius) {
-						world.setBlockState(POS, BlocksATC.pureLight.getDefaultState(), 3);
-					}
+//					if (currState.isAir() && random.nextInt(5) == 0 && Math.sqrt(Math.pow(X, 2.0D) + Math.pow(Y, 2.0D) + Math.pow(Z, 2.0D)) <= radius) {
+//						world.setBlockState(POS, BlocksATC.pureLight.getDefaultState(), 3);
+//					}
 				}
 			}
 		}

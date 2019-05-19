@@ -1,6 +1,6 @@
 package T145.allthecreepers.entities;
 
-import T145.allthecreepers.api.creepers.IElementalCreeper;
+import T145.allthecreepers.api.IElementalCreeper;
 import T145.allthecreepers.entities.goals.ThrowTntGoal;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.attribute.EntityAttributes;

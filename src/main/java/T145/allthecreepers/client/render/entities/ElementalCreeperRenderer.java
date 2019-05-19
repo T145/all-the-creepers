@@ -1,7 +1,7 @@
 package T145.allthecreepers.client.render.entities;
 
-import T145.allthecreepers.api.creepers.IEntityRendererProvider;
-import T145.allthecreepers.api.immutable.RegistryATC;
+import T145.allthecreepers.api.IEntityRendererProvider;
+import T145.allthecreepers.api.constants.RegistryATC;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.entity.CreeperEntityRenderer;

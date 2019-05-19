@@ -1,35 +1,38 @@
 {
-	"schemaVersion": 1,
-	"id": "allthecreepers",
-	"version": "${version}",
-	"name": "All The Creepers",
-	"description": "Here comes the BOOM!",
-	"authors": [
-		"T145"
-	],
-	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
-	},
-	"license": "CC0-1.0",
-	"icon": "assets/allthegolems/icon.png",
-	"environment": "*",
-	"entrypoints": {
-		"main": [
-			"T145.allthecreepers.core.AllTheCreepers"
-		],
-		"client": [
-			"T145.allthecreepers.core.AllTheCreepers"
-		]
-	},
-	"mixins": [
-		"allthecreepers.mixins.json"
-	],
-	"requires": {
-		"fabricloader": ">=0.4.0",
-		"fabric": "*"
-	},
-	"suggests": {
-		"flamingo": "*"
-	}
+    "schemaVersion": 1,
+    "id": "allthecreepers",
+    "version": "%VERSION%",
+    "name": "All The Creepers",
+    "description": "Here comes the BOOM!",
+    "authors": [
+        "T145"
+    ],
+    "contact": {
+        "homepage": "https://minecraft.curseforge.com/projects/allthecreepers",
+        "sources": "https://github.com/T145/allthecreepers",
+        "issues": "https://github.com/T145/allthecreepers/issues"
+    },
+    "license": "Apache-2.0",
+    "icon": "assets/allthecreepers/icon.png",
+    "environment": "*",
+    "entrypoints": {
+        "main": [
+            "T145.allthecreepers.init.ModInit"
+        ],
+        "client": [
+            "T145.allthecreepers.client.init.ClientModInit"
+        ],
+        "modmenu": [
+            "T145.allthecreepers.client.init.ModMenuInit"
+        ]
+    },
+    "mixins": [
+        "allthecreepers.mixins.json"
+    ],
+    "requires": {
+        "fabricloader": ">=0.4.0",
+        "fabric": ">=0.3.0",
+        "autoconfig1": ">=1.0.0",
+        "clothconfig": ">=0.2.0"
+    }
 }

@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import T145.allthecreepers.api.creepers.IElementalCreeper;
+import T145.allthecreepers.api.IElementalCreeper;
 import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.world.explosion.Explosion;
 
