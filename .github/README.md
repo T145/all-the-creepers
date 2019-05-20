@@ -1,4 +1,4 @@
-<p align="center"><img src="https://i.imgur.com/c9ijABi.png"/></p>
+<p align="center"><img src="https://github.com/T145/allthecreepers/blob/1.14/src/main/resources/assets/allthecreepers/logo.png"/></p>
 
 ***
 
