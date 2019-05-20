@@ -10,7 +10,7 @@ import me.sargunvohra.mcmods.autoconfig1.annotation.ConfigEntry;
 public class ModConfig implements ConfigData {
 
 	@ConfigEntry.Gui.PrefixText
-	public final boolean debug = true;
+	public final boolean debug = false;
 
 	@ConfigEntry.Gui.PrefixText
 	public final int ballisticCreeperSpawnWeight = 100;
