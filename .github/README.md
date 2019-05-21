@@ -2,7 +2,9 @@
 
 ***
 
-[![DownloadCount](http://cf.way2muchnoise.eu/full_287777_downloads.svg)](https://minecraft.curseforge.com/projects/elemental-creepers-redux)
+[![downloads](http://cf.way2muchnoise.eu/full_287777_downloads.svg)](https://minecraft.curseforge.com/projects/allthecreepers)
+[![versions](http://cf.way2muchnoise.eu/versions/allthecreepers.svg)](https://minecraft.curseforge.com/projects/allthecreepers)
+[![packs](http://cf.way2muchnoise.eu/packs/allthecreepers.svg)](https://minecraft.curseforge.com/projects/allthecreepers)
 
 ---
 **_Table of Contents_**
@@ -24,8 +26,7 @@
 #### Using [Scoop](https://github.com/lukesampson/scoop/blob/master/README.md) *(Recommended)*
 ```bash
 scoop bucket add java
-scoop bucket add versions
-scoop install git ojdkbuild8 gradle4
+scoop install git ojdkbuild8 gradle
 ```
 
 #### Using [Chocolatey](https://chocolatey.org/install)
@@ -86,7 +87,7 @@ To use any mod assets, you may contatct [myself](https://github.com/T145) or the
 
 <div align="center">
 
-**Paypal**: [paypal.me/T145](https://www.paypal.me/T145)
+**Paypal**: *Check the top-right of the CurseForge page!*
 </div>
 
 <div align="center">
