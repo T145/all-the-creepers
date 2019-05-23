@@ -1,11 +1,14 @@
 package T145.allthecreepers.entities;
 
+import java.util.Stack;
+
 import T145.allthecreepers.api.IElementalCreeper;
 import T145.allthecreepers.init.ModInit;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.CreeperEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 import net.minecraft.world.explosion.Explosion.DestructionType;
@@ -30,6 +33,8 @@ public class DarkCreeperEntity extends CreeperEntity implements IElementalCreepe
 	public void detonate(DestructionType destructionType, byte radius, Explosion simpleExplosion) {
 		radius -= radius / 3;
 
+		Stack<BlockPos> broken = new Stack<>();
+
 		for (int X = -radius; X <= radius; ++X) {
 			for (int Y = -radius; Y <= radius; ++Y) {
 				for (int Z = -radius; Z <= radius; ++Z) {
@@ -38,18 +43,19 @@ public class DarkCreeperEntity extends CreeperEntity implements IElementalCreepe
 					BlockState state = world.getBlockState(POS);
 					Block block = state.getBlock();
 
-					// TODO: Add "return to destroyed positions to place darkness" functionality
-					// use dp to record any positions we need to return to
-					// mainly b/c functionally if the below `else` isn't there it behaves as though it is
-
 					if (state.getLuminance() > 1) {
 						Block.dropStacks(state, world, POS);
 						block.onDestroyedByExplosion(world, POS, simpleExplosion);
+						broken.add(POS);
 					} else if (state.isAir() && (state == ModInit.PURE_LIGHT.getDefaultState() || state != ModInit.PURE_DARK.getDefaultState())) {
 						world.setBlockState(POS, ModInit.PURE_DARK.getDefaultState(), 3);
 					}
 				}
 			}
+		}
+
+		while (!broken.isEmpty()) {
+			world.setBlockState(broken.pop(), ModInit.PURE_DARK.getDefaultState(), 3);
 		}
 	}
 }
