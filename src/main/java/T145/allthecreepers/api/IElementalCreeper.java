@@ -6,6 +6,7 @@ import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BoundingBox;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 
@@ -23,6 +24,14 @@ public interface IElementalCreeper extends IEntityRendererProvider {
 
 	default BoundingBox getAOE(byte radius, double posX, double posY, double posZ) {
 		return new BoundingBox(posX - radius, posY - radius, posZ - radius, posX + radius, posY + radius, posZ + radius);
+	}
+
+	default BoundingBox getAOE(byte radius, Vec3d pos) {
+		return getAOE(radius, pos.x, pos.y, pos.z);
+	}
+
+	default BoundingBox getAOE(byte radius, BlockPos pos) {
+		return getAOE(radius, pos.getX(), pos.getY(), pos.getZ());
 	}
 
 	default boolean canDestroy(BlockPos pos, CreeperEntity creeper, boolean skipHardnessCheck) {

@@ -3,8 +3,6 @@ package T145.allthecreepers.init;
 import java.util.List;
 
 import T145.allthecreepers.api.constants.RegistryATC;
-import T145.allthecreepers.blocks.PureDarkBlock;
-import T145.allthecreepers.blocks.PureLightBlock;
 import T145.allthecreepers.config.ModConfig;
 import T145.allthecreepers.entities.BallisticCreeperEntity;
 import T145.allthecreepers.entities.CakeCreeperEntity;
@@ -25,7 +23,6 @@ import me.sargunvohra.mcmods.autoconfig1.AutoConfig;
 import me.sargunvohra.mcmods.autoconfig1.serializer.Toml4jConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.FabricEntityTypeBuilder;
-import net.minecraft.block.Block;
 import net.minecraft.entity.EntityCategory;
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
@@ -38,9 +35,6 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biome.SpawnEntry;
 
 public class ModInit implements ModInitializer {
-
-	public static final Block PURE_DARK = new PureDarkBlock();
-	public static final Block PURE_LIGHT = new PureLightBlock();
 
 	private static final EntitySize size = EntitySize.constant(0.6F, 1.7F);
 	public static final EntityType<BallisticCreeperEntity> BALLISTIC_CREEPER = FabricEntityTypeBuilder.create(EntityCategory.MONSTER, BallisticCreeperEntity::new).setImmuneToFire().size(size).build();
@@ -134,14 +128,6 @@ public class ModInit implements ModInitializer {
 	public void onInitialize() {
 		ModConfig config = AutoConfig.register(ModConfig.class, Toml4jConfigSerializer::new).getConfig();
 
-		if (config.darkCreeperSpawnWeight > 0) {
-			Registry.register(Registry.BLOCK, RegistryATC.getIdentifier("pure_dark"), PURE_DARK);
-		}
-
-		if (config.luminousCreeperSpawnWeight > 0) {
-			Registry.register(Registry.BLOCK, RegistryATC.getIdentifier("pure_light"), PURE_LIGHT);
-		}
-
 		registerCreeper(BALLISTIC_CREEPER, "ballistic_creeper", 0x195906, 0xd2d000);
 		registerCreeper(CAKE_CREEPER, "cake_creeper", 0xba5003, 0xeae9eb);
 		registerCreeper(COOKIE_CREEPER, "cookie_creeper",  0xbd7a3f, 0xd5a981);
@@ -163,7 +149,7 @@ public class ModInit implements ModInitializer {
 			spawns.stream().filter(spawn -> spawn.type == EntityType.CREEPER).findFirst().ifPresent(spawn -> registerSpawns(spawns, config));
 
 			if (config.debug) {
-				System.out.println(String.format("Registered to biome: %s", biome.getClass()));
+				System.out.println(String.format("[allthecreepers] Registered to biome: %s", biome.getClass()));
 				spawns.stream().forEach(System.out::println);
 			}
 		}

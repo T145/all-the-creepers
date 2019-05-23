@@ -1,14 +1,14 @@
 package T145.allthecreepers.entities;
 
-import java.util.Stack;
-
 import T145.allthecreepers.api.IElementalCreeper;
-import T145.allthecreepers.init.ModInit;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.CreeperEntity;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 import net.minecraft.world.explosion.Explosion.DestructionType;
@@ -29,11 +29,19 @@ public class DarkCreeperEntity extends CreeperEntity implements IElementalCreepe
 		return true;
 	}
 
+	private void addStatusEffects(PlayerEntity player) {
+		if (!player.hasStatusEffect(StatusEffects.SLOWNESS)) {
+			player.addPotionEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 600, 5, false, true, true));
+		}
+
+		if (!player.hasStatusEffect(StatusEffects.BLINDNESS)) {
+			player.addPotionEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 600, 5, false, true, true));
+		}
+	}
+
 	@Override
 	public void detonate(DestructionType destructionType, byte radius, Explosion simpleExplosion) {
-		radius -= radius / 3;
-
-		Stack<BlockPos> broken = new Stack<>();
+		world.getEntities(PlayerEntity.class, getAOE(radius, getPos())).forEach(player -> addStatusEffects(player));
 
 		for (int X = -radius; X <= radius; ++X) {
 			for (int Y = -radius; Y <= radius; ++Y) {
@@ -43,19 +51,13 @@ public class DarkCreeperEntity extends CreeperEntity implements IElementalCreepe
 					BlockState state = world.getBlockState(POS);
 					Block block = state.getBlock();
 
-					if (state.getLuminance() > 1) {
+					if (state.getLuminance() > 1 && canDestroy(POS, this, false)) {
 						Block.dropStacks(state, world, POS);
 						block.onDestroyedByExplosion(world, POS, simpleExplosion);
-						broken.add(POS);
-					} else if (state.isAir() && (state == ModInit.PURE_LIGHT.getDefaultState() || state != ModInit.PURE_DARK.getDefaultState())) {
-						world.setBlockState(POS, ModInit.PURE_DARK.getDefaultState(), 3);
+						world.setBlockState(POS, Blocks.AIR.getDefaultState(), 3);
 					}
 				}
 			}
-		}
-
-		while (!broken.isEmpty()) {
-			world.setBlockState(broken.pop(), ModInit.PURE_DARK.getDefaultState(), 3);
 		}
 	}
 }
