@@ -1,6 +1,8 @@
 package T145.allthecreepers.api;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BoundingBox;
@@ -23,11 +25,35 @@ public interface IElementalCreeper extends IEntityRendererProvider {
 		return new BoundingBox(posX - radius, posY - radius, posZ - radius, posX + radius, posY + radius, posZ + radius);
 	}
 
+	default boolean canDestroy(BlockPos pos, CreeperEntity creeper, boolean skipHardnessCheck) {
+		World world = creeper.world;
+		BlockState state = world.getBlockState(pos);
+
+		return state.isAir()
+				|| state.getPistonBehavior() == PistonBehavior.DESTROY
+				|| skipHardnessCheck // we know it's a solid block here, so only real explosions should break stuff
+				|| state.getHardness(world, pos) < Blocks.OBSIDIAN.getDefaultState().getHardness(world, pos);
+	}
+
 	default void specialBlast(byte radius, BlockState state, CreeperEntity creeper, boolean suffocateEntities) {
-		if (creeper.getRand().nextBoolean()) {
-			wildBlast(radius, state, creeper, suffocateEntities);
+		if (creeper.isCharged()) {
+			for (int x = -radius; x <= radius; ++x) {
+				for (int y = -radius; y <= radius; ++y) {
+					for (int z = -radius; z <= radius; ++z) {
+						POS.set(x + creeper.x, y + creeper.y, z + creeper.z);
+
+						if (canDestroy(POS, creeper, true)) {
+							creeper.world.setBlockState(POS, state, 3);
+						}
+					}
+				}
+			}
 		} else {
-			domeBlast(radius, state, creeper, suffocateEntities);
+			if (creeper.getRand().nextBoolean()) {
+				wildBlast(radius, state, creeper, suffocateEntities);
+			} else {
+				domeBlast(radius, state, creeper, suffocateEntities);
+			}
 		}
 	}
 
@@ -37,11 +63,12 @@ public interface IElementalCreeper extends IEntityRendererProvider {
 				for (int z = -radius; z <= radius; ++z) {
 					POS.set(x + creeper.x, y + creeper.y, z + creeper.z);
 
-					BlockState currState = creeper.world.getBlockState(POS);
+					if (canDestroy(POS, creeper, true)) {
+						double bound = Math.sqrt(Math.pow(x, 2.0D) + Math.pow(y, 2.0D) + Math.pow(z, 2.0D));
 
-					if (Math.sqrt(Math.pow(x, 2.0D) + Math.pow(y, 2.0D) + Math.pow(z, 2.0D)) <= radius && creeper.getRand().nextInt(4) < 3 && currState.isAir() && state.getBlock().canPlaceAt(currState, creeper.world, POS)) {
-						//if (suffocateEntities || !creeper.world.getEntities(LivingEntity.class, new BoundingBox(POS)).isEmpty())
-						creeper.world.setBlockState(POS, state, 3);
+						if (bound <= radius && creeper.getRand().nextInt(4) < 3) {
+							creeper.world.setBlockState(POS, state, 3);
+						}
 					}
 				}
 			}
@@ -54,14 +81,7 @@ public interface IElementalCreeper extends IEntityRendererProvider {
 				for (int z = -radius; z <= radius; ++z) {
 					POS.set(x + creeper.x, y + creeper.y, z + creeper.z);
 
-					BlockState currState = creeper.world.getBlockState(POS);
-					//Block block = state.getBlock();
-
-					boolean param1 = currState.isAir();
-					boolean param2 = !creeper.world.getBlockState(POS.down()).isAir();
-
-					if (creeper.getRand().nextBoolean() && param1 && param2) {
-						//if (suffocateEntities || !creeper.world.getEntities(LivingEntity.class, new BoundingBox(POS)).isEmpty())
+					if (canDestroy(POS, creeper, true) && creeper.getRand().nextBoolean() && !creeper.world.getBlockState(POS.down()).isAir()) {
 						creeper.world.setBlockState(POS, state, 3);
 					}
 				}
