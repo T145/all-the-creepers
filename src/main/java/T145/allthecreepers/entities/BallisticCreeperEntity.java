@@ -3,7 +3,6 @@ package T145.allthecreepers.entities;
 import T145.allthecreepers.api.IElementalCreeper;
 import T145.allthecreepers.entities.goals.ThrowTntGoal;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
@@ -29,12 +28,6 @@ public class BallisticCreeperEntity extends CreeperEntity implements IElementalC
 	protected void initGoals() {
 		super.initGoals();
 		this.goalSelector.add(4, new ThrowTntGoal(this));
-	}
-
-	@Override
-	protected void initAttributes() {
-		super.initAttributes(); // make it move a little faster
-		this.getAttributeInstance(EntityAttributes.MOVEMENT_SPEED).setBaseValue(0.35D);
 	}
 
 	@Override

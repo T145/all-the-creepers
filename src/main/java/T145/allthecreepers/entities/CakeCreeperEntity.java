@@ -28,13 +28,15 @@ public class CakeCreeperEntity extends CreeperEntity implements IElementalCreepe
 
 	@Override
 	public void detonate(DestructionType destructionType, byte radius, Explosion simpleExplosion) {
-		if (Blocks.CAKE.canPlaceAt(Blocks.CAKE.getDefaultState(), world, this.getBlockPos())) {
-			world.setBlockState(this.getBlockPos(), Blocks.CAKE.getDefaultState());
+		BlockPos pos = getBlockPos();
+
+		if (canPlaceBlock(Blocks.CAKE.getDefaultState(), pos, this)) {
+			world.setBlockState(pos, Blocks.CAKE.getDefaultState());
 
 			for (Direction dir : Direction.Type.HORIZONTAL) {
-				BlockPos torchPos = this.getBlockPos().offset(dir);
+				BlockPos torchPos = pos.offset(dir);
 
-				if (Blocks.TORCH.canPlaceAt(world.getBlockState(torchPos), world, torchPos)) {
+				if (canPlaceBlock(Blocks.TORCH.getDefaultState(), torchPos, this)) {
 					world.setBlockState(torchPos, Blocks.TORCH.getDefaultState());
 				}
 			}

@@ -51,7 +51,7 @@ public class DarkCreeperEntity extends CreeperEntity implements IElementalCreepe
 					BlockState state = world.getBlockState(POS);
 					Block block = state.getBlock();
 
-					if (state.getLuminance() > 1 && canDestroy(POS, this, false)) {
+					if (state.getLuminance() > 1 && canDestroyBlock(POS, this)) {
 						Block.dropStacks(state, world, POS);
 						block.onDestroyedByExplosion(world, POS, simpleExplosion);
 						world.setBlockState(POS, Blocks.AIR.getDefaultState(), 3);

@@ -62,13 +62,13 @@ public class FireworkCreeperEntity extends CreeperEntity implements IElementalCr
 	public void detonate(DestructionType destructionType, byte radius, Explosion simpleExplosion) {
 		world.spawnEntity(new FireworkEntity(world, x, y, z, createFirework(FireworkItem.Type.CREEPER.getId())));
 
-		for (LivingEntity entity : world.getEntities(LivingEntity.class, this.getAOE(radius, x, y, z), victim -> victim != this)) {
+		world.getEntities(LivingEntity.class, this.getAOE(radius, x, y, z), victim -> victim != this).forEach(entity -> {
 			if (entity.isAlive() && !(entity instanceof HostileEntity)) {
 				FireworkEntity firework = new FireworkEntity(world, entity.x, entity.y, entity.z, createFirework(random.nextInt(5)));
 
 				world.spawnEntity(firework);
 				entity.startRiding(firework);
 			}
-		}
+		});
 	}
 }

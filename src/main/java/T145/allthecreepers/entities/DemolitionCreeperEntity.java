@@ -33,19 +33,19 @@ public class DemolitionCreeperEntity extends CreeperEntity implements IElemental
 
 	@Override
 	public void detonate(DestructionType destructionType, byte radius, Explosion simpleExplosion) {
-		for (int x = -radius; x <= radius; ++x) {
-			for (int y = -radius; y <= radius; ++y) {
-				for (int z = -radius; z <= radius; ++z) {
-					if (Math.sqrt(Math.pow(x, 2.0D) + Math.pow(y, 2.0D) + Math.pow(z, 2.0D)) <= radius) {
-						POS.set(this.x + x, this.y + y, this.z + z);
+		for (int X = -radius; X <= radius; ++X) {
+			for (int Y = -radius; Y <= radius; ++Y) {
+				for (int Z = -radius; Z <= radius; ++Z) {
+					if (getDomeBound(X, Y, Z) <= radius) {
+						POS.set(x + X, y + Y, z + Z);
 
-						BlockState state = world.getBlockState(POS);
-						Block block = state.getBlock();
+						if (canDestroyBlock(POS, this)) {
+							BlockState state = world.getBlockState(POS);
+							Block block = state.getBlock();
 
-						if (!state.isAir() && block.getBlastResistance() < Blocks.OBSIDIAN.getBlastResistance()) {
-							if (block.shouldDropItemsOnExplosion(simpleExplosion) && this.world instanceof ServerWorld) {
-								BlockEntity blockEntity_1 = block.hasBlockEntity() ? this.world.getBlockEntity(POS) : null;
-								LootContext.Builder loot = (new LootContext.Builder((ServerWorld)this.world)).setRandom(this.world.random).put(LootContextParameters.POSITION, POS).put(LootContextParameters.TOOL, ItemStack.EMPTY).putNullable(LootContextParameters.BLOCK_ENTITY, blockEntity_1);
+							if (block.shouldDropItemsOnExplosion(simpleExplosion) && world instanceof ServerWorld) {
+								BlockEntity be = block.hasBlockEntity() ? world.getBlockEntity(POS) : null;
+								LootContext.Builder loot = (new LootContext.Builder((ServerWorld)world)).setRandom(world.random).put(LootContextParameters.POSITION, POS).put(LootContextParameters.TOOL, ItemStack.EMPTY).putNullable(LootContextParameters.BLOCK_ENTITY, be);
 
 								if (destructionType == Explosion.DestructionType.DESTROY) {
 									loot.put(LootContextParameters.EXPLOSION_RADIUS, (float) radius);
@@ -54,8 +54,8 @@ public class DemolitionCreeperEntity extends CreeperEntity implements IElemental
 								Block.dropStacks(state, loot);
 							}
 
-							this.world.setBlockState(POS, Blocks.AIR.getDefaultState(), 3);
-							block.onDestroyedByExplosion(this.world, POS, simpleExplosion);
+							world.setBlockState(POS, Blocks.AIR.getDefaultState(), 3);
+							block.onDestroyedByExplosion(world, POS, simpleExplosion);
 						}
 					}
 				}

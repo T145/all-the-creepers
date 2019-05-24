@@ -28,8 +28,8 @@ public class LightningCreeperEntity extends CreeperEntity implements IElementalC
 
 	@Override
 	public void detonate(DestructionType destructionType, byte radius, Explosion simpleExplosion) {
-		for (LivingEntity entity : world.getEntities(LivingEntity.class, this.getAOE(radius, x, y, z), discoveredEntity -> discoveredEntity != this)) {
-			((ServerWorld) world).addLightning(new LightningEntity(world, entity.x, entity.y, entity.z, false));
-		}
+		world.getEntities(LivingEntity.class, this.getAOE(radius, x, y, z), entity -> entity != this)
+				.forEach(entity -> ((ServerWorld) world)
+						.addLightning(new LightningEntity(world, entity.x, entity.y, entity.z, false)));
 	}
 }

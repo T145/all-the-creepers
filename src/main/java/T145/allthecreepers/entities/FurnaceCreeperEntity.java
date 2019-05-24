@@ -103,13 +103,11 @@ public class FurnaceCreeperEntity extends CreeperEntity implements IElementalCre
 		POS.set(POS.offset(front));
 		POS.set(POS.offset(Direction.UP));
 		Direction left = getLeftDir(front);
-		setState(Blocks.IRON_BARS.getDefaultState().with(this.getHorizontalProperty(left), true).with(this.getHorizontalProperty(left.getOpposite()), true));
+		setState(Blocks.IRON_BARS.getDefaultState().with(getHorizontalProperty(left), true).with(getHorizontalProperty(left.getOpposite()), true));
 	}
 
 	@Override
 	public void detonate(DestructionType destructionType, byte radius, Explosion simpleExplosion) {
-		for (PlayerEntity player : world.getEntities(PlayerEntity.class, this.getAOE(radius, x, y, z))) {
-			generateTrap(player);
-		}
+		world.getEntities(PlayerEntity.class, getAOE(radius, x, y, z)).forEach(player -> generateTrap(player));
 	}
 }

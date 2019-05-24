@@ -34,14 +34,31 @@ public interface IElementalCreeper extends IEntityRendererProvider {
 		return getAOE(radius, pos.getX(), pos.getY(), pos.getZ());
 	}
 
-	default boolean canDestroy(BlockPos pos, CreeperEntity creeper, boolean skipHardnessCheck) {
+	default double getDomeBound(double x, double y, double z) {
+		return Math.sqrt(Math.pow(x, 2.0D) + Math.pow(y, 2.0D) + Math.pow(z, 2.0D));
+	}
+
+	default boolean canPlaceBlock(BlockState state, BlockPos pos, CreeperEntity creeper) {
+		World world = creeper.world;
+		BlockState currState = world.getBlockState(pos);
+
+		if (!state.canPlaceAt(world, pos)) {
+			return false;
+		}
+
+		return currState.isAir() || state.getPistonBehavior() == PistonBehavior.DESTROY;
+	}
+
+	default boolean canDestroyBlock(BlockPos pos, CreeperEntity creeper) {
 		World world = creeper.world;
 		BlockState state = world.getBlockState(pos);
 
-		return state.isAir()
-				|| state.getPistonBehavior() == PistonBehavior.DESTROY
-				|| skipHardnessCheck // we know it's a solid block here, so only real explosions should break stuff
-				|| state.getHardness(world, pos) < Blocks.OBSIDIAN.getDefaultState().getHardness(world, pos);
+		if (state.isAir() || state.getHardness(world, pos) < 0) {
+			return false; // the block is unbreakable
+		}
+
+		return state.getPistonBehavior() == PistonBehavior.DESTROY
+				|| state.getBlock().getBlastResistance() < Blocks.OBSIDIAN.getBlastResistance();
 	}
 
 	default void specialBlast(byte radius, BlockState state, CreeperEntity creeper, boolean suffocateEntities) {
@@ -51,7 +68,7 @@ public interface IElementalCreeper extends IEntityRendererProvider {
 					for (int z = -radius; z <= radius; ++z) {
 						POS.set(x + creeper.x, y + creeper.y, z + creeper.z);
 
-						if (canDestroy(POS, creeper, true)) {
+						if (canPlaceBlock(state, POS, creeper)) {
 							creeper.world.setBlockState(POS, state, 3);
 						}
 					}
@@ -72,12 +89,8 @@ public interface IElementalCreeper extends IEntityRendererProvider {
 				for (int z = -radius; z <= radius; ++z) {
 					POS.set(x + creeper.x, y + creeper.y, z + creeper.z);
 
-					if (canDestroy(POS, creeper, true)) {
-						double bound = Math.sqrt(Math.pow(x, 2.0D) + Math.pow(y, 2.0D) + Math.pow(z, 2.0D));
-
-						if (bound <= radius && creeper.getRand().nextInt(4) < 3) {
-							creeper.world.setBlockState(POS, state, 3);
-						}
+					if (canPlaceBlock(state, POS, creeper) && getDomeBound(x, y, z) <= radius && creeper.getRand().nextInt(4) < 3) {
+						creeper.world.setBlockState(POS, state, 3);
 					}
 				}
 			}
@@ -90,7 +103,7 @@ public interface IElementalCreeper extends IEntityRendererProvider {
 				for (int z = -radius; z <= radius; ++z) {
 					POS.set(x + creeper.x, y + creeper.y, z + creeper.z);
 
-					if (canDestroy(POS, creeper, true) && creeper.getRand().nextBoolean() && !creeper.world.getBlockState(POS.down()).isAir()) {
+					if (canPlaceBlock(state, POS, creeper) && creeper.getRand().nextBoolean() && !creeper.world.getBlockState(POS.down()).isAir()) {
 						creeper.world.setBlockState(POS, state, 3);
 					}
 				}

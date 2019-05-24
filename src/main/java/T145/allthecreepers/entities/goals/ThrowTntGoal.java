@@ -48,7 +48,7 @@ public class ThrowTntGoal extends Goal {
 		attackCooldown = creeper.isCharged() ? 40 : 60;
 	}
 
-	public void spawnTntTowardsTarget() {
+	private void spawnTntTowardsTarget() {
 		spawnTnt(target.x, target.y, target.z);
 	}
 
