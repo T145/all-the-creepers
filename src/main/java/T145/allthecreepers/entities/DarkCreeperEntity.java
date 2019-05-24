@@ -1,6 +1,7 @@
 package T145.allthecreepers.entities;
 
 import T145.allthecreepers.api.IElementalCreeper;
+import T145.allthecreepers.init.ModInit;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -29,6 +30,16 @@ public class DarkCreeperEntity extends CreeperEntity implements IElementalCreepe
 		return true;
 	}
 
+	@Override
+	public int getExplosionRadius() {
+		return ModInit.config.darkCreeperExplosionRadius;
+	}
+
+	@Override
+	public int getChargedExplosionRadius() {
+		return ModInit.config.darkCreeperChargedExplosionRadius;
+	}
+
 	private void addStatusEffects(PlayerEntity player) {
 		if (!player.hasStatusEffect(StatusEffects.SLOWNESS)) {
 			player.addPotionEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, 600, 5, false, true, true));
@@ -40,8 +51,10 @@ public class DarkCreeperEntity extends CreeperEntity implements IElementalCreepe
 	}
 
 	@Override
-	public void detonate(DestructionType destructionType, byte radius, Explosion simpleExplosion) {
-		world.getEntities(PlayerEntity.class, getAOE(radius, getPos())).forEach(player -> addStatusEffects(player));
+	public void detonate(DestructionType destructionType, Explosion simpleExplosion) {
+		world.getEntities(PlayerEntity.class, getAOE(isCharged(), getPos())).forEach(player -> addStatusEffects(player));
+
+		int radius = getRadius(isCharged());
 
 		for (int X = -radius; X <= radius; ++X) {
 			for (int Y = -radius; Y <= radius; ++Y) {

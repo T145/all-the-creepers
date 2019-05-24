@@ -1,6 +1,7 @@
 package T145.allthecreepers.entities;
 
 import T145.allthecreepers.api.IElementalCreeper;
+import T145.allthecreepers.init.ModInit;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.CreeperEntity;
@@ -25,7 +26,17 @@ public class LavaCreeperEntity extends CreeperEntity implements IElementalCreepe
 	}
 
 	@Override
-	public void detonate(DestructionType destructionType, byte radius, Explosion simpleExplosion) {
-		this.specialBlast(radius, Blocks.LAVA.getDefaultState(), this, true);
+	public int getExplosionRadius() {
+		return ModInit.config.lavaCreeperExplosionRadius;
+	}
+
+	@Override
+	public int getChargedExplosionRadius() {
+		return ModInit.config.lavaCreeperChargedExplosionRadius;
+	}
+
+	@Override
+	public void detonate(DestructionType destructionType, Explosion simpleExplosion) {
+		this.specialBlast(Blocks.LAVA.getDefaultState(), this, true);
 	}
 }

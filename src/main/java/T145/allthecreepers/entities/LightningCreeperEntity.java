@@ -1,6 +1,7 @@
 package T145.allthecreepers.entities;
 
 import T145.allthecreepers.api.IElementalCreeper;
+import T145.allthecreepers.init.ModInit;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LightningEntity;
 import net.minecraft.entity.LivingEntity;
@@ -27,9 +28,17 @@ public class LightningCreeperEntity extends CreeperEntity implements IElementalC
 	}
 
 	@Override
-	public void detonate(DestructionType destructionType, byte radius, Explosion simpleExplosion) {
-		world.getEntities(LivingEntity.class, this.getAOE(radius, x, y, z), entity -> entity != this)
-				.forEach(entity -> ((ServerWorld) world)
-						.addLightning(new LightningEntity(world, entity.x, entity.y, entity.z, false)));
+	public int getExplosionRadius() {
+		return ModInit.config.lightningCreeperExplosionRadius;
+	}
+
+	@Override
+	public int getChargedExplosionRadius() {
+		return ModInit.config.lightningCreeperChargedExplosionRadius;
+	}
+
+	@Override
+	public void detonate(DestructionType destructionType, Explosion simpleExplosion) {
+		world.getEntities(LivingEntity.class, this.getAOE(isCharged(), x, y, z), entity -> entity != this).forEach(entity -> ((ServerWorld) world).addLightning(new LightningEntity(world, entity.x, entity.y, entity.z, false)));
 	}
 }

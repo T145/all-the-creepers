@@ -24,6 +24,16 @@ public class PartyCreeperEntity extends CreeperEntity implements IElementalCreep
 		return true;
 	}
 
+	@Override
+	public int getExplosionRadius() {
+		return 0;
+	}
+
+	@Override
+	public int getChargedExplosionRadius() {
+		return 0;
+	}
+
 	private void spawnCreepers(EntityType<?> entityType, int num) {
 		for (int offset = 0; offset < num; ++offset) {
 			float xOffset = ((offset % 2) - 0.5F) * 1 / 4.0F;
@@ -45,7 +55,7 @@ public class PartyCreeperEntity extends CreeperEntity implements IElementalCreep
 	}
 
 	@Override
-	public void detonate(DestructionType destructionType, byte radius, Explosion simpleExplosion) {
+	public void detonate(DestructionType destructionType, Explosion simpleExplosion) {
 		this.addVelocity(0D, 0.5D, 0D);
 		spawnCreepers(ModInit.CAKE_CREEPER, random.nextInt(2));
 		spawnCreepers(ModInit.COOKIE_CREEPER, random.nextInt(2) + 1);

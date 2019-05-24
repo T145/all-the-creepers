@@ -104,4 +104,54 @@ public class ModConfig implements ConfigData {
 	public final int partyCreeperSpawnMaxGroupSize = 3;
 	@ConfigEntry.Category(RegistryATC.CATEGORY_SPAWN_MAX_SIZE)
 	public final int waterCreeperSpawnMaxGroupSize = 4;
+
+	@ConfigEntry.Category(RegistryATC.CATEGORY_EXPLOSION_RADII)
+	public final int ballisticCreeperExplosionRadius = 6;
+	@ConfigEntry.Category(RegistryATC.CATEGORY_EXPLOSION_RADII)
+	public final int darkCreeperExplosionRadius = 6;
+	@ConfigEntry.Category(RegistryATC.CATEGORY_EXPLOSION_RADII)
+	public final int demolitionCreeperExplosionRadius = 6;
+	@ConfigEntry.Category(RegistryATC.CATEGORY_EXPLOSION_RADII)
+	public final int earthCreeperExplosionRadius = 6;
+	@ConfigEntry.Category(RegistryATC.CATEGORY_EXPLOSION_RADII)
+	public final int fireCreeperExplosionRadius = 6;
+	@ConfigEntry.Category(RegistryATC.CATEGORY_EXPLOSION_RADII)
+	public final int fireworkCreeperExplosionRadius = 6;
+	@ConfigEntry.Category(RegistryATC.CATEGORY_EXPLOSION_RADII)
+	public final int furnaceCreeperExplosionRadius = 6;
+	@ConfigEntry.Category(RegistryATC.CATEGORY_EXPLOSION_RADII)
+	public final int lavaCreeperExplosionRadius = 6;
+	@ConfigEntry.Category(RegistryATC.CATEGORY_EXPLOSION_RADII)
+	public final int lightningCreeperExplosionRadius = 6;
+	@ConfigEntry.Category(RegistryATC.CATEGORY_EXPLOSION_RADII)
+	public final int luminousCreeperExplosionRadius = 6;
+	@ConfigEntry.Category(RegistryATC.CATEGORY_EXPLOSION_RADII)
+	public final int natureCreeperExplosionRadius = 6;
+	@ConfigEntry.Category(RegistryATC.CATEGORY_EXPLOSION_RADII)
+	public final int waterCreeperExplosionRadius = 6;
+
+	@ConfigEntry.Category(RegistryATC.CATEGORY_EXPLOSION_RADII)
+	public final int ballisticCreeperChargedExplosionRadius = 6;
+	@ConfigEntry.Category(RegistryATC.CATEGORY_EXPLOSION_RADII)
+	public final int darkCreeperChargedExplosionRadius = 6;
+	@ConfigEntry.Category(RegistryATC.CATEGORY_EXPLOSION_RADII)
+	public final int demolitionCreeperChargedExplosionRadius = 6;
+	@ConfigEntry.Category(RegistryATC.CATEGORY_EXPLOSION_RADII)
+	public final int earthCreeperChargedExplosionRadius = 6;
+	@ConfigEntry.Category(RegistryATC.CATEGORY_EXPLOSION_RADII)
+	public final int fireCreeperChargedExplosionRadius = 6;
+	@ConfigEntry.Category(RegistryATC.CATEGORY_EXPLOSION_RADII)
+	public final int fireworkCreeperChargedExplosionRadius = 6;
+	@ConfigEntry.Category(RegistryATC.CATEGORY_EXPLOSION_RADII)
+	public final int furnaceCreeperChargedExplosionRadius = 6;
+	@ConfigEntry.Category(RegistryATC.CATEGORY_EXPLOSION_RADII)
+	public final int lavaCreeperChargedExplosionRadius = 6;
+	@ConfigEntry.Category(RegistryATC.CATEGORY_EXPLOSION_RADII)
+	public final int lightningCreeperChargedExplosionRadius = 6;
+	@ConfigEntry.Category(RegistryATC.CATEGORY_EXPLOSION_RADII)
+	public final int luminousCreeperChargedExplosionRadius = 6;
+	@ConfigEntry.Category(RegistryATC.CATEGORY_EXPLOSION_RADII)
+	public final int natureCreeperChargedExplosionRadius = 6;
+	@ConfigEntry.Category(RegistryATC.CATEGORY_EXPLOSION_RADII)
+	public final int waterCreeperChargedExplosionRadius = 6;
 }

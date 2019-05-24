@@ -1,6 +1,7 @@
 package T145.allthecreepers.entities;
 
 import T145.allthecreepers.api.IElementalCreeper;
+import T145.allthecreepers.init.ModInit;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -32,7 +33,19 @@ public class DemolitionCreeperEntity extends CreeperEntity implements IElemental
 	}
 
 	@Override
-	public void detonate(DestructionType destructionType, byte radius, Explosion simpleExplosion) {
+	public int getExplosionRadius() {
+		return ModInit.config.demolitionCreeperExplosionRadius;
+	}
+
+	@Override
+	public int getChargedExplosionRadius() {
+		return ModInit.config.demolitionCreeperChargedExplosionRadius;
+	}
+
+	@Override
+	public void detonate(DestructionType destructionType, Explosion simpleExplosion) {
+		int radius = getRadius(isCharged());
+
 		for (int X = -radius; X <= radius; ++X) {
 			for (int Y = -radius; Y <= radius; ++Y) {
 				for (int Z = -radius; Z <= radius; ++Z) {

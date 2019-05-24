@@ -36,6 +36,8 @@ import net.minecraft.world.biome.Biome.SpawnEntry;
 
 public class ModInit implements ModInitializer {
 
+	public static ModConfig config;
+
 	private static final EntitySize size = EntitySize.constant(0.6F, 1.7F);
 	public static final EntityType<BallisticCreeperEntity> BALLISTIC_CREEPER = FabricEntityTypeBuilder.create(EntityCategory.MONSTER, BallisticCreeperEntity::new).setImmuneToFire().size(size).build();
 	public static final EntityType<CakeCreeperEntity> CAKE_CREEPER = FabricEntityTypeBuilder.create(EntityCategory.MONSTER, CakeCreeperEntity::new).size(size).build();
@@ -126,7 +128,7 @@ public class ModInit implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		ModConfig config = AutoConfig.register(ModConfig.class, Toml4jConfigSerializer::new).getConfig();
+		config = AutoConfig.register(ModConfig.class, Toml4jConfigSerializer::new).getConfig();
 
 		registerCreeper(BALLISTIC_CREEPER, "ballistic_creeper", 0x195906, 0xd2d000);
 		registerCreeper(CAKE_CREEPER, "cake_creeper", 0xba5003, 0xeae9eb);

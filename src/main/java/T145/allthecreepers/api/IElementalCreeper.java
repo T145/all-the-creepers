@@ -16,22 +16,30 @@ public interface IElementalCreeper extends IEntityRendererProvider {
 
 	boolean canDetonate();
 
-	void detonate(Explosion.DestructionType destructionType, byte radius, Explosion simpleExplosion);
+	int getExplosionRadius();
+	int getChargedExplosionRadius();
+
+	default int getRadius(boolean charged) {
+		return charged ? getChargedExplosionRadius() : getExplosionRadius();
+	}
+
+	void detonate(Explosion.DestructionType destructionType, Explosion simpleExplosion);
 
 	default void createClientSideEffects(World world, double x, double y, double z) {}
 
 	default void createServerSideEffects(World world, double x, double y, double z) {}
 
-	default BoundingBox getAOE(byte radius, double posX, double posY, double posZ) {
+	default BoundingBox getAOE(boolean charged, double posX, double posY, double posZ) {
+		int radius = getRadius(charged);
 		return new BoundingBox(posX - radius, posY - radius, posZ - radius, posX + radius, posY + radius, posZ + radius);
 	}
 
-	default BoundingBox getAOE(byte radius, Vec3d pos) {
-		return getAOE(radius, pos.x, pos.y, pos.z);
+	default BoundingBox getAOE(boolean charged, Vec3d pos) {
+		return getAOE(charged, pos.x, pos.y, pos.z);
 	}
 
-	default BoundingBox getAOE(byte radius, BlockPos pos) {
-		return getAOE(radius, pos.getX(), pos.getY(), pos.getZ());
+	default BoundingBox getAOE(boolean charged, BlockPos pos) {
+		return getAOE(charged, pos.getX(), pos.getY(), pos.getZ());
 	}
 
 	default double getDomeBound(double x, double y, double z) {
@@ -61,8 +69,10 @@ public interface IElementalCreeper extends IEntityRendererProvider {
 				|| state.getBlock().getBlastResistance() < Blocks.OBSIDIAN.getBlastResistance();
 	}
 
-	default void specialBlast(byte radius, BlockState state, CreeperEntity creeper, boolean suffocateEntities) {
+	default void specialBlast(BlockState state, CreeperEntity creeper, boolean suffocateEntities) {
 		if (creeper.isCharged()) {
+			int radius = getChargedExplosionRadius();
+
 			for (int x = -radius; x <= radius; ++x) {
 				for (int y = -radius; y <= radius; ++y) {
 					for (int z = -radius; z <= radius; ++z) {
@@ -76,14 +86,16 @@ public interface IElementalCreeper extends IEntityRendererProvider {
 			}
 		} else {
 			if (creeper.getRand().nextBoolean()) {
-				wildBlast(radius, state, creeper, suffocateEntities);
+				wildBlast(state, creeper, suffocateEntities);
 			} else {
-				domeBlast(radius, state, creeper, suffocateEntities);
+				domeBlast(state, creeper, suffocateEntities);
 			}
 		}
 	}
 
-	default void domeBlast(byte radius, BlockState state, CreeperEntity creeper, boolean suffocateEntities) {
+	default void domeBlast(BlockState state, CreeperEntity creeper, boolean suffocateEntities) {
+		int radius = getRadius(creeper.isCharged());
+
 		for (int x = -radius; x <= radius; ++x) {
 			for (int y = -radius; y <= radius; ++y) {
 				for (int z = -radius; z <= radius; ++z) {
@@ -97,7 +109,9 @@ public interface IElementalCreeper extends IEntityRendererProvider {
 		}
 	}
 
-	default void wildBlast(byte radius, BlockState state, CreeperEntity creeper, boolean suffocateEntities) {
+	default void wildBlast(BlockState state, CreeperEntity creeper, boolean suffocateEntities) {
+		int radius = getRadius(creeper.isCharged());
+
 		for (int x = -radius; x <= radius; ++x) {
 			for (int y = -radius; y <= radius; ++y) {
 				for (int z = -radius; z <= radius; ++z) {

@@ -1,6 +1,7 @@
 package T145.allthecreepers.entities;
 
 import T145.allthecreepers.api.IElementalCreeper;
+import T145.allthecreepers.init.ModInit;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.FireworkEntity;
 import net.minecraft.entity.LivingEntity;
@@ -32,6 +33,16 @@ public class FireworkCreeperEntity extends CreeperEntity implements IElementalCr
 		return true;
 	}
 
+	@Override
+	public int getExplosionRadius() {
+		return ModInit.config.fireCreeperExplosionRadius;
+	}
+
+	@Override
+	public int getChargedExplosionRadius() {
+		return ModInit.config.fireworkCreeperChargedExplosionRadius;
+	}
+
 	private ItemStack createFirework(int type) {
 		ItemStack firework = new ItemStack(Items.FIREWORK_ROCKET);
 		ItemStack starFirework = new ItemStack(Items.FIREWORK_STAR);
@@ -59,10 +70,10 @@ public class FireworkCreeperEntity extends CreeperEntity implements IElementalCr
 	}
 
 	@Override
-	public void detonate(DestructionType destructionType, byte radius, Explosion simpleExplosion) {
+	public void detonate(DestructionType destructionType, Explosion simpleExplosion) {
 		world.spawnEntity(new FireworkEntity(world, x, y, z, createFirework(FireworkItem.Type.CREEPER.getId())));
 
-		world.getEntities(LivingEntity.class, this.getAOE(radius, x, y, z), victim -> victim != this).forEach(entity -> {
+		world.getEntities(LivingEntity.class, this.getAOE(isCharged(), x, y, z), victim -> victim != this).forEach(entity -> {
 			if (entity.isAlive() && !(entity instanceof HostileEntity)) {
 				FireworkEntity firework = new FireworkEntity(world, entity.x, entity.y, entity.z, createFirework(random.nextInt(5)));
 

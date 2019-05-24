@@ -1,6 +1,7 @@
 package T145.allthecreepers.entities;
 
 import T145.allthecreepers.api.IElementalCreeper;
+import T145.allthecreepers.init.ModInit;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.mob.CreeperEntity;
@@ -25,8 +26,18 @@ public class LuminousCreeperEntity extends CreeperEntity implements IElementalCr
 	}
 
 	@Override
-	public void detonate(DestructionType destructionType, byte radius, Explosion simpleExplosion) {
-		this.specialBlast(radius, Blocks.GLOWSTONE.getDefaultState(), this, false);
+	public int getExplosionRadius() {
+		return ModInit.config.luminousCreeperExplosionRadius;
+	}
+
+	@Override
+	public int getChargedExplosionRadius() {
+		return ModInit.config.luminousCreeperChargedExplosionRadius;
+	}
+
+	@Override
+	public void detonate(DestructionType destructionType, Explosion simpleExplosion) {
+		this.specialBlast(Blocks.GLOWSTONE.getDefaultState(), this, false);
 	}
 }
 

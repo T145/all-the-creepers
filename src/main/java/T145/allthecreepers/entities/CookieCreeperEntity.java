@@ -27,7 +27,17 @@ public class CookieCreeperEntity extends CreeperEntity implements IElementalCree
 	}
 
 	@Override
-	public void detonate(DestructionType destructionType, byte radius, Explosion simpleExplosion) {
+	public int getExplosionRadius() {
+		return 0;
+	}
+
+	@Override
+	public int getChargedExplosionRadius() {
+		return 0;
+	}
+
+	@Override
+	public void detonate(DestructionType destructionType, Explosion simpleExplosion) {
 		for (int i = 0; i < 5; ++i) {
 			ItemEntity cookie = new ItemEntity(world, x, y, z, new ItemStack(Items.COOKIE));
 			world.spawnEntity(cookie);

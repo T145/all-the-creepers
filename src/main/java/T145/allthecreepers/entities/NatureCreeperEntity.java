@@ -1,6 +1,7 @@
 package T145.allthecreepers.entities;
 
 import T145.allthecreepers.api.IElementalCreeper;
+import T145.allthecreepers.init.ModInit;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -47,7 +48,17 @@ public class NatureCreeperEntity extends CreeperEntity implements IElementalCree
 	}
 
 	@Override
-	public void detonate(DestructionType destructionType, byte radius, Explosion simpleExplosion) {
+	public int getExplosionRadius() {
+		return ModInit.config.natureCreeperExplosionRadius;
+	}
+
+	@Override
+	public int getChargedExplosionRadius() {
+		return ModInit.config.natureCreeperChargedExplosionRadius;
+	}
+
+	@Override
+	public void detonate(DestructionType destructionType, Explosion simpleExplosion) {
 		BlockPos pos = getBlockPos();
 		BlockState state = world.getBlockState(pos);
 
@@ -79,8 +90,7 @@ public class NatureCreeperEntity extends CreeperEntity implements IElementalCree
 				}
 			}
 		} else {
-			radius = 4;
-
+			int radius = 4;
 			BlockState sand = Blocks.SAND.getDefaultState();
 			BlockState sandstone = Blocks.SANDSTONE.getDefaultState();
 

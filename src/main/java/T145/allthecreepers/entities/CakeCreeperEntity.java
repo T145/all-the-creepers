@@ -27,7 +27,17 @@ public class CakeCreeperEntity extends CreeperEntity implements IElementalCreepe
 	}
 
 	@Override
-	public void detonate(DestructionType destructionType, byte radius, Explosion simpleExplosion) {
+	public int getExplosionRadius() {
+		return 0;
+	}
+
+	@Override
+	public int getChargedExplosionRadius() {
+		return 0;
+	}
+
+	@Override
+	public void detonate(DestructionType destructionType, Explosion simpleExplosion) {
 		BlockPos pos = getBlockPos();
 
 		if (canPlaceBlock(Blocks.CAKE.getDefaultState(), pos, this)) {

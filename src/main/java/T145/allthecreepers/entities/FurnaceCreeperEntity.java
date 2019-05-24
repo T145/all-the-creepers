@@ -1,6 +1,7 @@
 package T145.allthecreepers.entities;
 
 import T145.allthecreepers.api.IElementalCreeper;
+import T145.allthecreepers.init.ModInit;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.TrapdoorBlock;
@@ -39,6 +40,16 @@ public class FurnaceCreeperEntity extends CreeperEntity implements IElementalCre
 	@Override
 	public boolean canDetonate() {
 		return true;
+	}
+
+	@Override
+	public int getExplosionRadius() {
+		return ModInit.config.furnaceCreeperExplosionRadius;
+	}
+
+	@Override
+	public int getChargedExplosionRadius() {
+		return ModInit.config.furnaceCreeperChargedExplosionRadius;
 	}
 
 	private void setState(BlockState destState) {
@@ -107,7 +118,7 @@ public class FurnaceCreeperEntity extends CreeperEntity implements IElementalCre
 	}
 
 	@Override
-	public void detonate(DestructionType destructionType, byte radius, Explosion simpleExplosion) {
-		world.getEntities(PlayerEntity.class, getAOE(radius, x, y, z)).forEach(player -> generateTrap(player));
+	public void detonate(DestructionType destructionType, Explosion simpleExplosion) {
+		world.getEntities(PlayerEntity.class, getAOE(isCharged(), x, y, z)).forEach(player -> generateTrap(player));
 	}
 }
