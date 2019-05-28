@@ -34,21 +34,38 @@ abstract class SpawnRestrictionMixin {
 
 				Object entry = GenericUtils.construct(targetClass, heightmapType, location);
 
-				mapping.put(ModInit.BALLISTIC_CREEPER, entry);
-				mapping.put(ModInit.CAKE_CREEPER, entry);
-				mapping.put(ModInit.COOKIE_CREEPER, entry);
-				mapping.put(ModInit.DARK_CREEPER, entry);
-				mapping.put(ModInit.DEMOLITION_CREEPER, entry);
-				mapping.put(ModInit.EARTH_CREEPER, entry);
-				mapping.put(ModInit.FIRE_CREEPER, entry);
-				mapping.put(ModInit.FIREWORK_CREEPER, entry);
-				mapping.put(ModInit.FURNACE_CREEPER, entry);
-				mapping.put(ModInit.LAVA_CREEPER, entry);
-				mapping.put(ModInit.LIGHTNING_CREEPER, entry);
-				mapping.put(ModInit.LUMINOUS_CREEPER, entry);
-				mapping.put(ModInit.NATURE_CREEPER, entry);
-				mapping.put(ModInit.PARTY_CREEPER, entry);
-				mapping.put(ModInit.WATER_CREEPER, entry);
+				// these checks are for if the player disables a creeper in the config & doesn't restart
+
+				if (ModInit.config.ballisticCreeperSpawnWeight > 0)
+					mapping.put(ModInit.BALLISTIC_CREEPER, entry);
+				if (ModInit.config.cakeCreeperSpawnWeight > 0)
+					mapping.put(ModInit.CAKE_CREEPER, entry);
+				if (ModInit.config.cookieCreeperSpawnWeight > 0)
+					mapping.put(ModInit.COOKIE_CREEPER, entry);
+				if (ModInit.config.darkCreeperSpawnWeight > 0)
+					mapping.put(ModInit.DARK_CREEPER, entry);
+				if (ModInit.config.demolitionCreeperSpawnWeight > 0)
+					mapping.put(ModInit.DEMOLITION_CREEPER, entry);
+				if (ModInit.config.earthCreeperSpawnWeight > 0)
+					mapping.put(ModInit.EARTH_CREEPER, entry);
+				if (ModInit.config.fireCreeperSpawnWeight > 0)
+					mapping.put(ModInit.FIRE_CREEPER, entry);
+				if (ModInit.config.fireworkCreeperSpawnWeight > 0)
+					mapping.put(ModInit.FIREWORK_CREEPER, entry);
+				if (ModInit.config.furnaceCreeperSpawnWeight > 0)
+					mapping.put(ModInit.FURNACE_CREEPER, entry);
+				if (ModInit.config.lavaCreeperSpawnWeight > 0)
+					mapping.put(ModInit.LAVA_CREEPER, entry);
+				if (ModInit.config.lightningCreeperSpawnWeight > 0)
+					mapping.put(ModInit.LIGHTNING_CREEPER, entry);
+				if (ModInit.config.luminousCreeperSpawnWeight > 0)
+					mapping.put(ModInit.LUMINOUS_CREEPER, entry);
+				if (ModInit.config.natureCreeperSpawnWeight > 0)
+					mapping.put(ModInit.NATURE_CREEPER, entry);
+				if (ModInit.config.partyCreeperSpawnWeight > 0)
+					mapping.put(ModInit.PARTY_CREEPER, entry);
+				if (ModInit.config.waterCreeperSpawnWeight > 0)
+					mapping.put(ModInit.WATER_CREEPER, entry);
 				break;
 			}
 		}
