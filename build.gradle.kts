@@ -56,9 +56,9 @@ configurations {
 
 dependencies {
     minecraft("com.mojang:minecraft:$minecraftVersion")
+
     mappings("net.fabricmc:yarn:$minecraftVersion+")
     modCompile("net.fabricmc:fabric-loader:0.4.+")
-
     modCompile("net.fabricmc.fabric-api:fabric-api:+")
 
     modCompile("cloth-config:ClothConfig:0.2.1.14")

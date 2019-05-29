@@ -1,7 +1,7 @@
 package T145.allthecreepers.entities.goals;
 
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.PrimedTntEntity;
+import net.minecraft.entity.TntEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.sound.SoundEvents;
@@ -37,7 +37,7 @@ public class ThrowTntGoal extends Goal {
 		World world = creeper.world;
 
 		if (!world.isClient) {
-			PrimedTntEntity tnt = new PrimedTntEntity(world, creeper.x, creeper.y, creeper.z, creeper);
+			TntEntity tnt = new TntEntity(world, creeper.x, creeper.y, creeper.z, creeper);
 			tnt.addVelocity((x - tnt.x) / 18D, (y - tnt.y) / 18D + 0.5D, (z - tnt.z) / 18D);
 			// do not setVelocity as the constructor does so already
 			// maybe some setFuse here
